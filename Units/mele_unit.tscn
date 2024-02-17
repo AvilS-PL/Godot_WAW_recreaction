@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfx4duuxsxl61"]
+
+[ext_resource type="Texture2D" uid="uid://bpr47kuxrnsjd" path="res://Units/mele_unit.png" id="1_8f4nu"]
+[ext_resource type="Script" path="res://Units/mele_unit.gd" id="1_vjb73"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hnyb1"]
+radius = 175.0
+
+[node name="MeleUnit" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_vjb73")
+acc = null
+friction = null
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8f4nu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.77556e-17, 255)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_hnyb1")
