@@ -6,14 +6,14 @@ var speed = 100.0
 var new_speed = speed
 var max_health = 10.0
 var health = max_health
-var damage = 5.0
+var damage = 3.0
 var cooldown = 1.0
 var destinition = Vector2.ZERO
 var team = "blue"
 var enemies = []
 
 func _ready():
-	$AnimationPlayer.speed_scale = 1.1 / cooldown
+	$AnimationPlayer.speed_scale = 1.05 / cooldown
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	$Fight.wait_time = cooldown

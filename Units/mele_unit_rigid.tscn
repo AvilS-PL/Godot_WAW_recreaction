@@ -13,7 +13,7 @@ friction = 0.01
 radius = 36.3456
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2vdy1"]
-radius = 83.0542
+radius = 71.007
 
 [sub_resource type="Animation" id="Animation_kucyg"]
 resource_name = "punch"
@@ -75,7 +75,7 @@ texture = ExtResource("3_eyshu")
 metadata/_edit_lock_ = true
 
 [node name="Hand" type="Sprite2D" parent="."]
-position = Vector2(-60, 0)
+position = Vector2(51.5173, 0)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_l6y03")
 
