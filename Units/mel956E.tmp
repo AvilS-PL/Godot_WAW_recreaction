@@ -45,9 +45,5 @@ collision_mask = 3
 shape = SubResource("CircleShape2D_2vdy1")
 debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 
-[node name="Fight" type="Timer" parent="."]
-one_shot = true
-
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_hit_box_area_exited"]
-[connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]
