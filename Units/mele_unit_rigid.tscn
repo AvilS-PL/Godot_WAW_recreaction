@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpfjl1hb0313u"]
+[gd_scene load_steps=6 format=3 uid="uid://dpfjl1hb0313u"]
 
 [ext_resource type="Script" path="res://Units/mele_unit_rigid.gd" id="1_c0148"]
-[ext_resource type="Texture2D" uid="uid://bpr47kuxrnsjd" path="res://Units/mele_unit.png" id="1_jejpa"]
+[ext_resource type="Texture2D" uid="uid://00svb3cguowx" path="res://Units/unit_body.png" id="2_c3gc4"]
+[ext_resource type="Texture2D" uid="uid://duo23o3515q5i" path="res://Units/unit_head.png" id="3_eyshu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
 friction = 0.1
@@ -17,11 +18,17 @@ lock_rotation = true
 linear_damp_mode = 1
 script = ExtResource("1_c0148")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
+position = Vector2(0, 18)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_jejpa")
+texture = ExtResource("2_c3gc4")
+
+[node name="Head" type="Sprite2D" parent="."]
+position = Vector2(0, -60)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_eyshu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 50)
+position = Vector2(0, 42)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_x363p")

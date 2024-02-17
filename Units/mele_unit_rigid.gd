@@ -1,13 +1,16 @@
 extends RigidBody2D
 
+@export var speed = 100
 var destinition = Vector2.ZERO
 
 func _ready():
 	pass
 
 func _process(delta):
-	linear_velocity = (destinition - position).normalized() * 200
+	linear_velocity = (destinition - position).normalized() * speed
 	if (destinition.x > position.x):
-		$Sprite2D.flip_h = false
+		$Body.flip_h = false
+		$Head.flip_h = false
 	else:
-		$Sprite2D.flip_h = true
+		$Body.flip_h = true
+		$Head.flip_h = true
