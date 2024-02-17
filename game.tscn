@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://game.gd" id="1_wmvgd"]
 
 [node name="Map" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_wmvgd")
 
 [node name="MarkerEnemy" type="Marker2D" parent="."]
