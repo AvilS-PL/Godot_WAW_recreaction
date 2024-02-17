@@ -9,6 +9,7 @@ var team = "blue"
 var enemies = []
 
 func _ready():
+	$HealthBar.max_value = health
 	if team == "red":
 		$Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
@@ -17,12 +18,13 @@ func _ready():
 	elif team == "blue":
 		$Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
-	pass
 
 
 func _process(delta):
 	if health < 1:
 		queue_free()
+	else:
+		$HealthBar.value = health
 	speed = move_toward(speed, new_speed, 5.0)
 	linear_velocity = (destinition - position).normalized() * speed
 	if destinition.x > position.x:
@@ -48,6 +50,7 @@ func _on_hit_box_area_exited(area):
 
 
 func _on_fight_timeout():
+	print("-1 ", team)
 	if enemies.size() != 0:
-		enemies[0].get_parent().health -= 1
+		enemies[0].get_parent().health -= 3
 		$Fight.start()
