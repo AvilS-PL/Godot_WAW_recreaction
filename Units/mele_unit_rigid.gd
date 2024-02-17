@@ -5,7 +5,7 @@ var new_speed = speed
 @export var max_health = 10
 var health = max_health
 @export var damage = 3
-@export var cooldown = 1.0
+@export var cooldown = 1
 var destinition = Vector2.ZERO
 var team = "blue"
 
@@ -57,11 +57,11 @@ func take_damage(taken):
 	if health <= 0:
 		var time
 		if health == 0:
-			time = 0.5
+			time = 0.4
 		else:
-			time = 0.5 * (1 - float(abs(health))/float(taken))
+			time = 0.4 * (1 - float(abs(health))/float(taken))
 		$HealthBar.change_health(health, time)
 		await get_tree().create_timer(time).timeout
 		queue_free()
 	else:
-		$HealthBar.change_health(health, 0.5)
+		$HealthBar.change_health(health, 0.4)
