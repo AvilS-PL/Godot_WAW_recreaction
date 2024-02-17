@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpfjl1hb0313u"]
+[gd_scene load_steps=8 format=3 uid="uid://dpfjl1hb0313u"]
 
 [ext_resource type="Script" path="res://Units/mele_unit_rigid.gd" id="1_c0148"]
 [ext_resource type="Texture2D" uid="uid://by481ahciksr2" path="res://Units/unit_body_def.png" id="2_vcq6u"]
 [ext_resource type="Texture2D" uid="uid://duo23o3515q5i" path="res://Units/unit_head.png" id="3_eyshu"]
+[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Usables/health_bar.tscn" id="4_ypfa4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
 friction = 0.01
@@ -12,25 +13,6 @@ radius = 36.3456
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2vdy1"]
 radius = 83.0542
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f53e0"]
-bg_color = Color(0, 0, 0, 0.266667)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymkxn"]
-bg_color = Color(0, 0.92549, 0.364706, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
 
 [node name="mele_unit_rigid" type="RigidBody2D"]
 mass = 60.0
@@ -68,17 +50,9 @@ debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 [node name="Fight" type="Timer" parent="."]
 one_shot = true
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -50.0
+[node name="HealthBar" parent="." instance=ExtResource("4_ypfa4")]
 offset_top = -110.0
-offset_right = 150.0
 offset_bottom = -70.0
-scale = Vector2(0.5, 0.5)
-theme_override_styles/background = SubResource("StyleBoxFlat_f53e0")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ymkxn")
-max_value = 10.0
-step = 1.0
-show_percentage = false
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_hit_box_area_exited"]
