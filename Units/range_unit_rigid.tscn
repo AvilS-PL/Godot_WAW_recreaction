@@ -1,0 +1,116 @@
+[gd_scene load_steps=15 format=3 uid="uid://b16nonngfmgb2"]
+
+[ext_resource type="Script" path="res://Units/range_unit_rigid.gd" id="1_ckty7"]
+[ext_resource type="Texture2D" uid="uid://by481ahciksr2" path="res://Units/unit_body_def.png" id="2_hqs14"]
+[ext_resource type="Texture2D" uid="uid://duo23o3515q5i" path="res://Units/unit_head.png" id="3_scdfu"]
+[ext_resource type="Texture2D" uid="uid://ddcwb5lpg2rmy" path="res://Units/hand_range.png" id="4_8h7vc"]
+[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Usables/health_bar.tscn" id="5_xb0xx"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qk2or"]
+friction = 0.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_miux0"]
+radius = 36.3456
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_as3oo"]
+radius = 71.007
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b283q"]
+radius = 372.012
+
+[sub_resource type="Animation" id="Animation_t5bss"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_kucyg"]
+resource_name = "punch"
+
+[sub_resource type="Animation" id="Animation_me3pt"]
+resource_name = "punch_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.9),
+"transitions": PackedFloat32Array(0.420448, 2.54912, 0.812),
+"update": 0,
+"values": [Vector2(-40, 0), Vector2(-60, 0), Vector2(-40, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0mqvf"]
+resource_name = "throw_right"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7yia0"]
+_data = {
+"RESET": SubResource("Animation_t5bss"),
+"punch": SubResource("Animation_kucyg"),
+"punch_left": SubResource("Animation_me3pt"),
+"throw_right": SubResource("Animation_0mqvf")
+}
+
+[node name="RangeUnitRigid" type="RigidBody2D"]
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_qk2or")
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_ckty7")
+
+[node name="Body" type="Sprite2D" parent="."]
+position = Vector2(0, 22)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_hqs14")
+metadata/_edit_lock_ = true
+
+[node name="Head" type="Sprite2D" parent="."]
+position = Vector2(0, -56)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_scdfu")
+metadata/_edit_lock_ = true
+
+[node name="Hand" type="Sprite2D" parent="."]
+position = Vector2(-40, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_8h7vc")
+
+[node name="UnitSpace" type="CollisionShape2D" parent="."]
+position = Vector2(0, 46)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_miux0")
+metadata/_edit_lock_ = true
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_as3oo")
+debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
+metadata/_edit_lock_ = true
+
+[node name="ShotBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShotBox"]
+shape = SubResource("CircleShape2D_b283q")
+debug_color = Color(0, 0.65098, 0.0392157, 0.309804)
+
+[node name="Fight" type="Timer" parent="."]
+one_shot = true
+
+[node name="HealthBar" parent="." instance=ExtResource("5_xb0xx")]
+offset_top = -110.0
+offset_bottom = -74.0
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7yia0")
+}
+speed_scale = 2.0
+
+[connection signal="area_entered" from="ShotBox" to="." method="_on_shot_box_area_entered"]
+[connection signal="area_exited" from="ShotBox" to="." method="_on_shot_box_area_exited"]
+[connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]

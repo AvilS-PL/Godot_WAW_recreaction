@@ -1,6 +1,7 @@
 extends RigidBody2D
 
-#popracuj nad cooldown i wiążącymi się z tym zależnościami
+#może połączyć mele i rangera w jeden obiek i ustawiać im parametry? //cyba słaby pomysł...
+#dodaj animacje rzutu i może dopiero zadaj damage jak trafi gościa?
 
 var speed = 100.0
 var new_speed = speed
@@ -20,13 +21,11 @@ func _ready():
 	if team == "red":
 		$Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
-		#$HitBox.collision_mask = 1
 		#await get_tree().create_timer(5.0).timeout
 		#queue_free()
 	elif team == "blue":
 		$Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
-		#$HitBox.collision_mask = 2
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, 5.0)
@@ -43,14 +42,14 @@ func _process(delta):
 		$Hand.flip_h = true
 		$Hand.position.x = -40
 
-func _on_hit_box_area_entered(area):
+func _on_shot_box_area_entered(area):
 	if $HitBox.collision_layer != area.collision_layer:
 		if enemies.size() == 0:
 			$Fight.start()
 		new_speed = 0.0
 		enemies.append(area)
 
-func _on_hit_box_area_exited(area):
+func _on_shot_box_area_exited(area):
 	if $HitBox.collision_layer != area.collision_layer:
 		enemies.remove_at(enemies.find(area, 0))
 		if enemies.size() == 0:
@@ -58,11 +57,16 @@ func _on_hit_box_area_exited(area):
 
 func _on_fight_timeout():
 	if enemies.size() != 0:
-		enemies[0].get_parent().take_damage(damage, cooldown/2)
-		if team == "blue":
-			$AnimationPlayer.play("punch")
-		else:
-			$AnimationPlayer.play("punch_left")
+		var temp = 0
+		for i in range(enemies.size()):
+			if enemies[i].get_parent().health > 0:
+				temp = i
+				break
+		enemies[temp].get_parent().take_damage(damage, cooldown/2)
+		#if team == "blue":
+			#$AnimationPlayer.play("throw_right")
+		#else:
+			#$AnimationPlayer.play("throw_left")
 		$Fight.start()
 
 func take_damage(taken, time):
@@ -73,3 +77,4 @@ func take_damage(taken, time):
 		queue_free()
 	else:
 		$HealthBar.change_health(health, time)
+
