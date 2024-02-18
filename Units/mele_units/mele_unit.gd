@@ -7,13 +7,14 @@ var destinition = Vector2.ZERO
 
 var speed = 100.0
 var max_health = 10.0
-var damage = 5.0
+var damage = 3.0
 var cooldown = 1.0
 
 var new_speed = speed
 var health = max_health
 
 var enemies = []
+var preDeadEffect = load("res://Usables/blood_splash.tscn")
 
 func _ready():
 	if cooldown < 1: cooldown = 1
@@ -61,11 +62,11 @@ func take_damage(taken):
 	$OtherAnimation.play("hit")
 	if health <= 0:
 		$HealthBar.change_health(health, 0.25)
-		var deadEffect = load("res://Usables/blood_splash.tscn")
-		var deadEffectI = deadEffect.instantiate()
-		deadEffectI.global_position = global_position
+		
+		var deadEffect = preDeadEffect.instantiate()
+		deadEffect.global_position = global_position
 		var world = get_tree().current_scene
-		world.add_child(deadEffectI)
+		world.add_child(deadEffect)
 		
 		queue_free()
 	else:

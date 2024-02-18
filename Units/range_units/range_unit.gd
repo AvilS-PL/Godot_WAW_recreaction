@@ -6,15 +6,18 @@ extends RigidBody2D
 var team = "blue"
 var destinition = Vector2.ZERO
 
-var speed = 10.0
+var speed = 100.0
 var max_health = 10.0
-var damage = 5.0
+var damage = 3.0
 var cooldown = 1.0
 
 var new_speed = speed
 var health = max_health
 
 var enemies = []
+var preDeadEffect = load("res://Usables/blood_splash.tscn")
+var preBullet = load("res://Usables/bullet.tscn")
+
 
 func _ready():
 	if cooldown < 1: cooldown = 1
@@ -59,7 +62,19 @@ func throw():
 			if enemies[i].get_parent().health > 0:
 				temp = i
 				break
-		enemies[temp].get_parent().take_damage(damage)
+		#enemies[temp].get_parent().take_damage(damage)
+		
+		var bullet = preBullet.instantiate()
+		bullet.global_position = $Side/Hand.global_position
+		bullet.rotation = $Side/Hand.rotation
+		bullet.speed = 20
+		bullet.damage = damage
+		bullet.destinition = enemies[temp].get_parent().global_position
+		bullet.team = $HitBox.collision_layer
+		
+		var world = get_tree().current_scene
+		world.add_child(bullet)
+		
 		$Fight.start()
 
 func take_damage(taken):
@@ -68,11 +83,11 @@ func take_damage(taken):
 	if health <= 0:
 		$HealthBar.change_health(health, 0.25)
 		#await get_tree().create_timer(cooldown / 12).timeout #to jeszcze do zdecydowania czy zostawić
-		var deadEffect = load("res://Usables/blood_splash.tscn")
-		var deadEffectI = deadEffect.instantiate()
-		deadEffectI.global_position = global_position
+		
+		var deadEffect = preDeadEffect.instantiate()
+		deadEffect.global_position = global_position
 		var world = get_tree().current_scene
-		world.add_child(deadEffectI)
+		world.add_child(deadEffect)
 		
 		queue_free()
 	else:
