@@ -1,6 +1,11 @@
 extends RigidBody2D
 
 #await get_tree().create_timer(5.0).timeout
+#!!! możesz spróbować podzielić walkę na 3 etapy:
+#  1) zamach
+#  2) uderzenie
+#  3) przeładowanie / cooldown - w zależności od jednostki
+#!!! jeżeli byś tak podzielił to mógłbyś ewentualnie anulować pewne ruchy - głupi pomysł
 
 var team = "blue"
 var destinition = Vector2.ZERO
@@ -17,8 +22,8 @@ var enemies = []
 var preDeadEffect = load("res://Usables/blood_splash.tscn")
 
 func _ready():
-	if cooldown < 1: cooldown = 1
-	$HandAnimation.speed_scale = 1
+	if cooldown < 0.6: cooldown = 0.6
+	$HandAnimation.speed_scale = 1.0 #1.05
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	$Fight.wait_time = cooldown
