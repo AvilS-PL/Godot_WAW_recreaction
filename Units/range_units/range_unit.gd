@@ -15,6 +15,7 @@ var new_speed = speed
 var health = max_health
 
 var enemies = []
+var last_enemy_position
 var preDeadEffect = load("res://Usables/blood_splash.tscn")
 var preBullet = load("res://Usables/bullet.tscn")
 
@@ -41,6 +42,7 @@ func _process(delta):
 func _on_shot_box_area_entered(area):
 	if $HitBox.collision_layer != area.collision_layer:
 		if enemies.size() == 0:
+			last_enemy_position = area.get_parent().global_position
 			$HandAnimation.play("punch")
 		new_speed = 0.0
 		enemies.append(area)
@@ -53,29 +55,33 @@ func _on_shot_box_area_exited(area):
 
 func _on_fight_timeout():
 	if enemies.size() != 0:
+		last_enemy_position = enemies[0].get_parent().global_position
 		$HandAnimation.play("punch")
 
 func throw():
-	if enemies.size() != 0:
-		var temp = 0
-		for i in range(enemies.size()):
-			if enemies[i].get_parent().health > 0:
-				temp = i
-				break
-		#enemies[temp].get_parent().take_damage(damage)
-		
-		var bullet = preBullet.instantiate()
-		bullet.global_position = $Side/Hand.global_position
-		bullet.rotation = $Side/Hand.rotation
-		bullet.speed = 20
-		bullet.damage = damage
+	var temp = null
+	for i in range(enemies.size()):
+		if enemies[i].get_parent().health > 0:
+			temp = i
+			break
+	
+	
+	var bullet = preBullet.instantiate()
+	bullet.global_position = $Side/Hand.global_position
+	bullet.rotation = $Side/Hand.rotation
+	bullet.speed = 20
+	bullet.damage = damage
+	bullet.team = $HitBox.collision_layer
+	
+	if temp == null:
+		bullet.destinition = last_enemy_position
+	else:
 		bullet.destinition = enemies[temp].get_parent().global_position
-		bullet.team = $HitBox.collision_layer
-		
-		var world = get_tree().current_scene
-		world.add_child(bullet)
-		
-		$Fight.start()
+	
+	var world = get_tree().current_scene
+	world.add_child(bullet)
+	
+	$Fight.start()
 
 func take_damage(taken):
 	health -= taken
