@@ -6,10 +6,11 @@ var team = "blue"
 var destinition = Vector2.ZERO
 
 var animation_name = "punch"
+var era = 1
 var speed = 100.0
 var max_health = 10.0
-var damage = 5.0
-var cooldown = 0.5
+var damage = 3.0
+var cooldown = 1.0
 
 var new_speed = speed
 var health = max_health
@@ -17,7 +18,7 @@ var health = max_health
 var enemies = []
 
 func _ready():
-	$AnimationPlayer.speed_scale = 1.05 / cooldown
+	$HandAnimation.speed_scale = 1.05 / cooldown
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	$Fight.wait_time = cooldown
@@ -49,7 +50,7 @@ func _on_hit_box_area_exited(area):
 
 func _on_fight_timeout():
 	if enemies.size() != 0:
-		$AnimationPlayer.play("punch")
+		$HandAnimation.play(animation_name)
 
 func deal_damage():
 	if enemies.size() != 0:
@@ -58,7 +59,7 @@ func deal_damage():
 
 func take_damage(taken, time):
 	health -= taken
-	
+	$OtherAnimation.play("hit")
 	if health <= 0:
 		$HealthBar.change_health(health, time/4)
 		#await get_tree().create_timer(cooldown / 12).timeout #to jeszcze do zdecydowania czy zostawić

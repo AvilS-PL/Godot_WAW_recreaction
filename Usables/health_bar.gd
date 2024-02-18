@@ -26,11 +26,12 @@ func _ready():
 func change_health(health, time):
 	var tween = create_tween()
 	var tween2 = create_tween()
-	#sb.bg_color = Color(1 - ((health/max_value) * (health/max_value) * (health/ max_value)),0.1 + ((health/ max_value)),0.3 * health/max_value)
 	var picked
 	if health < 0:
 		picked = colors[0]
 	else:
 		picked = colors[floor((health / max_value) * 8)]
-	tween.tween_property(self, "value", health, time).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	tween2.tween_property(sb, "bg_color", picked, time).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	#tween.tween_property(self, "value", health, time).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	#tween2.tween_property(sb, "bg_color", picked, time).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "value", health, time).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween2.tween_property(sb, "bg_color", picked, time).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
