@@ -5,11 +5,9 @@ extends RigidBody2D
 var team = "blue"
 var destinition = Vector2.ZERO
 
-var animation_name = "punch"
-var era = 1
 var speed = 100.0
 var max_health = 10.0
-var damage = 3.0
+var damage = 5.0
 var cooldown = 1.0
 
 var new_speed = speed
@@ -18,7 +16,8 @@ var health = max_health
 var enemies = []
 
 func _ready():
-	$HandAnimation.speed_scale = 1.05 / cooldown
+	if cooldown < 1: cooldown = 1
+	$HandAnimation.speed_scale = 1
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	$Fight.wait_time = cooldown
@@ -38,7 +37,7 @@ func _process(delta):
 func _on_hit_box_area_entered(area):
 	if $HitBox.collision_layer != area.collision_layer:
 		if enemies.size() == 0:
-			$Fight.start()
+			$HandAnimation.play("punch")
 		new_speed = 0.0
 		enemies.append(area)
 
@@ -50,19 +49,18 @@ func _on_hit_box_area_exited(area):
 
 func _on_fight_timeout():
 	if enemies.size() != 0:
-		$HandAnimation.play(animation_name)
+		$HandAnimation.play("punch")
 
 func deal_damage():
 	if enemies.size() != 0:
-		enemies[0].get_parent().take_damage(damage, cooldown)
+		enemies[0].get_parent().take_damage(damage)
 		$Fight.start()
 
-func take_damage(taken, time):
+func take_damage(taken):
 	health -= taken
 	$OtherAnimation.play("hit")
 	if health <= 0:
-		$HealthBar.change_health(health, time/4)
-		#await get_tree().create_timer(cooldown / 12).timeout #to jeszcze do zdecydowania czy zostawić
+		$HealthBar.change_health(health, 0.25)
 		var deadEffect = load("res://Usables/blood_splash.tscn")
 		var deadEffectI = deadEffect.instantiate()
 		deadEffectI.global_position = global_position
@@ -71,4 +69,4 @@ func take_damage(taken, time):
 		
 		queue_free()
 	else:
-		$HealthBar.change_health(health, time/2)
+		$HealthBar.change_health(health, 0.5)
