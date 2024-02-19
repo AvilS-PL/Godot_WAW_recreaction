@@ -7,9 +7,9 @@ var team = "blue"
 var destinition = Vector2.ZERO
 
 var speed = 100.0
-var max_health = 6.0
-var damage = 4.0
-var cooldown = 2.0
+var max_health = 20.0
+var damage = 5.0
+var cooldown = 1.0
 
 var new_speed = speed
 var health = max_health
@@ -71,6 +71,7 @@ func throw():
 	bullet.speed = 20
 	bullet.damage = damage
 	bullet.team = $HitBox.collision_layer
+	bullet.scale.x = $Side.scale.x
 	
 	if temp == null:
 		bullet.destinition = last_enemy_position
