@@ -13,7 +13,7 @@ var destinition = Vector2.ZERO
 var speed = 100.0
 var max_health = 20.0
 var damage = 5.0
-var cooldown = 1.0
+var cooldown = 2.0
 
 var new_speed = speed
 var health = max_health
@@ -22,11 +22,11 @@ var enemies = []
 var preDeadEffect = load("res://Usables/blood_splash.tscn")
 
 func _ready():
-	if cooldown < 0.6: cooldown = 0.6
+	if cooldown < 1.0: cooldown =  1.0
 	$HandAnimation.speed_scale = 1.0 #1.05
+	$Fight.wait_time = cooldown - 0.45
 	$HealthBar.max_value = health
 	$HealthBar.value = health
-	$Fight.wait_time = cooldown
 	if team == "red":
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2

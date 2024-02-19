@@ -21,10 +21,10 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		mode = !mode
 		
-	if test > 0:
-		createUnit(mele_unit, "blue", $MarkerBase.position, $MarkerEnemy.position)
-		createUnit(mele_unit, "red", $MarkerEnemy.position, $MarkerBase.position)
-		test -= 1
+	#if test > 0:
+		#createUnit(mele_unit, "blue", $MarkerBase.position, $MarkerEnemy.position)
+		#createUnit(mele_unit, "red", $MarkerEnemy.position, $MarkerBase.position)
+		#test -= 1
 
 func createUnit(type, team, posi, dest):
 	var unit = type.instantiate()
