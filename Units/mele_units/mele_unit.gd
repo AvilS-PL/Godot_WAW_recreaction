@@ -11,13 +11,14 @@ var team = "blue"
 var destinition = Vector2.ZERO
 
 var speed = 100.0
-var max_health = 20.0
-var damage = 5.0
+var max_health = 10.0
+var damage = 3.0
 var cooldown = 2.0
 
 var new_speed = speed
 var health = max_health
 
+var reloaded = true
 var enemies = []
 var preDeadEffect = load("res://Usables/blood_splash.tscn")
 
@@ -42,7 +43,7 @@ func _process(delta):
 
 func _on_hit_box_area_entered(area):
 	if $HitBox.collision_layer != area.collision_layer:
-		if enemies.size() == 0:
+		if enemies.size() == 0 and reloaded:
 			$HandAnimation.play("punch")
 		new_speed = 0.0
 		enemies.append(area)
@@ -56,10 +57,13 @@ func _on_hit_box_area_exited(area):
 func _on_fight_timeout():
 	if enemies.size() != 0:
 		$HandAnimation.play("punch")
+	else:
+		reloaded = true
 
 func deal_damage():
 	if enemies.size() != 0:
 		enemies[0].get_parent().take_damage(damage)
+		reloaded = false
 		$Fight.start()
 
 func take_damage(taken):

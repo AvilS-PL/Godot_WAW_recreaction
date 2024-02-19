@@ -7,13 +7,14 @@ var team = "blue"
 var destinition = Vector2.ZERO
 
 var speed = 100.0
-var max_health = 20.0
+var max_health = 3.0
 var damage = 5.0
 var cooldown = 2.0
 
 var new_speed = speed
 var health = max_health
 
+var reloaded = true
 var enemies = []
 var last_enemy_position
 var preDeadEffect = load("res://Usables/blood_splash.tscn")
@@ -23,7 +24,7 @@ var preBullet = load("res://Usables/bullet.tscn")
 func _ready():
 	if cooldown < 1.0: cooldown = 1.0
 	$HandAnimation.speed_scale = 1.0
-	$Fight.wait_time = cooldown - 0.85
+	$Fight.wait_time = cooldown - 0.86
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
@@ -41,7 +42,7 @@ func _process(delta):
 
 func _on_shot_box_area_entered(area):
 	if $HitBox.collision_layer != area.collision_layer:
-		if enemies.size() == 0:
+		if enemies.size() == 0 and reloaded:
 			last_enemy_position = area.get_parent().global_position
 			$HandAnimation.play("punch")
 		new_speed = 0.0
@@ -53,7 +54,6 @@ func _on_shot_box_area_exited(area):
 		if enemies.size() == 0:
 			new_speed = 100.0
 
-
 func _on_fight_timeout():
 	$HandAnimation.play("reload")
 
@@ -61,8 +61,12 @@ func prepere():
 	if enemies.size() != 0:
 		last_enemy_position = enemies[0].get_parent().global_position
 		$HandAnimation.play("punch")
+	else:
+		reloaded = true
 
 func throw():
+	reloaded = false
+	$Fight.start()
 	var temp = null
 	for i in range(enemies.size()):
 		if enemies[i].get_parent().health > 0:
@@ -84,8 +88,6 @@ func throw():
 	
 	var world = get_tree().current_scene
 	world.add_child(bullet)
-	$Fight.start()
-
 
 func take_damage(taken):
 	health -= taken
