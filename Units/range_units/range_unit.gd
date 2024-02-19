@@ -30,10 +30,14 @@ func _ready():
 	if team == "red":
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
+		$HitBox.collision_mask = 1
+		$ShotBox.collision_mask = 1
 		$Side.scale.x = -1
 	elif team == "blue":
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
+		$HitBox.collision_mask = 2
+		$ShotBox.collision_mask = 2
 		$Side.scale.x = 1
 
 func _process(delta):
@@ -41,18 +45,18 @@ func _process(delta):
 	linear_velocity = (destinition - position).normalized() * speed
 
 func _on_shot_box_area_entered(area):
-	if $HitBox.collision_layer != area.collision_layer:
-		if enemies.size() == 0 and reloaded:
-			last_enemy_position = area.get_parent().global_position
-			$HandAnimation.play("punch")
-		new_speed = 0.0
-		enemies.append(area)
+	#if $HitBox.collision_layer != area.collision_layer:
+	new_speed = 0.0
+	enemies.append(area)
+	if reloaded:
+		last_enemy_position = area.get_parent().global_position
+		$HandAnimation.play("punch")
 
 func _on_shot_box_area_exited(area):
-	if $HitBox.collision_layer != area.collision_layer:
-		enemies.remove_at(enemies.find(area, 0))
-		if enemies.size() == 0:
-			new_speed = 100.0
+	#if $HitBox.collision_layer != area.collision_layer:
+	enemies.remove_at(enemies.find(area, 0))
+	if enemies.size() == 0:
+		new_speed = 100.0
 
 func _on_fight_timeout():
 	$HandAnimation.play("reload")

@@ -12,8 +12,8 @@ var destinition = Vector2.ZERO
 
 var speed = 100.0
 var max_health = 10.0
-var damage = 3.0
-var cooldown = 2.0
+var damage = 1.0
+var cooldown = 1.0
 
 var new_speed = speed
 var health = max_health
@@ -31,10 +31,12 @@ func _ready():
 	if team == "red":
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
+		$HitBox.collision_mask = 1
 		$Side.scale.x = -1
 	elif team == "blue":
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
+		$HitBox.collision_mask = 2
 		$Side.scale.x = 1
 
 func _process(delta):
@@ -42,17 +44,17 @@ func _process(delta):
 	linear_velocity = (destinition - position).normalized() * speed
 
 func _on_hit_box_area_entered(area):
-	if $HitBox.collision_layer != area.collision_layer:
-		if enemies.size() == 0 and reloaded:
-			$HandAnimation.play("punch")
-		new_speed = 0.0
-		enemies.append(area)
+	#if $HitBox.collision_layer != area.collision_layer:
+	new_speed = 0.0
+	enemies.append(area)
+	if reloaded:
+		$HandAnimation.play("punch")
 
 func _on_hit_box_area_exited(area):
-	if $HitBox.collision_layer != area.collision_layer:
-		enemies.remove_at(enemies.find(area, 0))
-		if enemies.size() == 0:
-			new_speed = 100.0
+	#if $HitBox.collision_layer != area.collision_layer:
+	enemies.remove_at(enemies.find(area, 0))
+	if enemies.size() == 0:
+		new_speed = 100.0
 
 func _on_fight_timeout():
 	if enemies.size() != 0:
@@ -65,6 +67,8 @@ func deal_damage():
 		enemies[0].get_parent().take_damage(damage)
 		reloaded = false
 		$Fight.start()
+	else:
+		reloaded = true
 
 func take_damage(taken):
 	health -= taken

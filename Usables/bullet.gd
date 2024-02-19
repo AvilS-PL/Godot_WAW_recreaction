@@ -10,8 +10,6 @@ func _ready():
 	pass 
 
 func _process(delta):
-	#position.x = move_toward(position.x, destinition.x, speed)
-	#position.y = move_toward(position.y, destinition.y, speed)
 	position = position.move_toward(destinition, speed)
 	if position.x == destinition.x and position.y == destinition.y:
 		queue_free()
