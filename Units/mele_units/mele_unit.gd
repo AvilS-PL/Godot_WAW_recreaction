@@ -23,9 +23,12 @@ var enemies = []
 var preDeadEffect = load("res://Usables/blood_splash.tscn")
 
 func _ready():
-	if cooldown < 1.0: cooldown =  1.0
-	$HandAnimation.speed_scale = 1.0 #1.05
-	$Fight.wait_time = cooldown - 0.45
+	if cooldown < 1.0: 
+		$HandAnimation.speed_scale = 1.0  / cooldown
+		$Fight.wait_time = cooldown - (0.45 * cooldown)
+	else:
+		$Fight.wait_time = cooldown - 0.45
+		$HandAnimation.speed_scale = 1.0
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":

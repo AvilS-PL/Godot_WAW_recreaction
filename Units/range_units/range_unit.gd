@@ -22,9 +22,12 @@ var preBullet = load("res://Usables/bullet.tscn")
 
 
 func _ready():
-	if cooldown < 1.0: cooldown = 1.0
-	$HandAnimation.speed_scale = 1.0
-	$Fight.wait_time = cooldown - 0.86
+	if cooldown < 1.0: 
+		$HandAnimation.speed_scale = 1.0  / cooldown
+		$Fight.wait_time = cooldown - (0.86 * cooldown)
+	else:
+		$Fight.wait_time = cooldown - 0.86
+		$HandAnimation.speed_scale = 1.0
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
