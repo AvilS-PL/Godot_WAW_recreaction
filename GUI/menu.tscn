@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://n728fqds1dn7"]
+[gd_scene load_steps=23 format=3 uid="uid://n728fqds1dn7"]
 
 [ext_resource type="Script" path="res://GUI/menu.gd" id="1_bwi7t"]
 [ext_resource type="Texture2D" uid="uid://hxykdj8f3vja" path="res://GUI/intro/play.png" id="2_awpbl"]
@@ -58,23 +58,39 @@ _data = {
 "rotate": SubResource("Animation_uhhp8")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwpg0"]
-bg_color = Color(0.564706, 0.564706, 0.564706, 1)
-border_width_left = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.741176, 0.741176, 0.741176, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73vcl"]
+bg_color = Color(0.815686, 0.156863, 0.129412, 1)
+border_width_bottom = 10
+border_color = Color(0.705882, 0, 0, 0.980392)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
-shadow_color = Color(0, 0, 0, 0.784314)
-shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqnym"]
+bg_color = Color(0.815686, 0.156863, 0.129412, 1)
+border_width_top = 10
+border_color = Color(0.705882, 0, 0, 0.980392)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fa3gb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwpg0"]
+bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+border_width_bottom = 10
+border_color = Color(0.396078, 0.396078, 0.396078, 1)
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63d63"]
-bg_color = Color(0.482353, 0.482353, 0.482353, 1)
-border_width_left = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.662745, 0.662745, 0.662745, 1)
+bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+border_width_top = 10
+border_color = Color(0.396078, 0.396078, 0.396078, 1)
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
@@ -82,26 +98,18 @@ corner_radius_bottom_left = 50
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24k1a"]
-bg_color = Color(0.564706, 0.564706, 0.564706, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.741176, 0.741176, 0.741176, 1)
+bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+border_width_bottom = 10
+border_color = Color(0.396078, 0.396078, 0.396078, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
-shadow_color = Color(0, 0, 0, 0.784314)
-shadow_size = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouemu"]
-bg_color = Color(0.482353, 0.482353, 0.482353, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.662745, 0.662745, 0.662745, 1)
+bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+border_width_top = 10
+border_color = Color(0.396078, 0.396078, 0.396078, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
@@ -294,7 +302,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -1920.0
-offset_right = 1080.0
+offset_bottom = -1920.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -306,6 +314,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.690196, 0.690196, 0.690196, 1)
+
+[node name="Bottom1" type="ColorRect" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -220.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.552941, 0.552941, 0.552941, 1)
+
+[node name="Start" type="Button" parent="MainMenu/Bottom1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = -67.5
+offset_right = 264.0
+offset_bottom = 67.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_1nbps")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_73vcl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_73vcl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iqnym")
+theme_override_styles/focus = SubResource("StyleBoxFlat_fa3gb")
+text = "START"
 
 [node name="Back" type="Button" parent="MainMenu"]
 layout_mode = 1
@@ -331,16 +378,19 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_63d63")
 theme_override_styles/focus = SubResource("StyleBoxFlat_83jab")
 text = "Go Back"
 
-[node name="Back2" type="Button" parent="MainMenu"]
+[node name="ButtonTemplate" type="Button" parent="MainMenu"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -241.0
-offset_top = 1021.0
-offset_right = 287.0
-offset_bottom = 1156.0
+anchor_bottom = 0.5
+offset_left = -248.0
+offset_top = 185.0
+offset_right = 280.0
+offset_bottom = 320.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -361,7 +411,9 @@ root_node = NodePath("../StartMenu")
 libraries = {
 "": SubResource("AnimationLibrary_3rapb")
 }
+speed_scale = 1.5
 
 [connection signal="pressed" from="StartMenu/Text" to="." method="_on_text_pressed"]
 [connection signal="pressed" from="StartMenu/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenu/Bottom1/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainMenu/Back" to="." method="_on_back_pressed"]
