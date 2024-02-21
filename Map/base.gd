@@ -1,7 +1,7 @@
 extends StaticBody2D
 
-var team = "blue"
-var max_health = 20.0
+@export var team = "blue"
+var max_health = 50.0
 var health = max_health
 
 func _ready():

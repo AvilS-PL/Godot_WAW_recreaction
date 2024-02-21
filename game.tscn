@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcgi6b6n2vb35"]
+[gd_scene load_steps=4 format=3 uid="uid://bcgi6b6n2vb35"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_wmvgd"]
 [ext_resource type="Texture2D" uid="uid://ggnjlsy4yf6o" path="res://Map/background1/background1.png" id="2_wgwfq"]
+[ext_resource type="PackedScene" uid="uid://b77215ucg7qa4" path="res://Map/base1.tscn" id="3_nirvn"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -18,9 +19,17 @@ position = Vector2(500, 0)
 position = Vector2(-500, 0)
 
 [node name="Border" type="StaticBody2D" parent="."]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
 polygon = PackedVector2Array(-540, -233, 539, -224, 538, 184, 256, 191, 7, 208, -541, 211, -540, -233, -590, -215, -586, 272, 603, 255, 595, -284, -595, -285, -590, -215)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Base1" parent="." instance=ExtResource("3_nirvn")]
+position = Vector2(-416, 0)
+
+[node name="Base2" parent="." instance=ExtResource("3_nirvn")]
+position = Vector2(416, 0)
+scale = Vector2(-1, 1)
+team = "red"

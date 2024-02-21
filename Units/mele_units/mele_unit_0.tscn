@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dpfjl1hb0313u"]
+[gd_scene load_steps=15 format=3 uid="uid://dpfjl1hb0313u"]
 
 [ext_resource type="Script" path="res://Units/mele_units/mele_unit.gd" id="1_sfj4p"]
 [ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/img/unit_body.png" id="2_c8gmb"]
@@ -14,6 +14,10 @@ radius = 21.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2vdy1"]
 radius = 49.163
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ld4wg"]
+radius = 83.0
+height = 418.0
 
 [sub_resource type="Animation" id="Animation_t5bss"]
 length = 0.001
@@ -127,6 +131,11 @@ metadata/_edit_lock_ = true
 shape = SubResource("CircleShape2D_2vdy1")
 debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 metadata/_edit_lock_ = true
+
+[node name="SearchBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SearchBox"]
+shape = SubResource("CapsuleShape2D_ld4wg")
 
 [node name="Fight" type="Timer" parent="."]
 one_shot = true

@@ -6,11 +6,12 @@ var destinition = Vector2.ZERO
 var speed = 100.0
 var max_health = 3.0
 var damage = 5.0
-var cooldown = 2.0
+var cooldown =2.0
 
 var new_speed = speed
 var health = max_health
 
+var current_mass = mass
 var reloaded = true
 var enemies = []
 var last_enemy_position
@@ -42,11 +43,14 @@ func _ready():
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, 5.0)
-	linear_velocity = (destinition - position).normalized() * speed
+	#linear_velocity = (destinition - position).normalized() * speed
+	var des = clamp(destinition.x, -1, 1)
+	linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
 
 func _on_shot_box_area_entered(area):
 	#if $HitBox.collision_layer != area.collision_layer:
 	new_speed = 0.0
+	mass = current_mass * 4
 	enemies.append(area)
 	if reloaded:
 		last_enemy_position = area.get_parent().global_position
@@ -56,6 +60,7 @@ func _on_shot_box_area_exited(area):
 	#if $HitBox.collision_layer != area.collision_layer:
 	enemies.remove_at(enemies.find(area, 0))
 	if enemies.size() == 0:
+		mass = current_mass
 		new_speed = 100.0
 
 func _on_fight_timeout():
@@ -71,11 +76,15 @@ func prepere():
 func throw():
 	reloaded = false
 	$Fight.start()
-	var temp = null
-	for i in range(enemies.size()):
-		if enemies[i].get_parent().health > 0:
-			temp = i
-			break
+	var target = null
+	if enemies.size() != 0:
+		target = enemies[0]
+		if enemies.size() != 1:
+			for i in enemies:
+				var d_i = position.distance_to(i.global_position)
+				var d_t = position.distance_to(target.global_position)
+				if  d_i < d_t:
+					target = i
 	
 	var bullet = preBullet.instantiate()
 	bullet.global_position = $Side/Hand.global_position
@@ -85,10 +94,10 @@ func throw():
 	bullet.team = $HitBox.collision_layer
 	bullet.scale.x = $Side.scale.x
 	
-	if temp == null:
+	if target == null:
 		bullet.destinition = last_enemy_position
 	else:
-		bullet.destinition = enemies[temp].get_parent().global_position
+		bullet.destinition = target.get_parent().global_position
 	
 	var world = get_tree().current_scene
 	world.add_child(bullet)
