@@ -17,7 +17,7 @@ func _ready():
 	add_theme_stylebox_override("background", sb_back)
 	add_theme_stylebox_override("fill", sb)
 	sb.bg_color = colors[colors.size()-1]
-	sb_back.bg_color = Color("#343434aa")
+	sb_back.bg_color = Color("#22222299")
 	sb.set_corner_radius_all(20)
 	sb_back.set_corner_radius_all(20)
 	sb.set_border_width_all(8)

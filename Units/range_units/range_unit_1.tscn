@@ -9,11 +9,11 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
 friction = 0.01
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j1uil"]
-radius = 29.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_7rcnh"]
+radius = 21.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qsy6v"]
-radius = 65.0077
+radius = 49.0102
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ibbyr"]
 radius = 300.0
@@ -30,7 +30,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(18, 17)]
+"values": [Vector2(14, 12)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -54,7 +54,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0.7, 0.7)]
 }
 
 [sub_resource type="Animation" id="Animation_kucyg"]
@@ -82,10 +82,10 @@ tracks/1/path = NodePath("Side/Hand:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.44),
-"transitions": PackedFloat32Array(1.2, 0.8, 1, 1),
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1.2, 0.8, 1),
 "update": 0,
-"values": [Vector2(18, 17), Vector2(-13, 5), Vector2(-36, 4), Vector2(-36, 4)]
+"values": [Vector2(14, 12), Vector2(0, 5), Vector2(-20, 8)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -94,10 +94,10 @@ tracks/2/path = NodePath("Side/Hand:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.44),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, -0.279253, -0.279253]
+"values": [0.0, -0.279253]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -109,7 +109,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0.44, 0.45),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+"values": [Vector2(0.7, 0.7), Vector2(1e-05, 1e-05)]
 }
 
 [sub_resource type="Animation" id="Animation_g6cmb"]
@@ -126,7 +126,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1)]
+"values": [Vector2(0, 0), Vector2(0.7, 0.7)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -152,7 +152,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(18, 17)]
+"values": [Vector2(14, 12)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -207,22 +207,25 @@ script = ExtResource("1_atnfa")
 [node name="Side" type="Sprite2D" parent="."]
 
 [node name="Body" type="Sprite2D" parent="Side"]
-position = Vector2(0, 22)
+position = Vector2(0, 17)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_fd2wx")
 
 [node name="Head" type="Sprite2D" parent="Side"]
-position = Vector2(0, -36)
+position = Vector2(0, -27)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_hwui7")
 metadata/_edit_lock_ = true
 
 [node name="Hand" type="Sprite2D" parent="Side"]
-position = Vector2(18, 17)
+position = Vector2(14, 12)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_4uix3")
 
 [node name="UnitSpace" type="CollisionShape2D" parent="."]
-position = Vector2(0, 37)
+position = Vector2(0, 27)
 rotation = 1.5708
-shape = SubResource("CircleShape2D_j1uil")
+shape = SubResource("CircleShape2D_7rcnh")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_mask = 3
@@ -246,10 +249,10 @@ metadata/_edit_lock_ = true
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("5_w6pff")]
-offset_left = -37.0
-offset_top = -87.0
-offset_right = 111.0
-offset_bottom = -53.0
+offset_left = -27.0
+offset_top = -67.0
+offset_right = 81.0
+offset_bottom = -39.0
 
 [node name="HandAnimation" type="AnimationPlayer" parent="."]
 libraries = {

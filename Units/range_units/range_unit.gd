@@ -1,8 +1,5 @@
 extends RigidBody2D
 
-#może połączyć mele i rangera w jeden obiek i ustawiać im parametry? //cyba słaby pomysł...
-#dodaj animacje rzutu i może dopiero zadaj damage jak trafi gościa?
-
 var team = "blue"
 var destinition = Vector2.ZERO
 
