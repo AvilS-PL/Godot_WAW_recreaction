@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://by481ahciksr2" path="res://Units/img/unit_body_def.png" id="2_ahf27"]
 [ext_resource type="Texture2D" uid="uid://duo23o3515q5i" path="res://Units/img/unit_head.png" id="3_70it2"]
 [ext_resource type="Texture2D" uid="uid://dt1rtsawdag06" path="res://Units/img/hand.png" id="4_x8ccs"]
-[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Usables/health_bar.tscn" id="5_4p0jb"]
+[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_gl100"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
 friction = 0.01
@@ -133,7 +133,7 @@ metadata/_edit_lock_ = true
 [node name="Fight" type="Timer" parent="."]
 one_shot = true
 
-[node name="HealthBar" parent="." instance=ExtResource("5_4p0jb")]
+[node name="HealthBar" parent="." instance=ExtResource("5_gl100")]
 offset_top = -110.0
 offset_bottom = -76.0
 

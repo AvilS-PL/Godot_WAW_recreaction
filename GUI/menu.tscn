@@ -1,62 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://n728fqds1dn7"]
+[gd_scene load_steps=12 format=3 uid="uid://n728fqds1dn7"]
 
 [ext_resource type="Script" path="res://GUI/menu.gd" id="1_bwi7t"]
-[ext_resource type="Texture2D" uid="uid://hxykdj8f3vja" path="res://GUI/intro/play.png" id="2_awpbl"]
-[ext_resource type="Texture2D" uid="uid://0ususigk7n7k" path="res://GUI/intro/text.png" id="2_t3x6t"]
-[ext_resource type="BitMap" uid="uid://c2sjkffleti1u" path="res://GUI/intro/play_bitmap.png" id="3_w6n8n"]
-[ext_resource type="BitMap" uid="uid://dofw20d61n4bl" path="res://GUI/intro/text_bitmap.png" id="5_6rmdi"]
 [ext_resource type="FontFile" uid="uid://cr27xj1xuicyi" path="res://GUI/Hey Comic.ttf" id="6_1nbps"]
-
-[sub_resource type="Animation" id="Animation_l0nfd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Text:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_uhhp8"]
-resource_name = "rotate"
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Text:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.95),
-"transitions": PackedFloat32Array(4, 0.1, 1),
-"update": 0,
-"values": [0.0, 3.41137, 6.28319]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reset_text_xd"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cnmhu"]
-_data = {
-"RESET": SubResource("Animation_l0nfd"),
-"rotate": SubResource("Animation_uhhp8")
-}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73vcl"]
 bg_color = Color(0.815686, 0.156863, 0.129412, 1)
@@ -80,36 +25,19 @@ shadow_offset = Vector2(0, 3)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fa3gb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwpg0"]
-bg_color = Color(0.552941, 0.552941, 0.552941, 1)
-border_width_bottom = 10
-border_color = Color(0.396078, 0.396078, 0.396078, 1)
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63d63"]
-bg_color = Color(0.552941, 0.552941, 0.552941, 1)
-border_width_top = 10
-border_color = Color(0.396078, 0.396078, 0.396078, 1)
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83jab"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24k1a"]
-bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+bg_color = Color(0, 0.843137, 0.247059, 1)
 border_width_bottom = 10
-border_color = Color(0.396078, 0.396078, 0.396078, 1)
+border_color = Color(0, 0.607843, 0.168627, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouemu"]
-bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+bg_color = Color(0, 0.843137, 0.247059, 1)
 border_width_top = 10
-border_color = Color(0.396078, 0.396078, 0.396078, 1)
+border_color = Color(0, 0.607843, 0.168627, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
@@ -118,133 +46,26 @@ corner_radius_bottom_left = 50
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ej11o"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="Animation" id="Animation_qkble"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Play:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Text:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../MainMenu:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -1920)]
-}
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwpg0"]
+bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+border_width_bottom = 10
+border_color = Color(0.396078, 0.396078, 0.396078, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
-[sub_resource type="Animation" id="Animation_jp2ra"]
-resource_name = "play"
-length = 1.4
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Play:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.95),
-"transitions": PackedFloat32Array(1.4, 0.6, 2.8, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, -20), Vector2(0, 1920)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Text:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.05, 0.15, 0.25, 1),
-"transitions": PackedFloat32Array(1.4, 0.6, 2.8, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, -20), Vector2(0, 1920)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../MainMenu:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.4, 0.9, 1.4),
-"transitions": PackedFloat32Array(1.2, 0.6, 1),
-"update": 0,
-"values": [Vector2(0, -1920), Vector2(0, -576), Vector2(0, 0)]
-}
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63d63"]
+bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+border_width_top = 10
+border_color = Color(0.396078, 0.396078, 0.396078, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
-[sub_resource type="Animation" id="Animation_ct756"]
-resource_name = "replay"
-length = 1.4
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Play:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.25, 1, 1.1, 1.2),
-"transitions": PackedFloat32Array(1.5, 2.8, 0.6, 1.4),
-"update": 0,
-"values": [Vector2(0, 1920), Vector2(0, -20), Vector2(0, -10), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Text:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.95, 1.05, 1.15),
-"transitions": PackedFloat32Array(1.5, 2.8, 0.6, 1.4),
-"update": 0,
-"values": [Vector2(0, 1920), Vector2(0, -20), Vector2(0, -10), Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../MainMenu:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1.2, 0.6, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -1344), Vector2(0, -1920)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3rapb"]
-_data = {
-"RESET": SubResource("Animation_qkble"),
-"play": SubResource("Animation_jp2ra"),
-"replay": SubResource("Animation_ct756")
-}
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83jab"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -254,7 +75,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bwi7t")
-metadata/_edit_lock_ = true
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -263,82 +83,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.690196, 0.690196, 0.690196, 1)
+color = Color(0.67451, 0.67451, 0.67451, 1)
 
-[node name="StartMenu" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 0.000244141
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="Text" type="TextureButton" parent="StartMenu"]
+[node name="ButtonRed" type="Button" parent="."]
 layout_mode = 0
-offset_right = 1080.0
-offset_bottom = 1920.0
-pivot_offset = Vector2(540, 960)
-texture_normal = ExtResource("2_t3x6t")
-texture_click_mask = ExtResource("5_6rmdi")
-
-[node name="Play" type="TextureButton" parent="StartMenu"]
-layout_mode = 0
-offset_right = 1080.0
-offset_bottom = 1920.0
-pivot_offset = Vector2(540, 960)
-texture_normal = ExtResource("2_awpbl")
-texture_click_mask = ExtResource("3_w6n8n")
-
-[node name="TextAnimation" type="AnimationPlayer" parent="StartMenu"]
-libraries = {
-"": SubResource("AnimationLibrary_cnmhu")
-}
-
-[node name="MainMenu" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -1920.0
-offset_bottom = -1920.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MainMenuBackground" type="ColorRect" parent="MainMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.690196, 0.690196, 0.690196, 1)
-
-[node name="Bottom1" type="ColorRect" parent="MainMenu"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -220.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.552941, 0.552941, 0.552941, 1)
-
-[node name="Start" type="Button" parent="MainMenu/Bottom1"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -264.0
-offset_top = -67.5
-offset_right = 264.0
-offset_bottom = 67.5
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 428.0
+offset_top = 1683.0
+offset_right = 628.0
+offset_bottom = 1883.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -354,43 +106,12 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_iqnym")
 theme_override_styles/focus = SubResource("StyleBoxFlat_fa3gb")
 text = "START"
 
-[node name="Back" type="Button" parent="MainMenu"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -264.0
-offset_right = 264.0
-offset_bottom = 135.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("6_1nbps")
-theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_xwpg0")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xwpg0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_63d63")
-theme_override_styles/focus = SubResource("StyleBoxFlat_83jab")
-text = "Go Back"
-
-[node name="ButtonTemplate" type="Button" parent="MainMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -248.0
-offset_top = 185.0
-offset_right = 280.0
-offset_bottom = 320.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ButtonGreen" type="Button" parent="."]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 243.0
+offset_right = 960.0
+offset_bottom = 378.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -406,14 +127,23 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ouemu")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ej11o")
 text = "Button"
 
-[node name="PlayAnimation" type="AnimationPlayer" parent="."]
-root_node = NodePath("../StartMenu")
-libraries = {
-"": SubResource("AnimationLibrary_3rapb")
-}
-speed_scale = 1.5
-
-[connection signal="pressed" from="StartMenu/Text" to="." method="_on_text_pressed"]
-[connection signal="pressed" from="StartMenu/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MainMenu/Bottom1/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MainMenu/Back" to="." method="_on_back_pressed"]
+[node name="ButtonGrey" type="Button" parent="."]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 611.0
+offset_right = 732.0
+offset_bottom = 746.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_1nbps")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_xwpg0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xwpg0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_63d63")
+theme_override_styles/focus = SubResource("StyleBoxFlat_83jab")
+text = "Go Back"
