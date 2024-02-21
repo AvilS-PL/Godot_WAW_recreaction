@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba4e6kj25no2k"
-path="res://.godot/imported/new_mele_weapon_0.png-70fe08eb86e1ecbcd6daff8f99e60009.ctex"
+uid="uid://ch3ep0pwkj1dr"
+path="res://.godot/imported/old_mele_weapon_1.png-08a6124708d10f865e461daeba467a17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Units/img/new_mele_weapon_0.png"
-dest_files=["res://.godot/imported/new_mele_weapon_0.png-70fe08eb86e1ecbcd6daff8f99e60009.ctex"]
+source_file="res://Units/img/z_old/old_mele_weapon_1.png"
+dest_files=["res://.godot/imported/old_mele_weapon_1.png-08a6124708d10f865e461daeba467a17.ctex"]
 
 [params]
 

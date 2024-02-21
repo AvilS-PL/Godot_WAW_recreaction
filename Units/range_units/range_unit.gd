@@ -17,8 +17,8 @@ var health = max_health
 var reloaded = true
 var enemies = []
 var last_enemy_position
-var preDeadEffect = load("res://Usables/blood_splash.tscn")
-var preBullet = load("res://Usables/bullet.tscn")
+var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
+var preBullet = load("res://Units/Usables/bullet.tscn")
 
 
 func _ready():

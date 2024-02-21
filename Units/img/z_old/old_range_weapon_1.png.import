@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt1rtsawdag06"
-path="res://.godot/imported/hand.png-14572d673cb7fd6cb8d201da409c6c6f.ctex"
+uid="uid://ddcwb5lpg2rmy"
+path="res://.godot/imported/old_range_weapon_1.png-58fc6fbd09c60e9fafc06599005be868.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Units/img/hand.png"
-dest_files=["res://.godot/imported/hand.png-14572d673cb7fd6cb8d201da409c6c6f.ctex"]
+source_file="res://Units/img/z_old/old_range_weapon_1.png"
+dest_files=["res://.godot/imported/old_range_weapon_1.png-58fc6fbd09c60e9fafc06599005be868.ctex"]
 
 [params]
 

@@ -20,7 +20,7 @@ var health = max_health
 
 var reloaded = true
 var enemies = []
-var preDeadEffect = load("res://Usables/blood_splash.tscn")
+var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
 
 func _ready():
 	if cooldown < 1.0: 
