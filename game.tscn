@@ -1,38 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcgi6b6n2vb35"]
+[gd_scene load_steps=3 format=3 uid="uid://bcgi6b6n2vb35"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_wmvgd"]
 [ext_resource type="Texture2D" uid="uid://ggnjlsy4yf6o" path="res://Map/background1/background1.png" id="2_wgwfq"]
-[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/img/unit_head.png" id="3_cw14r"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xmlv"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_woidr"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_wmvgd")
 
 [node name="Background1" type="Sprite2D" parent="."]
-position = Vector2(540, 960)
 texture = ExtResource("2_wgwfq")
 metadata/_edit_lock_ = true
 
 [node name="MarkerEnemy" type="Marker2D" parent="."]
-position = Vector2(980, 960)
+position = Vector2(500, 0)
 
 [node name="MarkerBase" type="Marker2D" parent="."]
-position = Vector2(100, 960)
+position = Vector2(-500, 0)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(520, 960)
+[node name="Border" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_6xmlv")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
+polygon = PackedVector2Array(-540, -233, 539, -224, 538, 184, 256, 191, 7, 208, -541, 211, -540, -233, -590, -215, -586, 272, 603, 255, 595, -284, -595, -285, -590, -215)
 
-[node name="UnitHead" type="Sprite2D" parent="StaticBody2D"]
-top_level = true
-position = Vector2(520, 960)
-texture = ExtResource("3_cw14r")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_woidr")
+[node name="Camera2D" type="Camera2D" parent="."]
