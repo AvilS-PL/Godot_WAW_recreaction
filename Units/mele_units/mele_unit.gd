@@ -1,7 +1,6 @@
 extends RigidBody2D
 
 #await get_tree().create_timer(5.0).timeout
-#!!! dodaj podchodzenie do najbliższego przeciwnika
 
 var team = "blue"
 var destinition = Vector2.ZERO
@@ -14,6 +13,9 @@ var cooldown = 1.0
 var new_speed = speed
 var health = max_health
 
+var new_destinition = null
+var search_enemies = []
+var found_enemy = null
 var current_mass = mass
 var reloaded = true
 var enemies = []
@@ -32,18 +34,22 @@ func _ready():
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
 		$HitBox.collision_mask = 1
+		$SearchBox.collision_mask = 1
 		$Side.scale.x = -1
 	elif team == "blue":
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
 		$HitBox.collision_mask = 2
+		$SearchBox.collision_mask = 2
 		$Side.scale.x = 1
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, 5.0)
-	#linear_velocity = (destinition - position).normalized() * speed
-	var des = clamp(destinition.x, -1, 1)
-	linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
+	if new_destinition != null:
+		linear_velocity = (new_destinition - position).normalized() * speed
+	else:
+		var des = clamp(destinition.x, -1, 1)
+		linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
 
 func _on_hit_box_area_entered(area):
 	#if $HitBox.collision_layer != area.collision_layer:
@@ -52,6 +58,8 @@ func _on_hit_box_area_entered(area):
 	enemies.append(area)
 	if reloaded:
 		$HandAnimation.play("punch")
+		#$Fight.start()
+		reloaded = false
 
 func _on_hit_box_area_exited(area):
 	#if $HitBox.collision_layer != area.collision_layer:
@@ -95,3 +103,26 @@ func take_damage(taken):
 		queue_free()
 	else:
 		$HealthBar.change_health(health, 0.5)
+
+
+func _on_search_box_area_entered(area):
+	if area.collision_mask != 128:
+		search_enemies.append(area)
+		if new_destinition == null:
+			new_destinition = area.global_position
+			found_enemy = area
+
+
+func _on_search_box_area_exited(area):
+	search_enemies.remove_at(search_enemies.find(area, 0))
+	if search_enemies.size() == 0:
+		new_destinition = null
+		found_enemy = null
+	elif area == found_enemy:
+		found_enemy = search_enemies[0]
+		new_destinition = search_enemies[0].global_position
+		for i in search_enemies:
+			var d_i = position.distance_to(i.global_position)
+			if d_i < position.distance_to(new_destinition):
+				new_destinition = i.global_position
+				found_enemy = i

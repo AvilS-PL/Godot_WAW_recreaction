@@ -9,10 +9,8 @@ func _ready():
 	$HealthBar.value = health
 	if team == "red":
 		$HitBox.collision_layer = 2
-		$HitBox.collision_mask = 1
 	elif team == "blue":
 		$HitBox.collision_layer = 1
-		$HitBox.collision_mask = 2
 
 
 func take_damage(taken):

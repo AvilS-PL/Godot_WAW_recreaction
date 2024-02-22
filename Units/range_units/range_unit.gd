@@ -6,7 +6,7 @@ var destinition = Vector2.ZERO
 var speed = 100.0
 var max_health = 3.0
 var damage = 5.0
-var cooldown =2.0
+var cooldown = 2.0
 
 var new_speed = speed
 var health = max_health
@@ -31,13 +31,11 @@ func _ready():
 	if team == "red":
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
-		$HitBox.collision_mask = 1
 		$ShotBox.collision_mask = 1
 		$Side.scale.x = -1
 	elif team == "blue":
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
-		$HitBox.collision_mask = 2
 		$ShotBox.collision_mask = 2
 		$Side.scale.x = 1
 
@@ -55,6 +53,7 @@ func _on_shot_box_area_entered(area):
 	if reloaded:
 		last_enemy_position = area.get_parent().global_position
 		$HandAnimation.play("punch")
+		reloaded = false
 
 func _on_shot_box_area_exited(area):
 	#if $HitBox.collision_layer != area.collision_layer:
@@ -76,6 +75,13 @@ func prepere():
 func throw():
 	reloaded = false
 	$Fight.start()
+	#!!! dodaj sprawdzanie czy w tego którego rzuca opłaca się wgl rzucać
+	#var temp = null
+	#var new_enemies = enemies
+	#for i in range(enemies.size()):
+		#if enemies[i].get_parent().health > 0:
+			#temp = i
+			#break
 	var target = null
 	if enemies.size() != 0:
 		target = enemies[0]

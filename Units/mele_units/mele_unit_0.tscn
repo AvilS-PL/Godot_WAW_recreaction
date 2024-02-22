@@ -16,8 +16,8 @@ radius = 21.0
 radius = 49.163
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ld4wg"]
-radius = 83.0
-height = 418.0
+radius = 109.0
+height = 568.0
 
 [sub_resource type="Animation" id="Animation_t5bss"]
 length = 0.001
@@ -133,9 +133,12 @@ debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 metadata/_edit_lock_ = true
 
 [node name="SearchBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SearchBox"]
 shape = SubResource("CapsuleShape2D_ld4wg")
+debug_color = Color(0, 0.647059, 0.247059, 0.188235)
 
 [node name="Fight" type="Timer" parent="."]
 one_shot = true
@@ -158,4 +161,6 @@ libraries = {
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_hit_box_area_exited"]
+[connection signal="area_entered" from="SearchBox" to="." method="_on_search_box_area_entered"]
+[connection signal="area_exited" from="SearchBox" to="." method="_on_search_box_area_exited"]
 [connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]
