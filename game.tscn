@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://game.gd" id="1_wmvgd"]
 [ext_resource type="Texture2D" uid="uid://ggnjlsy4yf6o" path="res://Map/background1/background1.png" id="2_wgwfq"]
-[ext_resource type="PackedScene" uid="uid://b77215ucg7qa4" path="res://Map/base1.tscn" id="3_nirvn"]
+[ext_resource type="PackedScene" uid="uid://b77215ucg7qa4" path="res://Map/base_1.tscn" id="3_nirvn"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true

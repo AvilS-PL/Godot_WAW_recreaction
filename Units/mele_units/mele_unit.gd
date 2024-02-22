@@ -8,9 +8,8 @@ var destinition = Vector2.ZERO
 var speed = 100.0
 var max_health = 10.0
 var damage = 3.0
-var cooldown =  1.0
-var reloaddown = 1.0
-#!!!może dodaj cooldown do animacji osobno?
+var animation_speed = 1.0
+var cooldown =  0.1
 
 var new_speed = speed
 var health = max_health
@@ -24,8 +23,8 @@ var enemies = []
 var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
 
 func _ready():
-	$HandAnimation.speed_scale = 1.0  / cooldown
-	$Fight.wait_time = reloaddown + (0.45 * cooldown)
+	$HandAnimation.speed_scale = animation_speed
+	$Fight.wait_time = cooldown
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
@@ -61,21 +60,21 @@ func _process(delta):
 		#linear_velocity = (Vector2((300 - abs(position.y)) * des, -position.y)).normalized() * speed
 	
 func _on_hit_box_area_entered(area):
-	#if $HitBox.collision_layer != area.collision_layer:
 	new_speed = 0.0
 	mass = current_mass * 4
 	enemies.append(area)
 	if reloaded:
-		$HandAnimation.play("punch")
-		#$Fight.start()
+		$HandAnimation.play("punch") #wait_time() 
 		reloaded = false
 
 func _on_hit_box_area_exited(area):
-	#if $HitBox.collision_layer != area.collision_layer:
 	enemies.remove_at(enemies.find(area, 0))
 	if enemies.size() == 0:
 		mass = current_mass
 		new_speed = 100.0
+
+func wait_time():
+	$Fight.start()
 
 func _on_fight_timeout():
 	if enemies.size() != 0:
@@ -93,8 +92,6 @@ func deal_damage():
 				if  d_i < d_t:
 					target = i
 		target.get_parent().take_damage(damage)
-		reloaded = false
-		$Fight.start()
 	else:
 		reloaded = true
 

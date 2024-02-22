@@ -12,6 +12,8 @@ func _ready():
 func _process(delta):
 	position = position.move_toward(destinition, speed)
 	if position.x == destinition.x and position.y == destinition.y:
+		$Sprite2D.visible = false
+		await get_tree().create_timer(0.1).timeout
 		queue_free()
 
 
