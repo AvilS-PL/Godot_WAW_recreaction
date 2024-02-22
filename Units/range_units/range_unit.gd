@@ -41,9 +41,9 @@ func _ready():
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, 5.0)
-	#linear_velocity = (destinition - position).normalized() * speed
-	var des = clamp(destinition.x, -1, 1)
-	linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
+	linear_velocity = (destinition - position).normalized() * speed
+	#var des = clamp(destinition.x, -1, 1)
+	#linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
 
 func _on_shot_box_area_entered(area):
 	#if $HitBox.collision_layer != area.collision_layer:

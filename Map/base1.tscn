@@ -37,12 +37,12 @@ _data = {
 z_index = 1
 script = ExtResource("1_vsryp")
 
-[node name="Side" type="Sprite2D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="Cave4" type="Sprite2D" parent="Side"]
+[node name="Cave4" type="Sprite2D" parent="."]
 position = Vector2(-12, 24)
 texture = ExtResource("2_6kh4r")
+metadata/_edit_lock_ = true
+
+[node name="Side" type="Sprite2D" parent="."]
 metadata/_edit_lock_ = true
 
 [node name="Cave3" type="Sprite2D" parent="Side"]

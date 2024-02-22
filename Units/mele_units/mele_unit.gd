@@ -8,7 +8,9 @@ var destinition = Vector2.ZERO
 var speed = 100.0
 var max_health = 10.0
 var damage = 3.0
-var cooldown = 1.0
+var cooldown =  1.0
+var reloaddown = 1.0
+#!!!może dodaj cooldown do animacji osobno?
 
 var new_speed = speed
 var health = max_health
@@ -22,12 +24,8 @@ var enemies = []
 var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
 
 func _ready():
-	if cooldown < 1.0: 
-		$HandAnimation.speed_scale = 1.0  / cooldown
-		$Fight.wait_time = cooldown - (0.45 * cooldown)
-	else:
-		$Fight.wait_time = cooldown - 0.45
-		$HandAnimation.speed_scale = 1.0
+	$HandAnimation.speed_scale = 1.0  / cooldown
+	$Fight.wait_time = reloaddown + (0.45 * cooldown)
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
@@ -35,22 +33,33 @@ func _ready():
 		$HitBox.collision_layer = 2
 		$HitBox.collision_mask = 1
 		$SearchBox.collision_mask = 1
-		$Side.scale.x = -1
 	elif team == "blue":
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
 		$HitBox.collision_mask = 2
 		$SearchBox.collision_mask = 2
+	if destinition.x > position.x:
 		$Side.scale.x = 1
+	else:
+		$Side.scale.x = -1
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, 5.0)
 	if new_destinition != null:
+		if new_destinition.x > position.x:
+			$Side.scale.x = 1
+		else:
+			$Side.scale.x = -1
 		linear_velocity = (new_destinition - position).normalized() * speed
 	else:
-		var des = clamp(destinition.x, -1, 1)
-		linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
-
+		if destinition.x > position.x:
+			$Side.scale.x = 1
+		else:
+			$Side.scale.x = -1
+		linear_velocity = (destinition - position).normalized() * speed
+		#var des = clamp(destinition.x, -1, 1)
+		#linear_velocity = (Vector2((300 - abs(position.y)) * des, -position.y)).normalized() * speed
+	
 func _on_hit_box_area_entered(area):
 	#if $HitBox.collision_layer != area.collision_layer:
 	new_speed = 0.0
@@ -106,11 +115,11 @@ func take_damage(taken):
 
 
 func _on_search_box_area_entered(area):
-	if area.collision_mask != 128:
-		search_enemies.append(area)
-		if new_destinition == null:
-			new_destinition = area.global_position
-			found_enemy = area
+	#if area.collision_mask != 128:
+	search_enemies.append(area)
+	if new_destinition == null:
+		new_destinition = area.global_position
+		found_enemy = area
 
 
 func _on_search_box_area_exited(area):
