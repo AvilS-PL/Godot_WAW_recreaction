@@ -9,7 +9,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26yfu"]
 radius = 71.0
-height = 234.0
+height = 194.0
 
 [sub_resource type="Animation" id="Animation_nbjvf"]
 resource_name = "hit"
@@ -64,7 +64,7 @@ texture = ExtResource("5_lu0b8")
 metadata/_edit_lock_ = true
 
 [node name="LimitSpace" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(43, -303, 44, -142, 35, -120, 10, -108, -34, -98, -126, -98, -126, 87, -4, 86, 13, 130, 29, 302, -173, 303, -174, -303)
+polygon = PackedVector2Array(43, -303, 17, -151, -4, -122, -34, -98, -126, -98, -126, 87, -4, 86, 13, 130, 29, 302, -173, 303, -174, -303)
 metadata/_edit_lock_ = true
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -73,7 +73,7 @@ collision_mask = 128
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(12, -4)
+position = Vector2(11, 10)
 shape = SubResource("CapsuleShape2D_26yfu")
 debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 
@@ -88,3 +88,12 @@ offset_bottom = -161.0
 libraries = {
 "": SubResource("AnimationLibrary_nu4g3")
 }
+
+[node name="TeamBox" type="StaticBody2D" parent="."]
+collision_layer = 6
+collision_mask = 6
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TeamBox"]
+position = Vector2(-35, -12)
+shape = SubResource("CapsuleShape2D_26yfu")
+debug_color = Color(0.0470588, 0.576471, 0.819608, 0.219608)

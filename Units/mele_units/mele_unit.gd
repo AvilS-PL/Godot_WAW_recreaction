@@ -9,7 +9,7 @@ var speed = 100.0
 var max_health = 10.0
 var damage = 3.0
 var animation_speed = 1.0
-var cooldown =  0.1
+var cooldown =  0.11
 
 var new_speed = speed
 var health = max_health
@@ -32,11 +32,16 @@ func _ready():
 		$HitBox.collision_layer = 2
 		$HitBox.collision_mask = 1
 		$SearchBox.collision_mask = 1
+		collision_layer = 5
+		collision_mask = 5
 	elif team == "blue":
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
 		$HitBox.collision_mask = 2
 		$SearchBox.collision_mask = 2
+		collision_layer = 3
+		collision_mask = 3
+	
 	if destinition.x > position.x:
 		$Side.scale.x = 1
 	else:

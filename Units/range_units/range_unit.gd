@@ -10,7 +10,7 @@ var speed = 100.0
 var max_health = 3.0
 var damage = 5.0
 var animation_speed = 1.0
-var cooldown =  0.1
+var cooldown = 0.11
 
 var new_speed = speed
 var health = max_health
@@ -19,7 +19,7 @@ var current_mass = mass
 var reloaded = true
 var enemies = []
 var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
-var preBullet = load("res://Units/range_units/weapons/range_weapon_1.tscn")
+var preBullet = load("res://Units/range_units/weapons/bullet_1.tscn")
 
 
 func _ready():
@@ -32,11 +32,15 @@ func _ready():
 		$HitBox.collision_layer = 2
 		$ShotBox.collision_mask = 1
 		$Side.scale.x = -1
+		collision_layer = 5
+		collision_mask = 5
 	elif team == "blue":
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
 		$ShotBox.collision_mask = 2
 		$Side.scale.x = 1
+		collision_layer = 3
+		collision_mask = 3
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, 5.0)
@@ -60,12 +64,12 @@ func _on_shot_box_area_entered(area):
 	mass = current_mass * 4
 	enemies.append(area)
 	if reloaded:
-		$HandAnimation.play("punch")
-		reloaded = false
+		prepere()
 
 func _on_shot_box_area_exited(area):
 	enemies.remove_at(enemies.find(area, 0))
 	if enemies.size() == 0:
+		new_destinition = null
 		mass = current_mass
 		new_speed = 100.0
 
@@ -74,7 +78,16 @@ func _on_fight_timeout():
 
 func prepere():
 	if enemies.size() != 0:
+		reloaded = false
 		$HandAnimation.play("punch")
+		var target = enemies[0]
+		if enemies.size() != 1:
+			for i in enemies:
+				var d_i = position.distance_to(i.global_position)
+				var d_t = position.distance_to(target.global_position)
+				if  d_i < d_t:
+					target = i
+		new_destinition = target.global_position
 	else:
 		reloaded = true
 
@@ -82,7 +95,7 @@ func throw():
 	if enemies.size() != 0:
 		$Side/Hand.visible = false
 		$Fight.start()
-		#!!! dodaj sprawdzanie czy w tego którego rzuca opłaca się wgl rzucać
+		#???!!! dodaj sprawdzanie czy w tego którego rzuca opłaca się wgl rzucać
 		#var temp = null
 		#var new_enemies = enemies
 		#for i in range(enemies.size()):
@@ -96,6 +109,7 @@ func throw():
 				var d_t = position.distance_to(target.global_position)
 				if  d_i < d_t:
 					target = i
+		new_destinition = target.global_position
 		
 		var bullet = preBullet.instantiate()
 		bullet.global_position = $Side/Hand.global_position
@@ -117,7 +131,7 @@ func take_damage(taken):
 	$OtherAnimation.play("hit")
 	if health <= 0:
 		$HealthBar.change_health(health, 0.25)
-		#!!! await get_tree().create_timer(cooldown / 12).timeout #to jeszcze do zdecydowania czy zostawić
+		#???!!! await get_tree().create_timer(cooldown / 12).timeout #to jeszcze do zdecydowania czy zostawić
 		
 		var deadEffect = preDeadEffect.instantiate()
 		deadEffect.global_position = global_position
