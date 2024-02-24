@@ -1,11 +1,6 @@
 extends RigidBody2D
 
-#!!!no to tak, pomysł na duży update:
-# zmiana kolejności działań na bardziej rzeczywiste
-# 1) napotkanie przeciwnika -> dodanie do kolejki i rozpoczęcie celowania
-# 2) jeżeli dany przeciwnik wciąż istnieje to do niego strzel
-# 	 a jeżeli nie to od nowa rozpocznij celowanie w następnego typa
-# 3) po strzale przeładowanie
+#!!!dodaj amunicję ale dopiero po zrobieniu gameplay-u
 
 var team = "blue"
 var destinition = Vector2.ZERO

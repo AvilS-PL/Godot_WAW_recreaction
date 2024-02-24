@@ -6,6 +6,7 @@ extends RigidBody2D
 # 2) jeżeli dany przeciwnik wciąż istnieje to do niego strzel
 # 	 a jeżeli nie to od nowa rozpocznij celowanie w następnego typa
 # 3) po strzale przeładowanie
+#!!!???dodaj rotating taki jak w shoot ale dopiero po zrobieniu gameplay-u
 
 var team = "blue"
 var destinition = Vector2.ZERO
