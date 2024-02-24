@@ -5,13 +5,15 @@ extends RigidBody2D
 var team = "blue"
 var destinition = Vector2.ZERO
 
-var speed = 100.0
+var def_speed = 80.0
+var slow_down = 5.0
 var max_health = 10.0
 var damage = 3.0
 var animation_speed = 1.0
 var cooldown =  0.11
 
-var new_speed = speed
+var speed = def_speed
+var new_speed = def_speed
 var health = max_health
 
 var new_destinition = null
@@ -48,22 +50,22 @@ func _ready():
 		$Side.scale.x = -1
 
 func _process(delta):
-	speed = move_toward(speed, new_speed, 5.0)
+	speed = move_toward(speed, new_speed, slow_down)
 	if new_destinition != null:
 		if new_destinition.x > position.x:
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
-		linear_velocity = (new_destinition - position).normalized() * speed
+		linear_velocity = (new_destinition - position).normalized() * speed #* delta * 100
 	else:
 		if destinition.x > position.x:
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
-		linear_velocity = (destinition - position).normalized() * speed
+		linear_velocity = (destinition - position).normalized() * speed #* delta * 100
 		#var des = clamp(destinition.x, -1, 1)
 		#linear_velocity = (Vector2((300 - abs(position.y)) * des, -position.y)).normalized() * speed
-	
+
 func _on_hit_box_area_entered(area):
 	new_speed = 0.0
 	mass = current_mass * 4
@@ -76,7 +78,7 @@ func _on_hit_box_area_exited(area):
 	enemies.remove_at(enemies.find(area, 0))
 	if enemies.size() == 0:
 		mass = current_mass
-		new_speed = 100.0
+		new_speed = def_speed
 
 func wait_time():
 	$Fight.start()
@@ -137,3 +139,5 @@ func _on_search_box_area_exited(area):
 			if d_i < position.distance_to(new_destinition):
 				new_destinition = i.global_position
 				found_enemy = i
+
+

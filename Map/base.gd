@@ -3,6 +3,7 @@ extends StaticBody2D
 @export var team = "blue"
 var max_health = 1150.0
 var health = max_health
+var test = "bruh"
 
 func _ready():
 	$HealthBar.max_value = health
@@ -10,11 +11,11 @@ func _ready():
 	if team == "red":
 		$HitBox.collision_layer = 2
 		$TeamBox.collision_layer = 2
-		$TeamBox.collision_mask = 2
+		#$TeamBox.collision_mask = 2
 	elif team == "blue":
 		$HitBox.collision_layer = 1
 		$TeamBox.collision_layer = 4
-		$TeamBox.collision_mask = 4
+		#$TeamBox.collision_mask = 4
 
 
 func take_damage(taken):

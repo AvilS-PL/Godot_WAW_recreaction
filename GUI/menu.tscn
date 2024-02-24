@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://n728fqds1dn7"]
+[gd_scene load_steps=11 format=3 uid="uid://n728fqds1dn7"]
 
 [ext_resource type="Script" path="res://GUI/menu.gd" id="1_bwi7t"]
 [ext_resource type="FontFile" uid="uid://cr27xj1xuicyi" path="res://GUI/Hey Comic.ttf" id="6_1nbps"]
@@ -22,6 +22,15 @@ corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 shadow_offset = Vector2(0, 3)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o27yk"]
+bg_color = Color(0.505882, 0.505882, 0.505882, 1)
+border_width_bottom = 10
+border_color = Color(0.372549, 0.372549, 0.372549, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fa3gb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
@@ -43,28 +52,16 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ej11o"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwpg0"]
-bg_color = Color(0.552941, 0.552941, 0.552941, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svnpy"]
+bg_color = Color(0.505882, 0.505882, 0.505882, 1)
 border_width_bottom = 10
-border_color = Color(0.396078, 0.396078, 0.396078, 1)
+border_color = Color(0.372549, 0.372549, 0.372549, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63d63"]
-bg_color = Color(0.552941, 0.552941, 0.552941, 1)
-border_width_top = 10
-border_color = Color(0.396078, 0.396078, 0.396078, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83jab"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ej11o"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Menu" type="Control"]
@@ -86,16 +83,24 @@ grow_vertical = 2
 color = Color(0.67451, 0.67451, 0.67451, 1)
 
 [node name="ButtonRed" type="Button" parent="."]
-layout_mode = 0
-offset_left = 428.0
-offset_top = 1683.0
-offset_right = 628.0
-offset_bottom = 1883.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.505882, 0.505882, 0.505882, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("6_1nbps")
@@ -103,47 +108,31 @@ theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_73vcl")
 theme_override_styles/hover = SubResource("StyleBoxFlat_73vcl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_iqnym")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_o27yk")
 theme_override_styles/focus = SubResource("StyleBoxFlat_fa3gb")
 text = "START"
 
 [node name="ButtonGreen" type="Button" parent="."]
 layout_mode = 0
-offset_left = 432.0
-offset_top = 243.0
-offset_right = 960.0
-offset_bottom = 378.0
+offset_left = 435.0
+offset_top = 66.0
+offset_right = 675.0
+offset_bottom = 186.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.505882, 0.505882, 0.505882, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("6_1nbps")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_24k1a")
 theme_override_styles/hover = SubResource("StyleBoxFlat_24k1a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ouemu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_svnpy")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ej11o")
 text = "Button"
 
-[node name="ButtonGrey" type="Button" parent="."]
-layout_mode = 0
-offset_left = 204.0
-offset_top = 611.0
-offset_right = 732.0
-offset_bottom = 746.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("6_1nbps")
-theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_xwpg0")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xwpg0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_63d63")
-theme_override_styles/focus = SubResource("StyleBoxFlat_83jab")
-text = "Go Back"
+[connection signal="pressed" from="ButtonRed" to="." method="_on_button_red_pressed"]

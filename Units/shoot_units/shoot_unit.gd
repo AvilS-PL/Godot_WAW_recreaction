@@ -13,26 +13,28 @@ var new_destinition = null
 
 var def_speed = 80.0
 var slow_down = 5.0
-var max_health = 3.0
+var max_health = 30.0
 var damage = 5.0
 var animation_speed = 1.0
-var cooldown = 0.11
-var bullet_speed = 20
-var bullet_rotation = 0.0
-var preBullet = load("res://Units/range_units/range_weapons/bullet_1.tscn")
+var cooldown = 1.0
+var rotation_speed = 5.0
+#var ammo = 3
 
+var new_rotation = 0
 var speed = def_speed
 var new_speed = def_speed
 var health = max_health
 
 var current_mass = mass
-var reloaded = true
+var current_enemy = null
+var reloaded = false
 var enemies = []
 var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
+var preFireGunEffect = load("res://Units/Usables/fire_gun.tscn")
 
 func _ready():
 	$HandAnimation.speed_scale = animation_speed
-	$Fight.wait_time = cooldown
+	$Reload.wait_time = cooldown
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
@@ -52,6 +54,8 @@ func _ready():
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, slow_down)
+	$Side/Hand.rotation = move_toward($Side/Hand.rotation, new_rotation, rotation_speed / 100)
+	
 	if new_destinition != null:
 		if new_destinition.x > position.x:
 			$Side.scale.x = 1
@@ -62,32 +66,43 @@ func _process(delta):
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
+			
 	linear_velocity = (destinition - position).normalized() * speed #* delta * 100
 	
-	#var des = clamp(destinition.x, -1, 1)
-	#linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
+	if current_enemy != null:
+		if round($Side/Hand.rotation * 1000) == round(new_rotation * 1000):
+			if reloaded:
+				shoot()
+			elif $Reload.time_left == 0:
+				$Reload.start()
+
+func _on_reload_timeout():
+	if enemies.size() != 0:
+		reloaded = true
 
 func _on_shot_box_area_entered(area):
 	new_speed = 0.0
 	mass = current_mass * 4
 	enemies.append(area)
-	if reloaded:
-		prepere()
+	find_closest()
 
 func _on_shot_box_area_exited(area):
 	enemies.remove_at(enemies.find(area, 0))
 	if enemies.size() == 0:
-		new_destinition = null
 		mass = current_mass
 		new_speed = def_speed
-
-func _on_fight_timeout():
-	$HandAnimation.play("reload")
-
-func prepere():
-	if enemies.size() != 0:
+		new_rotation = 0
+		current_enemy = null
+		new_destinition = null
 		reloaded = false
-		$HandAnimation.play("punch")
+	elif area == current_enemy:
+		find_closest()
+
+func find_closest():
+	new_rotation = 0
+	new_destinition = null
+	current_enemy = null
+	if enemies.size() != 0:
 		var target = enemies[0]
 		if enemies.size() != 1:
 			for i in enemies:
@@ -95,50 +110,26 @@ func prepere():
 				var d_t = position.distance_to(target.global_position)
 				if  d_i < d_t:
 					target = i
+		current_enemy = target
 		new_destinition = target.global_position
-	else:
-		reloaded = true
+		new_rotation = atan2(current_enemy.global_position.y - position.y,
+		current_enemy.global_position.x - position.x)
+		if new_rotation > PI/2:
+			new_rotation = PI - new_rotation
+		elif new_rotation < -PI/2:
+			new_rotation = -PI - new_rotation
 
-func action1():
-	if enemies.size() != 0:
-		$Side/Hand.visible = false
-		$Fight.start()
-		throw()
-	else:
-		$HandAnimation.play("return")
+func shoot():
+	reloaded = false
+	var fireGunEffect = preFireGunEffect.instantiate()
+	fireGunEffect.position.x += $Side/Hand.texture.get_width() * 0.6
+	fireGunEffect.position.y -= $Side/Hand.texture.get_height() * 0.1
+	$Side/Hand.add_child(fireGunEffect)
+	$HandAnimation.play("shoot")
 
-func action2():
-	if enemies.size() != 0:
-		$HandAnimation.play("reload")
-		throw()
-		await get_tree().create_timer(cooldown + 0.4).timeout
-		prepere()
-	else:
-		$HandAnimation.play("return")
-
-func throw():
-	var target = enemies[0]
-	if enemies.size() != 1:
-		for i in enemies:
-			var d_i = position.distance_to(i.global_position)
-			var d_t = position.distance_to(target.global_position)
-			if  d_i < d_t:
-				target = i
-	new_destinition = target.global_position
-	var angle = atan2(new_destinition.y - position.y, new_destinition.x - position.x)
-	
-	var bullet = preBullet.instantiate()
-	bullet.global_position = $Side/Hand.global_position
-	bullet.speed = bullet_speed
-	bullet.damage = damage
-	bullet.rotation = angle
-	bullet.roter = bullet_rotation
-	bullet.team = $HitBox.collision_layer
-	
-	bullet.destinition = target.get_parent().global_position
-	
-	var world = get_tree().current_scene
-	world.add_child(bullet)
+func make_damege():
+	if current_enemy != null:
+		current_enemy.get_parent().take_damage(damage)
 
 func take_damage(taken):
 	health -= taken

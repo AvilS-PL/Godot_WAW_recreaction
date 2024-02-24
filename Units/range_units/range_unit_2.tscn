@@ -1,10 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://w617cnbwxk3u"]
+[gd_scene load_steps=17 format=3 uid="uid://bmylxlwkqjqxx"]
 
-[ext_resource type="Script" path="res://Units/range_units/range_unit.gd" id="1_atnfa"]
-[ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_qy7g1"]
-[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/unit_head.png" id="3_0vuxx"]
-[ext_resource type="Texture2D" uid="uid://dmelvw0gw1pi7" path="res://Units/range_units/range_weapons/range_weapon_1.png" id="4_womlg"]
-[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_w6pff"]
+[ext_resource type="Script" path="res://Units/range_units/range_unit.gd" id="1_4ifrl"]
+[ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_r3sjb"]
+[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/unit_head.png" id="3_aots3"]
+[ext_resource type="Texture2D" uid="uid://b2f4t2w4lj3or" path="res://Units/range_units/range_weapons/range_weapon_2.png" id="4_5td8n"]
+[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_aohyd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
 friction = 0.0
@@ -257,7 +257,7 @@ mass = 40.0
 physics_material_override = SubResource("PhysicsMaterial_jvusy")
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_atnfa")
+script = ExtResource("1_4ifrl")
 
 [node name="Side" type="Sprite2D" parent="."]
 metadata/_edit_lock_ = true
@@ -265,19 +265,19 @@ metadata/_edit_lock_ = true
 [node name="Body" type="Sprite2D" parent="Side"]
 position = Vector2(0, 14)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_qy7g1")
+texture = ExtResource("2_r3sjb")
 metadata/_edit_lock_ = true
 
 [node name="Head" type="Sprite2D" parent="Side"]
 position = Vector2(0, -22)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_0vuxx")
+texture = ExtResource("3_aots3")
 metadata/_edit_lock_ = true
 
 [node name="Hand" type="Sprite2D" parent="Side"]
 position = Vector2(14, 12)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_womlg")
+texture = ExtResource("4_5td8n")
 
 [node name="UnitSpace" type="CollisionShape2D" parent="."]
 position = Vector2(0, 18)
@@ -306,7 +306,7 @@ metadata/_edit_lock_ = true
 [node name="Fight" type="Timer" parent="."]
 one_shot = true
 
-[node name="HealthBar" parent="." instance=ExtResource("5_w6pff")]
+[node name="HealthBar" parent="." instance=ExtResource("5_aohyd")]
 offset_left = -25.0
 offset_top = -58.0
 offset_right = 75.0

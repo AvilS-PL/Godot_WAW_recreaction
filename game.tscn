@@ -33,3 +33,14 @@ position = Vector2(-416, 0)
 position = Vector2(416, 0)
 scale = Vector2(-1, 1)
 team = "red"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+grow_horizontal = 2
+grow_vertical = 0

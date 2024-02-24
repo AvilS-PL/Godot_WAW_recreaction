@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dpfjl1hb0313u"]
+[gd_scene load_steps=15 format=3 uid="uid://b557rw61jgl7l"]
 
-[ext_resource type="Script" path="res://Units/mele_units/mele_unit.gd" id="1_sfj4p"]
-[ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_gr4sx"]
-[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/unit_head.png" id="3_2uwhs"]
-[ext_resource type="Texture2D" uid="uid://ba4e6kj25no2k" path="res://Units/mele_units/mele_weapons/mele_weapon_0.png" id="4_ycgyt"]
-[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_gl100"]
+[ext_resource type="Script" path="res://Units/mele_units/mele_unit.gd" id="1_alxd2"]
+[ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_yfki6"]
+[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/unit_head.png" id="3_0wuui"]
+[ext_resource type="Texture2D" uid="uid://cnvhv8jear2o0" path="res://Units/mele_units/mele_weapons/mele_weapon_2.png" id="4_hlk11"]
+[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_385mx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
 friction = 0.0
@@ -31,7 +31,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(12, 9)]
+"values": [Vector2(6, 17)]
 }
 
 [sub_resource type="Animation" id="Animation_kucyg"]
@@ -61,10 +61,10 @@ tracks/1/path = NodePath("Side/Hand:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.5, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.15, 0.35, 0.5, 1),
+"transitions": PackedFloat32Array(1.36604, 0.258816, 1, 1, 1),
 "update": 0,
-"values": [Vector2(12, 9), Vector2(0, 5), Vector2(30, 5), Vector2(12, 9)]
+"values": [Vector2(6, 17), Vector2(-14.9942, 2.76624), Vector2(-19.915, -0.57), Vector2(29, 9), Vector2(6, 17)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7yia0"]
@@ -101,24 +101,24 @@ mass = 60.0
 physics_material_override = SubResource("PhysicsMaterial_jvusy")
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_sfj4p")
+script = ExtResource("1_alxd2")
 
 [node name="Side" type="Sprite2D" parent="."]
 
 [node name="Body" type="Sprite2D" parent="Side"]
 position = Vector2(0, 14)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_gr4sx")
+texture = ExtResource("2_yfki6")
 
 [node name="Head" type="Sprite2D" parent="Side"]
 position = Vector2(0, -22)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_2uwhs")
+texture = ExtResource("3_0wuui")
 
 [node name="Hand" type="Sprite2D" parent="Side"]
-position = Vector2(12, 9)
+position = Vector2(6, 17)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("4_ycgyt")
+texture = ExtResource("4_hlk11")
 
 [node name="UnitSpace" type="CollisionShape2D" parent="."]
 position = Vector2(0, 18)
@@ -146,7 +146,7 @@ metadata/_edit_lock_ = true
 [node name="Fight" type="Timer" parent="."]
 one_shot = true
 
-[node name="HealthBar" parent="." instance=ExtResource("5_gl100")]
+[node name="HealthBar" parent="." instance=ExtResource("5_385mx")]
 offset_left = -25.0
 offset_top = -57.0
 offset_right = 75.0

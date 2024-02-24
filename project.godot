@@ -23,6 +23,7 @@ window/size/window_width_override=512
 window/size/window_height_override=910
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
+window/handheld/orientation=1
 
 [input]
 
@@ -41,3 +42,4 @@ mouse_right_click={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

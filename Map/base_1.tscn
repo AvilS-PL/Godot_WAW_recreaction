@@ -9,7 +9,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26yfu"]
 radius = 71.0
-height = 194.0
+height = 224.0
 
 [sub_resource type="Animation" id="Animation_nbjvf"]
 resource_name = "hit"
@@ -91,7 +91,7 @@ libraries = {
 
 [node name="TeamBox" type="StaticBody2D" parent="."]
 collision_layer = 6
-collision_mask = 6
+collision_mask = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="TeamBox"]
 position = Vector2(-35, -12)
