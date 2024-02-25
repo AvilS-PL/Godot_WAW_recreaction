@@ -7,17 +7,17 @@ var mode = true
 var test = 0
 
 func _process(delta):
-	var era = "3"
+	var era = "5"
 	if mode: 
 		if Input.is_action_just_pressed("mouse_left_click"):
-			createSpecial(era, "blue", get_global_mouse_position(), $MarkerEnemy.position)
+			createShoot(era, "blue", get_global_mouse_position(), $MarkerEnemy.position)
 		if Input.is_action_just_pressed("mouse_right_click"):
-			createMele(era, "red", get_global_mouse_position(), $MarkerBase.position)
+			createShoot(era, "red", get_global_mouse_position(), $MarkerBase.position)
 	else:
 		if Input.is_mouse_button_pressed(1):
-			createSpecial(era, "blue", get_global_mouse_position(), $MarkerEnemy.position)
+			createShoot(era, "blue", get_global_mouse_position(), $MarkerEnemy.position)
 		if Input.is_mouse_button_pressed(2):
-			createSpecial(era, "red", get_global_mouse_position(), $MarkerBase.position)
+			createShoot(era, "red", get_global_mouse_position(), $MarkerBase.position)
 			
 	if Input.is_action_just_pressed("ui_accept"):
 		mode = !mode

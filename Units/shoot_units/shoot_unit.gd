@@ -118,7 +118,7 @@ func shoot():
 	reloaded = false
 	var fireGunEffect = preFireGunEffect.instantiate()
 	fireGunEffect.position.x += $Side/Hand.texture.get_width() * 0.6
-	fireGunEffect.position.y -= $Side/Hand.texture.get_height() * 0.1
+	fireGunEffect.position.y -= $Side/Hand.texture.get_height() * 0.3
 	$Side/Hand.add_child(fireGunEffect)
 	$HandAnimation.play("shoot")
 

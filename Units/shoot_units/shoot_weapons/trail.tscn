@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://kwh40hboakhi"]
+
+[ext_resource type="Script" path="res://Units/shoot_units/shoot_weapons/trail.gd" id="1_5fl7k"]
+
+[sub_resource type="Curve" id="Curve_3chlw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0464072), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_stskr"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7yibd"]
+
+[node name="Trail" type="Line2D"]
+width_curve = SubResource("Curve_3chlw")
+gradient = SubResource("Gradient_stskr")
+script = ExtResource("1_5fl7k")
+
+[node name="test" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="test"]
+shape = SubResource("CircleShape2D_7yibd")
