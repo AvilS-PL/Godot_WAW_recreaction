@@ -1,9 +1,10 @@
 extends StaticBody2D
 
 @export var team = "blue"
-var max_health = 1150.0
+var max_health = 1.0
 var health = max_health
 var test = "bruh"
+var preDeadEffect = load("res://Map/base_explosion.tscn")
 
 func _ready():
 	$HealthBar.max_value = health
@@ -23,7 +24,12 @@ func take_damage(taken):
 	$OtherAnimation.play("hit")
 	if health <= 0:
 		$HealthBar.change_health(health, 0.25)
-		#Dodaj może animację burzenia
+		
+		var deadEffect = preDeadEffect.instantiate()
+		deadEffect.global_position = $HitBox.global_position
+		var world = get_tree().current_scene
+		world.add_child(deadEffect)
+		
 		queue_free()
 	else:
 		$HealthBar.change_health(health, 0.5)

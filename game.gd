@@ -6,8 +6,8 @@ extends Node2D
 var test = 0
 
 var mode = true
-var select = "1"
-var type = 1
+var select = "5"
+var type = 2
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):

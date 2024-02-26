@@ -81,6 +81,8 @@ func _on_reload_timeout():
 func _on_shot_box_area_entered(area):
 	new_speed = 0.0
 	mass = current_mass * 4
+	if enemies.size() == 0:
+		reloaded = false
 	enemies.append(area)
 	find_closest()
 
@@ -119,6 +121,8 @@ func find_closest():
 
 func shoot():
 	reloaded = false
+	
+	#!!! zdecyduj się czy zostawić firegunEffect
 	var fireGunEffect = preFireGunEffect.instantiate()
 	fireGunEffect.position.x += $Side/Hand.texture.get_width() * 0.6
 	fireGunEffect.position.y -= $Side/Hand.texture.get_height() * 0.3

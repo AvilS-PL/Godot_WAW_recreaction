@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://0anx4oeo1kr4"]
+
+[ext_resource type="Script" path="res://Units/Usables/blood_splash.gd" id="1_7icwl"]
+
+[sub_resource type="Curve" id="Curve_cg4un"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0332279), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_8aorv"]
+colors = PackedColorArray(0.336809, 0.229968, 0, 1, 0.298039, 0.298039, 0.298039, 0.643137)
+
+[node name="FireGun" type="CPUParticles2D"]
+z_index = 1
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 100.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 200.0
+scale_amount_min = 50.0
+scale_amount_max = 200.0
+scale_amount_curve = SubResource("Curve_cg4un")
+color_ramp = SubResource("Gradient_8aorv")
+script = ExtResource("1_7icwl")
