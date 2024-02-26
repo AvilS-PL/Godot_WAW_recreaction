@@ -44,3 +44,17 @@ anchor_bottom = 1.0
 offset_top = -300.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="SpinBox" type="SpinBox" parent="UI"]
+offset_right = 83.0625
+offset_bottom = 31.0
+max_value = 8.0
+
+[node name="SpinBox2" type="SpinBox" parent="UI"]
+offset_top = 55.0
+offset_right = 83.0625
+offset_bottom = 86.0
+max_value = 3.0
+
+[connection signal="value_changed" from="UI/SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="UI/SpinBox2" to="." method="_on_spin_box_2_value_changed"]

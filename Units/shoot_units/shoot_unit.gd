@@ -8,11 +8,13 @@ var new_destinition = null
 
 var def_speed = 80.0
 var slow_down = 5.0
-var max_health = 30.0
+var max_health = 10.0
 var damage = 5.0
 var animation_speed = 1.0
-var cooldown = 1.0
+var cooldown = 0.5
 var rotation_speed = 5.0
+var bullet_speed = 30
+var bullet_size = 5
 #var ammo = 3
 
 var new_rotation = 0
@@ -26,6 +28,7 @@ var reloaded = false
 var enemies = []
 var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
 var preFireGunEffect = load("res://Units/Usables/fire_gun.tscn")
+var preTrail = load("res://Units/shoot_units/shoot_weapons/trail.tscn")
 
 func _ready():
 	$HandAnimation.speed_scale = animation_speed
@@ -120,11 +123,20 @@ func shoot():
 	fireGunEffect.position.x += $Side/Hand.texture.get_width() * 0.6
 	fireGunEffect.position.y -= $Side/Hand.texture.get_height() * 0.3
 	$Side/Hand.add_child(fireGunEffect)
-	$HandAnimation.play("shoot")
+	
+	var trail = preTrail.instantiate()
+	trail.start_position = $Side/Hand.global_position
+	trail.speed = bullet_speed
+	trail.damage = damage
+	trail.team = $HitBox.collision_layer
+	trail.width = bullet_size
+	
+	trail.destinition = current_enemy.global_position
+	
+	var world = get_tree().current_scene
+	world.add_child(trail)
 
-func make_damege():
-	if current_enemy != null:
-		current_enemy.get_parent().take_damage(damage)
+	$HandAnimation.play("shoot")
 
 func take_damage(taken):
 	health -= taken
