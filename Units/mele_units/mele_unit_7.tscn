@@ -10,10 +10,10 @@
 friction = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ddju7"]
-radius = 23.0
+radius = 31.0161
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2vdy1"]
-radius = 41.0122
+radius = 56.0089
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ld4wg"]
 radius = 109.0
@@ -130,26 +130,25 @@ script = ExtResource("1_f83gv")
 [node name="Side" type="Sprite2D" parent="."]
 
 [node name="Body" type="Sprite2D" parent="Side"]
-position = Vector2(0, 14)
-scale = Vector2(0.6, 0.6)
+position = Vector2(0, 19)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_ynnxp")
 
 [node name="Head" type="Sprite2D" parent="Side"]
-position = Vector2(0, -22)
-scale = Vector2(0.6, 0.6)
+position = Vector2(0, -30)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_tmtcl")
 
 [node name="Hand" type="Sprite2D" parent="Side"]
 position = Vector2(16, 4)
 rotation = 0.349066
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_14k50")
 
 [node name="UnitSpace" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(0, 24)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_ddju7")
-metadata/_edit_lock_ = true
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_mask = 3
@@ -173,10 +172,10 @@ metadata/_edit_lock_ = true
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("5_24hpk")]
-offset_left = -25.0
-offset_top = -57.0
-offset_right = 75.0
-offset_bottom = -31.0
+offset_left = -27.0
+offset_top = -72.0
+offset_right = 81.0
+offset_bottom = -42.0
 
 [node name="HandAnimation" type="AnimationPlayer" parent="."]
 libraries = {

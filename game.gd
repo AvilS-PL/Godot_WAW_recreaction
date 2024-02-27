@@ -3,11 +3,11 @@ extends Node2D
 #var mele_unit = preload("res://Units/mele_units/mele_unit_8.tscn")
 #var range_unit = preload("res://Units/range_units/range_unit_2.tscn")
 
-var test = 200
+var test = 0
 
 var mode = true
-var select = "5"
-var type = 2
+var select = "3"
+var type = 3
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):
@@ -60,20 +60,21 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		mode = !mode
 		
-	if test > 0 and test:
+	if test > 0 and test % 4 == 0:
+		print(test)
 		if type == 0:
-			createMele(select, "red", $MarkerEnemy.position, $MarkerBase.position)
-			createMele(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
+			createMele(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
+			createMele(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
 		elif type == 1:
-			createRange(select, "red", $MarkerEnemy.position, $MarkerBase.position)
-			createRange(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
+			createRange(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
+			createRange(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
 		elif type == 2:
-			createShoot(select, "red", $MarkerEnemy.position, $MarkerBase.position)
-			createShoot(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
+			createShoot(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
+			createShoot(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
 		elif type == 3:
-			createSpecial(select, "red", $MarkerEnemy.position, $MarkerBase.position)
-			createSpecial(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
-		test -= 1
+			createSpecial(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
+			createSpecial(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
+	test -= 1
 
 func _on_spin_box_value_changed(value):
 	select = str(value)

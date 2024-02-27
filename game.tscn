@@ -50,6 +50,7 @@ grow_vertical = 0
 offset_right = 83.0625
 offset_bottom = 31.0
 max_value = 8.0
+value = 4.0
 
 [node name="SpinBox2" type="SpinBox" parent="UI"]
 offset_top = 55.0

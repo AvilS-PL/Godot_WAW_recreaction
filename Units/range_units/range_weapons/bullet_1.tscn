@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dmelvw0gw1pi7" path="res://Units/range_units/range_weapons/range_weapon_1.png" id="2_ijbr5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y5a3n"]
-radius = 70.0
+radius = 90.0
 
 [node name="Rock" type="Area2D"]
 z_index = 3
@@ -13,7 +13,7 @@ collision_mask = 3
 script = ExtResource("1_n0me1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_ijbr5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

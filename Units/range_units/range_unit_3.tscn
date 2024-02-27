@@ -10,10 +10,10 @@
 friction = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_71o7e"]
-radius = 23.0
+radius = 31.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qsy6v"]
-radius = 41.0
+radius = 56.0803
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ibbyr"]
 radius = 200.0
@@ -30,7 +30,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.6, 0.6)]
+"values": [Vector2(0.8, 0.8)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -85,7 +85,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.4, 0.5),
 "transitions": PackedFloat32Array(2, 0.4, 1, 1),
 "update": 0,
-"values": [Vector2(0.6, 0.6), Vector2(0.705, 0.5125), Vector2(0.72, 0.5), Vector2(0.72, 0.5)]
+"values": [Vector2(0.8, 0.8), Vector2(0.891875, 0.676734), Vector2(0.92, 0.639), Vector2(0.92, 0.639)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -161,7 +161,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.4, 0.8), Vector2(0.6, 0.6)]
+"values": [Vector2(0.6, 1), Vector2(0.8, 0.8)]
 }
 
 [sub_resource type="Animation" id="Animation_fhkes"]
@@ -215,7 +215,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.72, 0.5), Vector2(0.6, 0.6)]
+"values": [Vector2(0.92, 0.639), Vector2(0.8, 0.8)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7yia0"]
@@ -260,27 +260,26 @@ script = ExtResource("1_gtcpm")
 metadata/_edit_lock_ = true
 
 [node name="Body" type="Sprite2D" parent="Side"]
-position = Vector2(0, 14)
-scale = Vector2(0.6, 0.6)
+position = Vector2(0, 19)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_o7esx")
 metadata/_edit_lock_ = true
 
 [node name="Head" type="Sprite2D" parent="Side"]
-position = Vector2(0, -22)
-scale = Vector2(0.6, 0.6)
+position = Vector2(0, -30)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_vsl2h")
 metadata/_edit_lock_ = true
 
 [node name="Hand" type="Sprite2D" parent="Side"]
 position = Vector2(14, 12)
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_hgi6e")
 
 [node name="UnitSpace" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(0, 24)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_71o7e")
-metadata/_edit_lock_ = true
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_mask = 0
@@ -304,10 +303,10 @@ metadata/_edit_lock_ = true
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("5_qmvb0")]
-offset_left = -25.0
-offset_top = -58.0
-offset_right = 75.0
-offset_bottom = -32.0
+offset_left = -27.0
+offset_top = -73.0
+offset_right = 81.0
+offset_bottom = -43.0
 
 [node name="HandAnimation" type="AnimationPlayer" parent="."]
 libraries = {
