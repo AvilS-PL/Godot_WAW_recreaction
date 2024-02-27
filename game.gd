@@ -3,7 +3,7 @@ extends Node2D
 #var mele_unit = preload("res://Units/mele_units/mele_unit_8.tscn")
 #var range_unit = preload("res://Units/range_units/range_unit_2.tscn")
 
-var test = 0
+var test = 200
 
 var mode = true
 var select = "5"
@@ -60,8 +60,19 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		mode = !mode
 		
-	if test > 0:
-		createSpecial(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
+	if test > 0 and test:
+		if type == 0:
+			createMele(select, "red", $MarkerEnemy.position, $MarkerBase.position)
+			createMele(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
+		elif type == 1:
+			createRange(select, "red", $MarkerEnemy.position, $MarkerBase.position)
+			createRange(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
+		elif type == 2:
+			createShoot(select, "red", $MarkerEnemy.position, $MarkerBase.position)
+			createShoot(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
+		elif type == 3:
+			createSpecial(select, "red", $MarkerEnemy.position, $MarkerBase.position)
+			createSpecial(select, "blue", $MarkerBase.position, $MarkerEnemy.position)
 		test -= 1
 
 func _on_spin_box_value_changed(value):

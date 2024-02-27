@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://c2772scb863ba"]
 
 [ext_resource type="Script" path="res://Map/base.gd" id="1_0bl6c"]
-[ext_resource type="Texture2D" uid="uid://bthjn5o0fm4w8" path="res://Map/background2/base3.png" id="2_e3mbf"]
-[ext_resource type="Texture2D" uid="uid://wp0dmrnycv7f" path="res://Map/background2/base2.png" id="3_ske8j"]
-[ext_resource type="Texture2D" uid="uid://b0duiny5g5rxl" path="res://Map/background2/base1.png" id="4_pmtoy"]
+[ext_resource type="Texture2D" uid="uid://bthjn5o0fm4w8" path="res://Map/base2/base3.png" id="2_e3mbf"]
+[ext_resource type="Texture2D" uid="uid://wp0dmrnycv7f" path="res://Map/base2/base2.png" id="3_ske8j"]
+[ext_resource type="Texture2D" uid="uid://b0duiny5g5rxl" path="res://Map/base2/base1.png" id="4_pmtoy"]
 [ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="6_xnhpx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26yfu"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkc4bbo77mwpg"
-path="res://.godot/imported/cave1.png-09858af70a8ddc1c757ca60b89dc5989.ctex"
+uid="uid://cf533ml3l0p3s"
+path="res://.godot/imported/road.jpg-bbf78b3f8f580b6fcb798c72d34bbdea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/background1/cave1.png"
-dest_files=["res://.godot/imported/cave1.png-09858af70a8ddc1c757ca60b89dc5989.ctex"]
+source_file="res://photoshop/road.jpg"
+dest_files=["res://.godot/imported/road.jpg-bbf78b3f8f580b6fcb798c72d34bbdea.ctex"]
 
 [params]
 

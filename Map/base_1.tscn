@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://b77215ucg7qa4"]
 
 [ext_resource type="Script" path="res://Map/base.gd" id="1_vsryp"]
-[ext_resource type="Texture2D" uid="uid://dgpsgs3gt1mmw" path="res://Map/background1/cave4.png" id="2_6kh4r"]
-[ext_resource type="Texture2D" uid="uid://drrqbyod0xd2p" path="res://Map/background1/cave3.png" id="3_7sd25"]
-[ext_resource type="Texture2D" uid="uid://bsrhpv0j1irua" path="res://Map/background1/cave2.png" id="4_4t8ub"]
-[ext_resource type="Texture2D" uid="uid://dkc4bbo77mwpg" path="res://Map/background1/cave1.png" id="5_lu0b8"]
+[ext_resource type="Texture2D" uid="uid://dgpsgs3gt1mmw" path="res://Map/base1/cave4.png" id="2_6kh4r"]
+[ext_resource type="Texture2D" uid="uid://drrqbyod0xd2p" path="res://Map/base1/cave3.png" id="3_7sd25"]
+[ext_resource type="Texture2D" uid="uid://bsrhpv0j1irua" path="res://Map/base1/cave2.png" id="4_4t8ub"]
+[ext_resource type="Texture2D" uid="uid://dkc4bbo77mwpg" path="res://Map/base1/cave1.png" id="5_lu0b8"]
 [ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="6_oo83j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26yfu"]

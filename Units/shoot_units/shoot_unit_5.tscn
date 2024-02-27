@@ -93,13 +93,11 @@ metadata/_edit_lock_ = true
 position = Vector2(0, 14)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_up1jy")
-metadata/_edit_lock_ = true
 
 [node name="Head" type="Sprite2D" parent="Side"]
 position = Vector2(0, -22)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_aecky")
-metadata/_edit_lock_ = true
 
 [node name="Hand" type="Sprite2D" parent="Side"]
 position = Vector2(15, 7)
