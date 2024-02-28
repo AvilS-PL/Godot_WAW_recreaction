@@ -1,13 +1,14 @@
 extends Node2D
 
-#var mele_unit = preload("res://Units/mele_units/mele_unit_8.tscn")
-#var range_unit = preload("res://Units/range_units/range_unit_2.tscn")
-
 var test = 0
 
 var mode = true
-var select = "3"
-var type = 3
+var select = "5"
+var type = 2
+
+func _ready():
+	$UI/SpinBox.value = int(select)
+	$UI/SpinBox2.value = int(type)
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):
@@ -60,7 +61,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		mode = !mode
 		
-	if test > 0 and test % 4 == 0:
+	if test > 0 and test % 2 == 0:
 		print(test)
 		if type == 0:
 			createMele(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)

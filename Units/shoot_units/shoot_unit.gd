@@ -65,14 +65,15 @@ func _process(delta):
 		else:
 			$Side.scale.x = -1
 			
-	linear_velocity = (destinition - position).normalized() * speed #* delta * 100
-	
 	if current_enemy != null:
 		if round($Side/Hand.rotation * 1000) == round(new_rotation * 1000):
 			if reloaded:
 				shoot()
 			elif $Reload.time_left == 0:
 				$Reload.start()
+
+func _integrate_forces(state):
+	linear_velocity = (destinition - position).normalized() * speed
 
 func _on_reload_timeout():
 	if enemies.size() != 0:

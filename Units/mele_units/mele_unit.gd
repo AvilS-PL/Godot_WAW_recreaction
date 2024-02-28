@@ -51,27 +51,27 @@ func _ready():
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, slow_down)
+
+func _integrate_forces(state):
 	if new_destinition != null:
 		if new_destinition.x > position.x:
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
-		linear_velocity = (new_destinition - position).normalized() * speed #* delta * 100
+		linear_velocity = (new_destinition - position).normalized() * speed
 	else:
 		if destinition.x > position.x:
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
-		linear_velocity = (destinition - position).normalized() * speed #* delta * 100
-		#var des = clamp(destinition.x, -1, 1)
-		#linear_velocity = (Vector2((300 - abs(position.y)) * des, -position.y)).normalized() * speed
+		linear_velocity = (destinition - position).normalized() * speed
 
 func _on_hit_box_area_entered(area):
 	new_speed = 0.0
 	mass = current_mass * 4
 	enemies.append(area)
 	if reloaded:
-		$HandAnimation.play("punch") #wait_time() 
+		$HandAnimation.play("punch")
 		reloaded = false
 
 func _on_hit_box_area_exited(area):

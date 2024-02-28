@@ -63,10 +63,9 @@ func _process(delta):
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
-	linear_velocity = (destinition - position).normalized() * speed #* delta * 100
-	
-	#var des = clamp(destinition.x, -1, 1)
-	#linear_velocity = (Vector2((250 - abs(position.y)) * des, -position.y)).normalized() * speed
+
+func _integrate_forces(state):
+	linear_velocity = (destinition - position).normalized() * speed
 
 func _on_shot_box_area_entered(area):
 	new_speed = 0.0

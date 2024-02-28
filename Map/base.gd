@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 @export var team = "blue"
-var max_health = 1.0
+var max_health = 1000.0
 var health = max_health
 var test = "bruh"
 var preDeadEffect = load("res://Map/base_explosion.tscn")
