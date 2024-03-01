@@ -1,0 +1,14 @@
+WAŻNE:
+- do animacji itp z użyciem tween https://www.youtube.com/shorts/Vl33iLw5WGg
+- wróg uczy się na tobie (z każdą rundą powtarza twoje poprzednie ruchy jezeli udało ci się wygrać)
+- zmień sposób znajdowania najbliższego wroga (użyj odległości a nie area2d)
+  https://forum.godotengine.org/t/how-to-get-closest-enemy-in-array/5051
+- na środku jest lub się spawn-i złoto, do którego są specjalne zbierające jednostki
+
+
+DO ROZWAŻENIA:
+- supermoce myszki za pieniądze lub exp
+
+
+NIE KONIECZNIE:
+- formacje ludzików

@@ -6,6 +6,47 @@ var mode = true
 var select = "5"
 var type = 2
 
+var preBuy = load("res://GUI/button_buy_unit.tscn")
+var screen_size
+#var buyButtons = []
+
+func _ready():
+	screen_size = get_viewport().size
+	await get_tree().create_timer(1.0).timeout
+	add_buy_button(100, "Melee", "res://Units/melee_units/melee_weapons/melee_weapon_1.png", 1)
+	await get_tree().create_timer(3.0).timeout
+	add_buy_button(100, "Ranger", "res://Units/ranger_units/ranger_weapons/ranger_weapon_1.png", 123)
+	await get_tree().create_timer(3.0).timeout
+	add_buy_button(100, "Melee", "res://Units/melee_units/melee_weapons/melee_weapon_3.png", 21)
+	await get_tree().create_timer(3.0).timeout
+	add_buy_button(100, "Ranger", "res://Units/ranger_units/ranger_weapons/ranger_weapon_3.1.png", 123)
+	await get_tree().create_timer(3.0).timeout
+	add_buy_button(100, "Ranger", "res://Units/ranger_units/ranger_weapons/ranger_weapon_3.1.png", 123)
+	await get_tree().create_timer(3.0).timeout
+	add_buy_button(100, "Ranger", "res://Units/ranger_units/ranger_weapons/ranger_weapon_3.1.png", 123)
+
+func add_buy_button(price, description, texture, number):
+	var buyButton = preBuy.instantiate()
+	
+	buyButton.position = Vector2(1800,400)
+	buyButton.get_node("TopPanel/Label").text = ( str(price) + "$")
+	buyButton.get_node("BottomPanel/Label").text = description
+	buyButton.get_node("BottomPanel/TextureRect").texture = load(texture)
+	buyButton.connect("hit", tests)
+	buyButton.number = number
+	
+	$UI/UnitBuyer.add_child(buyButton)
+	#buyButtons.append(buyButton)
+	
+	var tween = create_tween()
+	tween.tween_property(buyButton, "position", Vector2(1800,0), 1).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)
+	tween.tween_property(buyButton, "position", Vector2(300,0), 12).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(buyButton, "position", Vector2(300,400), 1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_callback(buyButton.queue_free)
+
+func tests(number):
+	print(number)
+
 func _process(delta):
 	if mode: 
 		if Input.is_action_just_pressed("mouse_left_click"):
