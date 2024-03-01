@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://clt38fx582kkj"]
 
-[ext_resource type="Script" path="res://Units/mele_units/mele_unit.gd" id="1_ekkee"]
+[ext_resource type="Script" path="res://Units/melee_units/melee_unit.gd" id="1_ekkee"]
 [ext_resource type="Texture2D" uid="uid://dyur8n4v5iu2o" path="res://Units/special_units/special_1.png" id="2_45eg1"]
 [ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_s8lba"]
 

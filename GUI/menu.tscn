@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://n728fqds1dn7"]
 
 [ext_resource type="Script" path="res://GUI/menu.gd" id="1_bwi7t"]
-[ext_resource type="FontFile" uid="uid://cr27xj1xuicyi" path="res://GUI/Hey Comic.ttf" id="6_1nbps"]
+[ext_resource type="FontFile" uid="uid://cr27xj1xuicyi" path="res://GUI/fonts/Hey Comic.ttf" id="6_1nbps"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73vcl"]
 bg_color = Color(0.815686, 0.156863, 0.129412, 1)

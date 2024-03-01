@@ -1,0 +1,326 @@
+[gd_scene load_steps=17 format=3 uid="uid://w617cnbwxk3u"]
+
+[ext_resource type="Script" path="res://Units/ranger_units/ranger_unit.gd" id="1_atnfa"]
+[ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_qy7g1"]
+[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/unit_head.png" id="3_0vuxx"]
+[ext_resource type="Texture2D" uid="uid://dmelvw0gw1pi7" path="res://Units/ranger_units/ranger_weapons/ranger_weapon_1.png" id="4_womlg"]
+[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_w6pff"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
+friction = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_71o7e"]
+radius = 31.0161
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qsy6v"]
+radius = 56.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ibbyr"]
+radius = 200.0
+
+[sub_resource type="Animation" id="Animation_t5bss"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Side/Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Side/Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Side/Hand:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.8, 0.8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Side/Hand:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_kucyg"]
+resource_name = "punch"
+length = 0.5
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"action1"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Side/Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.35),
+"transitions": PackedFloat32Array(1.2, 0.8, 1),
+"update": 0,
+"values": [Vector2(14, 12), Vector2(0, 5), Vector2(-20, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Side/Hand:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.279253]
+}
+
+[sub_resource type="Animation" id="Animation_g6cmb"]
+resource_name = "reload"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Side/Hand:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.8, 0.8)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"prepere"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Side/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 12)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Side/Hand:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Side/Hand:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fhkes"]
+resource_name = "return"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Side/Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-20, 8), Vector2(14, 12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Side/Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.279253, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"prepere"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7yia0"]
+_data = {
+"RESET": SubResource("Animation_t5bss"),
+"punch": SubResource("Animation_kucyg"),
+"reload": SubResource("Animation_g6cmb"),
+"return": SubResource("Animation_fhkes")
+}
+
+[sub_resource type="Animation" id="Animation_nbjvf"]
+resource_name = "hit"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Side:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.227451, 0.32549, 0.729412), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nu4g3"]
+_data = {
+"hit": SubResource("Animation_nbjvf")
+}
+
+[node name="RangerUnitRigid" type="RigidBody2D"]
+z_index = 3
+mass = 40.0
+physics_material_override = SubResource("PhysicsMaterial_jvusy")
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_atnfa")
+
+[node name="Side" type="Sprite2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Body" type="Sprite2D" parent="Side"]
+position = Vector2(0, 19)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_qy7g1")
+metadata/_edit_lock_ = true
+
+[node name="Head" type="Sprite2D" parent="Side"]
+position = Vector2(0, -30)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_0vuxx")
+metadata/_edit_lock_ = true
+
+[node name="Hand" type="Sprite2D" parent="Side"]
+position = Vector2(14, 12)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_womlg")
+
+[node name="UnitSpace" type="CollisionShape2D" parent="."]
+position = Vector2(0, 24)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_71o7e")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_qsy6v")
+debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
+metadata/_edit_lock_ = true
+
+[node name="ShotBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShotBox"]
+shape = SubResource("CircleShape2D_ibbyr")
+debug_color = Color(0, 0.647059, 0.231373, 0.12549)
+metadata/_edit_lock_ = true
+
+[node name="Fight" type="Timer" parent="."]
+one_shot = true
+
+[node name="HealthBar" parent="." instance=ExtResource("5_w6pff")]
+offset_left = -27.0
+offset_top = -73.0
+offset_right = 81.0
+offset_bottom = -43.0
+
+[node name="HandAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7yia0")
+}
+
+[node name="OtherAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nu4g3")
+}
+
+[connection signal="area_entered" from="ShotBox" to="." method="_on_shot_box_area_entered"]
+[connection signal="area_exited" from="ShotBox" to="." method="_on_shot_box_area_exited"]
+[connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]

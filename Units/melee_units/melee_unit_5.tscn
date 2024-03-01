@@ -1,20 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://blni8fypggney"]
+[gd_scene load_steps=15 format=3 uid="uid://b8wh8t32d1c3u"]
 
-[ext_resource type="Script" path="res://Units/melee_units/melee_unit.gd" id="1_d63d4"]
-[ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_k8mnn"]
-[ext_resource type="Texture2D" uid="uid://ddt7a1kbk5jeb" path="res://Units/special_units/special_3.1.png" id="2_wmcg6"]
-[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/unit_head.png" id="3_ig0q7"]
-[ext_resource type="Texture2D" uid="uid://bh6nbp4qqc185" path="res://Units/special_units/special_3.2.png" id="5_f8wve"]
-[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_iqouk"]
+[ext_resource type="Script" path="res://Units/melee_units/melee_unit.gd" id="1_nlh2r"]
+[ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_nymw4"]
+[ext_resource type="Texture2D" uid="uid://betvqvc8rlol0" path="res://Units/unit_head.png" id="3_noxri"]
+[ext_resource type="Texture2D" uid="uid://cywxeiqc8g75m" path="res://Units/melee_units/melee_weapons/melee_weapon_5.png" id="4_6nrwu"]
+[ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_p4svj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jvusy"]
 friction = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ddju7"]
-radius = 50.0
+radius = 31.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2vdy1"]
-radius = 91.0055
+radius = 56.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ld4wg"]
 radius = 109.0
@@ -32,7 +31,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(20, -20)]
+"values": [Vector2(28, -6)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -44,13 +43,13 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.22173]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_kucyg"]
 resource_name = "punch"
-length = 1.1
-step = 0.05
+length = 0.9
+step = 0.01
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -58,7 +57,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.65, 1.05),
+"times": PackedFloat32Array(0.5, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -75,10 +74,10 @@ tracks/1/path = NodePath("Side/Hand:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.7, 1.1),
-"transitions": PackedFloat32Array(0.5, 0.5, 1.1, 1),
+"times": PackedFloat32Array(0, 0.35, 0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(20, -20), Vector2(20, 0), Vector2(50, 0), Vector2(20, -20)]
+"values": [Vector2(28, -6), Vector2(3, -20), Vector2(39, -10), Vector2(28, -6)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -87,10 +86,10 @@ tracks/2/path = NodePath("Side/Hand:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.7, 1.1),
-"transitions": PackedFloat32Array(0.5, 0.5, 1.1, 1),
+"times": PackedFloat32Array(0, 0.35, 0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [1.22173, 1.74533, 1.5708, 1.22173]
+"values": [0.0, -0.383972, 0.959931, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7yia0"]
@@ -123,37 +122,34 @@ _data = {
 
 [node name="MeleUnitRigid" type="RigidBody2D"]
 z_index = 3
-mass = 180.0
+mass = 60.0
 physics_material_override = SubResource("PhysicsMaterial_jvusy")
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_d63d4")
+script = ExtResource("1_nlh2r")
 
 [node name="Side" type="Sprite2D" parent="."]
-
-[node name="Horse" type="Sprite2D" parent="Side"]
-position = Vector2(5.25, 12)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_wmcg6")
+metadata/_edit_lock_ = true
 
 [node name="Body" type="Sprite2D" parent="Side"]
-position = Vector2(-10, -10)
+position = Vector2(0, 19)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_k8mnn")
+texture = ExtResource("2_nymw4")
+metadata/_edit_lock_ = true
 
 [node name="Head" type="Sprite2D" parent="Side"]
-position = Vector2(-10, -59)
+position = Vector2(0, -30)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_ig0q7")
+texture = ExtResource("3_noxri")
+metadata/_edit_lock_ = true
 
 [node name="Hand" type="Sprite2D" parent="Side"]
-position = Vector2(20, -20)
-rotation = 1.22173
+position = Vector2(28, -6)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("5_f8wve")
+texture = ExtResource("4_6nrwu")
 
 [node name="UnitSpace" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(0, 24)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_ddju7")
 
@@ -178,11 +174,11 @@ metadata/_edit_lock_ = true
 [node name="Fight" type="Timer" parent="."]
 one_shot = true
 
-[node name="HealthBar" parent="." instance=ExtResource("5_iqouk")]
-offset_left = -34.0
-offset_top = -104.0
-offset_right = 104.0
-offset_bottom = -70.0
+[node name="HealthBar" parent="." instance=ExtResource("5_p4svj")]
+offset_left = -27.0
+offset_top = -72.0
+offset_right = 81.0
+offset_bottom = -42.0
 
 [node name="HandAnimation" type="AnimationPlayer" parent="."]
 libraries = {
