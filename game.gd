@@ -27,7 +27,7 @@ func _ready():
 
 func add_buy_button(price, description, texture, number):
 	var buyButton = preBuy.instantiate()
-	
+	print("git")
 	buyButton.position = Vector2(1800,400)
 	buyButton.get_node("TopPanel/Label").text = ( str(price) + "$")
 	buyButton.get_node("BottomPanel/Label").text = description
