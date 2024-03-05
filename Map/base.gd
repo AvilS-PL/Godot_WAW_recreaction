@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+signal destroyed(team)
+
 @export var team = "blue"
 var max_health = 100.0
 var health = max_health
@@ -30,6 +32,7 @@ func take_damage(taken):
 		var world = get_tree().current_scene
 		world.add_child(deadEffect)
 		
+		destroyed.emit(team)
 		queue_free()
 	else:
 		$HealthBar.change_health(health, 0.5)

@@ -8,7 +8,10 @@ var money : float = 1000
 
 func _ready():
 	update_money(money)
+	$Base1.connect("destroyed", game_over)
+	$Base2.connect("destroyed", game_over)
 	screen_size = get_viewport().size
+	
 	await get_tree().create_timer(0.1).timeout
 	start_game()
 
@@ -18,7 +21,7 @@ func start_game():
 func _on_buy_spawner_timeout():
 	if unit_number < $Stats.units.size():
 		var temp = $Stats.units[unit_number]
-		add_buy_button(temp.price, temp.type, temp.weapon, unit_number, 5)
+		add_buy_button(temp.price, temp.type, temp.image, unit_number, 5)
 		$BuySpawner.start()
 
 func update_money(amount):
@@ -56,7 +59,10 @@ func buy_unit(number):
 		if temp.price <= money:
 			money -= temp.price
 			update_money(money)
-			addUnit(temp, "blue", null)
+			if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter":
+				addUnit(temp, "blue", null)
+			elif temp.type == "BaseUpgrade":
+				change_base(temp, "blue")
 		else:
 			$UI/MoneyAnimation.play("insufficient")
 			#???!!! maybe add also animation to button itself?
@@ -93,18 +99,42 @@ func addUnit(temp, team, pos):
 			unit.rotation_speed = temp.rotation_speed
 			unit.bullet_size = temp.bullet_size
 		
-		print(temp.def_speed)
 		add_child(unit)
 	else:
 		print("resource doesn't exist")
-	
 
+func change_base(temp, team):
+	if ResourceLoader.exists(temp.path):
+		var baseLoad = load(temp.path)
+		var base = baseLoad.instantiate()
+		
+		var old_base = null
+		if team == "blue":
+			old_base = get_node("Base1")
+		else:
+			old_base = get_node("Base2")
+			base.scale.x = -1
+		remove_child(old_base)
+		
+		base.team = team
+		base.name = old_base.name
+		base.position = old_base.position
+		base.connect("destroyed", game_over)
+		
+		add_child(base)
+	else:
+		print("resource doesn't exist")
+
+func game_over(team):
+	print(team)
+	$BuySpawner.stop()
+	#!!! game over mechanics needed
 #----------------------------------------------------------------------------------------------------
 
 var test = 0
 
 var mode = true
-var select = 0
+var select = 10
 
 func _on_spin_box_value_changed(value):
 	select = value
@@ -127,6 +157,3 @@ func _process(delta):
 	if test > 0 and test % 4 == 0:
 		print(test)
 	test -= 1
-
-
-
