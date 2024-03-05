@@ -12,7 +12,8 @@ var slow_down = 5.0
 var max_health = 10.0
 var damage = 3.0
 var animation_speed = 1.0
-var cooldown =  0.11
+var cooldown =  0.1
+var weight = 60
 
 var speed = def_speed
 var new_speed = def_speed
@@ -27,6 +28,10 @@ var enemies = []
 var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
 
 func _ready():
+	speed = def_speed
+	new_speed = def_speed
+	health = max_health
+	
 	$HandAnimation.speed_scale = animation_speed
 	$Fight.wait_time = cooldown
 	$HealthBar.max_value = health

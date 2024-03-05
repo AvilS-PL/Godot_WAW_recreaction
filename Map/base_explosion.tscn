@@ -10,7 +10,7 @@ point_count = 2
 colors = PackedColorArray(0.336809, 0.229968, 0, 1, 0.298039, 0.298039, 0.298039, 0.643137)
 
 [node name="FireGun" type="CPUParticles2D"]
-z_index = 1
+z_index = 4
 emitting = false
 amount = 20
 lifetime = 2.0

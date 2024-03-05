@@ -11,11 +11,12 @@ var slow_down = 5.0
 var max_health = 10.0
 var damage = 5.0
 var animation_speed = 1.0
-var cooldown = 0.5
+var cooldown = 1.0
 var rotation_speed = 5.0
 var bullet_speed = 30
 var bullet_size = 5
 #var ammo = 3
+var weight = 60
 
 var new_rotation = 0
 var speed = def_speed
@@ -31,6 +32,10 @@ var preFireGunEffect = load("res://Units/Usables/fire_gun.tscn")
 var preTrail = load("res://Units/shooter_units/shooter_weapons/trail.tscn")
 
 func _ready():
+	new_rotation = 0
+	speed = def_speed
+	new_speed = def_speed
+	health = max_health
 	$HandAnimation.speed_scale = animation_speed
 	$Reload.wait_time = cooldown
 	$HealthBar.max_value = health

@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=2400
-window/size/viewport_height=1200
-window/size/window_width_override=910
+window/size/viewport_width=1920
+window/size/viewport_height=960
+window/size/window_width_override=1024
 window/size/window_height_override=512
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
@@ -43,6 +43,6 @@ mouse_right_click={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
+renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
