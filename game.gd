@@ -4,12 +4,12 @@ var preBuy = load("res://GUI/button_buy_unit.tscn")
 var screen_size
 
 var unit_number = 0
-var money : float = 100
+var money : float = 1000
 
 func _ready():
 	update_money(money)
 	screen_size = get_viewport().size
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.1).timeout
 	start_game()
 
 func start_game():
@@ -56,151 +56,77 @@ func buy_unit(number):
 		if temp.price <= money:
 			money -= temp.price
 			update_money(money)
-			if ResourceLoader.exists(temp.path):
-				addUnit(temp, "blue")
-			else: print("resource doesn't exist")
+			addUnit(temp, "blue", null)
 		else:
 			$UI/MoneyAnimation.play("insufficient")
 			#???!!! maybe add also animation to button itself?
 			
-func addUnit(temp, team):
-	var unitLoad = load(temp.path)
-	var unit = unitLoad.instantiate()
-	
-	unit.team = team
-	unit.def_speed = temp.def_speed
-	unit.slow_down = temp.slow_down
-	unit.max_health = temp.max_health
-	unit.damage = temp.damage
-	unit.animation_speed = temp.animation_speed
-	unit.cooldown = temp.cooldown
-	unit.weight = temp.weight
-	
-	if team == "blue":
-		unit.position = $MarkerBase.position + Vector2(0,randi_range(0,10))
-		unit.destinition = $MarkerEnemy.position
-	else:
-		unit.position = $MarkerEnemy.position + Vector2(0,randi_range(0,10))
-		unit.destinition = $MarkerBase.position
-	
-	if temp.type == "Ranger" :
-		unit.bullet_speed = temp.bullet_speed
-		unit.bullet_rotation = temp.bullet_rotation
-		unit.preBullet = load(temp.prebullet)
-	elif temp.type == "Shooter":
+func addUnit(temp, team, pos):
+	if ResourceLoader.exists(temp.path):
+		var unitLoad = load(temp.path)
+		var unit = unitLoad.instantiate()
+		
+		unit.team = team
+		unit.def_speed = temp.def_speed
+		unit.slow_down = temp.slow_down
+		unit.max_health = temp.max_health
+		unit.damage = temp.damage
+		unit.animation_speed = temp.animation_speed
 		unit.cooldown = temp.cooldown
+		unit.weight = temp.weight
+		
+		if team == "blue":
+			unit.position = $MarkerBase.position + Vector2(0,randi_range(0,10))
+			unit.destinition = $MarkerEnemy.position
+		else:
+			unit.position = $MarkerEnemy.position + Vector2(0,randi_range(0,10))
+			unit.destinition = $MarkerBase.position
+		if pos != null:
+			unit.position = pos
+		
+		if temp.type == "Ranger" :
+			unit.bullet_speed = temp.bullet_speed
+			unit.bullet_rotation = temp.bullet_rotation
+			unit.preBullet = load(temp.prebullet)
+		elif temp.type == "Shooter":
+			unit.bullet_speed = temp.bullet_speed
+			unit.rotation_speed = temp.rotation_speed
+			unit.bullet_size = temp.bullet_size
+		
+		print(temp.def_speed)
+		add_child(unit)
+	else:
+		print("resource doesn't exist")
 	
-	print(temp.def_speed)
-	add_child(unit)
 
 #----------------------------------------------------------------------------------------------------
 
 var test = 0
 
 var mode = true
-var select = "1"
-var type = 0
+var select = 0
+
+func _on_spin_box_value_changed(value):
+	select = value
 
 func _process(delta):
 	if mode: 
 		#if Input.is_action_just_pressed("mouse_left_click"):
-			#if type == 0:
-				#createMele(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
-			#elif type == 1:
-				#createRange(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
-			#elif type == 2:
-				#createShoot(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
-			#elif type == 3:
-				#createSpecial(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
 		if Input.is_action_just_pressed("mouse_right_click"):
-			if type == 0:
-				createMele(select, "red", get_global_mouse_position(), $MarkerBase.position)
-			elif type == 1:
-				createRange(select, "red", get_global_mouse_position(), $MarkerBase.position)
-			elif type == 2:
-				createShoot(select, "red", get_global_mouse_position(), $MarkerBase.position)
-			elif type == 3:
-				createSpecial(select, "red", get_global_mouse_position(), $MarkerBase.position)
+			if $Stats.units.size() > select:
+				addUnit($Stats.units[select], "red", get_global_mouse_position())
 	else:
 		#if Input.is_mouse_button_pressed(1):
-			#if type == 0:
-				#createMele(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
-			#elif type == 1:
-				#createRange(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
-			#elif type == 2:
-				#createShoot(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
-			#elif type == 3:
-				#createSpecial(select, "blue", get_global_mouse_position(), $MarkerEnemy.position)
 		if Input.is_mouse_button_pressed(2):
-			if type == 0:
-				createMele(select, "red", get_global_mouse_position(), $MarkerBase.position)
-			elif type == 1:
-				createRange(select, "red", get_global_mouse_position(), $MarkerBase.position)
-			elif type == 2:
-				createShoot(select, "red", get_global_mouse_position(), $MarkerBase.position)
-			elif type == 3:
-				createSpecial(select, "red", get_global_mouse_position(), $MarkerBase.position)
+			if $Stats.units.size() > select:
+				addUnit($Stats.units[select], "red", get_global_mouse_position())
 			
 	if Input.is_action_just_pressed("ui_accept"):
 		mode = !mode
 		
 	if test > 0 and test % 4 == 0:
 		print(test)
-		if type == 0:
-			createMele(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
-			createMele(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
-		elif type == 1:
-			createRange(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
-			createRange(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
-		elif type == 2:
-			createShoot(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
-			createShoot(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
-		elif type == 3:
-			createSpecial(select, "red", $MarkerEnemy.position + Vector2(0,randi_range(0,10)), $MarkerBase.position)
-			createSpecial(select, "blue", $MarkerBase.position + Vector2(0,randi_range(0,10)), $MarkerEnemy.position)
 	test -= 1
-	
-func createSpecial(era, team, posi, dest):
-	if ResourceLoader.exists("res://Units/special_units/special_unit_" + era + ".tscn"):
-		var unitLoad = load("res://Units/special_units/special_unit_" + era + ".tscn")
-		var unit = unitLoad.instantiate()
-		unit.position = posi
-		unit.destinition = dest
-		unit.team = team
-		#unit.cooldown = cool
-		add_child(unit)
-	else: print("resource doesn't exist")
 
-func createShoot(era, team, posi, dest):
-	if ResourceLoader.exists("res://Units/shooter_units/shooter_unit_" + era + ".tscn"):
-		var unitLoad = load("res://Units/shooter_units/shooter_unit_" + era + ".tscn")
-		var unit = unitLoad.instantiate()
-		unit.position = posi
-		unit.destinition = dest
-		unit.team = team
-		#unit.cooldown = cool
-		add_child(unit)
-	else: print("resource doesn't exist")
 
-func createRange(era, team, posi, dest):
-	if ResourceLoader.exists("res://Units/ranger_units/ranger_unit_" + era + ".tscn"):
-		var unitLoad = load("res://Units/ranger_units/ranger_unit_" + era + ".tscn")
-		var unit = unitLoad.instantiate()
-		unit.position = posi
-		unit.destinition = dest
-		unit.team = team
-		unit.preBullet = load("res://Units/ranger_units/ranger_weapons/bullet_" + era + ".tscn")
-		#unit.cooldown = cool
-		add_child(unit)
-	else: print("resource doesn't exist")
 
-func createMele(era, team, posi, dest):
-	if ResourceLoader.exists("res://Units/melee_units/melee_unit_" + era + ".tscn"):
-		var unitLoad = load("res://Units/melee_units/melee_unit_" + era + ".tscn")
-		var unit = unitLoad.instantiate()
-		unit.position = posi
-		unit.destinition = dest
-		unit.team = team
-		#unit.cooldown = cool
-		add_child(unit)
-	else: print("resource doesn't exist")
