@@ -37,6 +37,7 @@ func _ready():
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
+		add_to_group("enemies")
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
 		$HitBox.collision_mask = 1
@@ -44,6 +45,7 @@ func _ready():
 		collision_layer = 5
 		collision_mask = 5
 	elif team == "blue":
+		add_to_group("team")
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
 		$HitBox.collision_mask = 2
@@ -110,6 +112,7 @@ func deal_damage():
 		reloaded = true
 
 func take_damage(taken):
+	print("yes")
 	health -= taken
 	$OtherAnimation.play("hit")
 	if health <= 0:

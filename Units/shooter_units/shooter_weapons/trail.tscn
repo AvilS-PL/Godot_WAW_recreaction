@@ -12,7 +12,7 @@ colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_7yibd"]
 
 [node name="Trail" type="Line2D"]
-z_index = 3
+z_index = 4
 width_curve = SubResource("Curve_3chlw")
 gradient = SubResource("Gradient_stskr")
 script = ExtResource("1_5fl7k")

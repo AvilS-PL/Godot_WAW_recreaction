@@ -15,6 +15,8 @@ var cooldown = 1.0
 var rotation_speed = 5.0
 var bullet_speed = 30
 var bullet_size = 5
+var explosion_offset = 0.5
+var explosive = false
 #var ammo = 3
 var weight = 60
 
@@ -41,6 +43,7 @@ func _ready():
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
+		add_to_group("enemies")
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
 		$ShotBox.collision_mask = 1
@@ -48,6 +51,7 @@ func _ready():
 		collision_layer = 5
 		collision_mask = 5
 	elif team == "blue":
+		add_to_group("team")
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
 		$ShotBox.collision_mask = 2
@@ -130,8 +134,9 @@ func shoot():
 	
 	#!!! zdecyduj się czy zostawić firegunEffect
 	var fireGunEffect = preFireGunEffect.instantiate()
-	fireGunEffect.position.x += $Side/Hand.texture.get_width() * 0.6
-	fireGunEffect.position.y -= $Side/Hand.texture.get_height() * 0.3
+	fireGunEffect.position.x += $Side/Hand.texture.get_width() * 0.55
+	fireGunEffect.position.y -= $Side/Hand.texture.get_height() * explosion_offset
+	fireGunEffect.scale = Vector2(bullet_size/10, bullet_size/10)
 	$Side/Hand.add_child(fireGunEffect)
 	
 	var trail = preTrail.instantiate()
@@ -140,6 +145,7 @@ func shoot():
 	trail.damage = damage
 	trail.team = $HitBox.collision_layer
 	trail.width = bullet_size
+	trail.explosive = explosive
 	
 	trail.destinition = current_enemy.global_position
 	

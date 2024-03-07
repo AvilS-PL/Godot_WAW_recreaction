@@ -7,7 +7,8 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0332279), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_8aorv"]
-colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.26, 1)
+colors = PackedColorArray(1, 0.372549, 0, 1, 1, 0.780392, 0, 0.768627, 0.45098, 0.45098, 0.45098, 0.521569)
 
 [node name="FireGun" type="CPUParticles2D"]
 emitting = false
@@ -17,10 +18,10 @@ one_shot = true
 explosiveness = 1.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 30.0
-initial_velocity_max = 100.0
-scale_amount_min = 5.0
-scale_amount_max = 10.0
+initial_velocity_min = 50.0
+initial_velocity_max = 120.0
+scale_amount_min = 10.0
+scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_cg4un")
 color_ramp = SubResource("Gradient_8aorv")
 script = ExtResource("1_w6t2q")

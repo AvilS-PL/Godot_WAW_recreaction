@@ -4,12 +4,12 @@ signal destroyed(team)
 
 @export var team = "blue"
 var max_health = 100.0
-var health = max_health
+var health = 100.0
 var test = "bruh"
 var preDeadEffect = load("res://Map/base_explosion.tscn")
 
 func _ready():
-	$HealthBar.max_value = health
+	$HealthBar.max_value = max_health
 	$HealthBar.value = health
 	if team == "red":
 		$HitBox.collision_layer = 2

@@ -4,7 +4,7 @@ var preBuy = load("res://GUI/button_buy_unit.tscn")
 var screen_size
 
 var unit_number = 0
-var money : float = 1000
+var money : float = 11000
 
 func _ready():
 	update_money(money)
@@ -35,7 +35,7 @@ func update_money(amount):
 	$UI/Money/Label.text = str(amount) + letter + " $"
 
 
-func add_buy_button(price, description, texture, number, len):
+func add_buy_button(price, description, texture, number, length):
 	unit_number += 1
 	var buyButton = preBuy.instantiate()
 	buyButton.position = Vector2(1600,200)
@@ -49,7 +49,7 @@ func add_buy_button(price, description, texture, number, len):
 	
 	var tween = create_tween()
 	tween.tween_property(buyButton, "position", Vector2(1600,0), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-	tween.tween_property(buyButton, "position", Vector2(120,0), len).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(buyButton, "position", Vector2(120,0), length).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(buyButton, "position", Vector2(120,200), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
 	tween.tween_callback(buyButton.queue_free)
 
@@ -59,7 +59,7 @@ func buy_unit(number):
 		if temp.price <= money:
 			money -= temp.price
 			update_money(money)
-			if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter":
+			if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
 				addUnit(temp, "blue", null)
 			elif temp.type == "BaseUpgrade":
 				change_base(temp, "blue")
@@ -98,6 +98,8 @@ func addUnit(temp, team, pos):
 			unit.bullet_speed = temp.bullet_speed
 			unit.rotation_speed = temp.rotation_speed
 			unit.bullet_size = temp.bullet_size
+			unit.explosion_offset = temp.explosion_offset
+			unit.explosive = temp.explosive
 		
 		add_child(unit)
 	else:
@@ -116,6 +118,8 @@ func change_base(temp, team):
 			base.scale.x = -1
 		remove_child(old_base)
 		
+		base.max_health = temp.max_health
+		base.health = temp.max_health - (old_base.max_health - old_base.health)
 		base.team = team
 		base.name = old_base.name
 		base.position = old_base.position
@@ -131,29 +135,75 @@ func game_over(team):
 	#!!! game over mechanics needed
 #----------------------------------------------------------------------------------------------------
 
-var test = 0
-
 var mode = true
-var select = 10
+var select = 13
 
 func _on_spin_box_value_changed(value):
 	select = value
 
 func _process(delta):
+	$UI/SpinBox.value = select
 	if mode: 
-		#if Input.is_action_just_pressed("mouse_left_click"):
+		pass
+	else:
+		if Input.is_action_just_pressed("mouse_left_click"):
+			if $Stats.units.size() > select:
+				var temp = $Stats.units[select]
+				if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+					addUnit(temp, "blue", get_global_mouse_position())
 		if Input.is_action_just_pressed("mouse_right_click"):
 			if $Stats.units.size() > select:
-				addUnit($Stats.units[select], "red", get_global_mouse_position())
-	else:
+				var temp = $Stats.units[select]
+				if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+					addUnit(temp, "red", get_global_mouse_position())
 		#if Input.is_mouse_button_pressed(1):
-		if Input.is_mouse_button_pressed(2):
-			if $Stats.units.size() > select:
-				addUnit($Stats.units[select], "red", get_global_mouse_position())
+		#if Input.is_mouse_button_pressed(2):
+			#if $Stats.units.size() > select:
+				#addUnit($Stats.units[select], "red", get_global_mouse_position())
 			
 	if Input.is_action_just_pressed("ui_accept"):
 		mode = !mode
-		
-	if test > 0 and test % 4 == 0:
-		print(test)
-	test -= 1
+	
+	if Input.is_action_just_pressed("ui_up"):
+		select += 1
+	if Input.is_action_just_pressed("ui_down"):
+		select -= 1
+
+
+func _on_button_pressed():
+	for i in range(10):
+		await get_tree().create_timer(0.1).timeout
+		addUnit($Stats.units[select], "blue", null)
+		addUnit($Stats.units[select], "red", null)
+
+
+func _on_button_2_pressed():
+	for i in range(2):
+		await get_tree().create_timer(0.1).timeout
+		addUnit($Stats.units[select], "blue", null)
+		addUnit($Stats.units[select], "red", null)
+	for i in range(8):
+		await get_tree().create_timer(0.1).timeout
+		if (i + 1) % 2 == 0:
+			addUnit($Stats.units[select+1], "blue", null)
+		addUnit($Stats.units[select], "red", null)
+
+
+func _on_button_3_pressed():
+	for i in range(4):
+		await get_tree().create_timer(0.1).timeout
+		addUnit($Stats.units[select], "blue", null)
+		addUnit($Stats.units[select], "red", null)
+	for i in range(6):
+		await get_tree().create_timer(0.1).timeout
+		if (i + 1) % 2 == 0:
+			addUnit($Stats.units[select+1], "blue", null)
+		addUnit($Stats.units[select], "red", null)
+
+
+func _on_button_4_pressed():
+	for i in range(10):
+		await get_tree().create_timer(0.1).timeout
+		if (i + 1) % 2 == 0:
+			addUnit($Stats.units[select+1], "blue", null)
+		addUnit($Stats.units[select], "red", null)

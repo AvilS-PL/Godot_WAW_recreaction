@@ -2,7 +2,7 @@ extends Control
 
 signal hit(what)
 var number = 0
-var amount = 1
+var amount = 1.0
 
 func _ready():
 	var letter = ""

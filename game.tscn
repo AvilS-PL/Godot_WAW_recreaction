@@ -184,8 +184,8 @@ grow_vertical = 0
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -200.0
-offset_right = 200.0
+offset_left = 760.0
+offset_right = 1160.0
 offset_bottom = 87.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5yl3s")
@@ -225,6 +225,34 @@ libraries = {
 "": SubResource("AnimationLibrary_s0b2s")
 }
 
+[node name="Button" type="Button" parent="UI"]
+offset_left = 229.0
+offset_top = 113.0
+offset_right = 402.0
+offset_bottom = 193.0
+text = "m vs m"
+
+[node name="Button2" type="Button" parent="UI"]
+offset_left = 416.0
+offset_top = 113.0
+offset_right = 589.0
+offset_bottom = 193.0
+text = "m + r vs m"
+
+[node name="Button3" type="Button" parent="UI"]
+offset_left = 605.0
+offset_top = 115.0
+offset_right = 778.0
+offset_bottom = 195.0
+text = "m + r vs m 2"
+
+[node name="Button4" type="Button" parent="UI"]
+offset_left = 807.0
+offset_top = 115.0
+offset_right = 980.0
+offset_bottom = 195.0
+text = "r vs m"
+
 [node name="SpinBox" type="SpinBox" parent="UI"]
 offset_left = 1567.0
 offset_top = 30.0
@@ -238,5 +266,9 @@ script = ExtResource("5_7endm")
 [node name="BuySpawner" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="pressed" from="UI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="UI/Button4" to="." method="_on_button_4_pressed"]
 [connection signal="value_changed" from="UI/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="timeout" from="BuySpawner" to="." method="_on_buy_spawner_timeout"]

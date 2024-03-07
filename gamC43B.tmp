@@ -1,0 +1,274 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcgi6b6n2vb35"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_wmvgd"]
+[ext_resource type="Texture2D" uid="uid://cdr5ij8jrp7io" path="res://Map/background2.png" id="2_6v3cv"]
+[ext_resource type="PackedScene" uid="uid://b77215ucg7qa4" path="res://Map/base_1.tscn" id="3_nirvn"]
+[ext_resource type="FontFile" uid="uid://d3omoka7lgdo6" path="res://GUI/fonts/MadimiOne-Regular.ttf" id="4_po1fn"]
+[ext_resource type="Script" path="res://Units/Stats.gd" id="5_7endm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yl3s"]
+bg_color = Color(0.454902, 0.454902, 0.454902, 1)
+border_width_left = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.168627, 0.188235, 0.2, 0.392157)
+shadow_size = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7q2ow"]
+bg_color = Color(0.454902, 0.454902, 0.454902, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+shadow_color = Color(0.168627, 0.188235, 0.2, 0.392157)
+shadow_size = 7
+
+[sub_resource type="Animation" id="Animation_km1vn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Money:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Money:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(400, 87)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Money:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(760, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Money:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2bats"]
+resource_name = "insufficient"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Money:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.282353, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Money:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(400, 87)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Money:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(760, 0), Vector2(760, -10), Vector2(760, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Money:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0174533, -0.0174533, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s0b2s"]
+_data = {
+"RESET": SubResource("Animation_km1vn"),
+"insufficient": SubResource("Animation_2bats")
+}
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_wmvgd")
+
+[node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(960, 480)
+texture = ExtResource("2_6v3cv")
+
+[node name="MarkerEnemy" type="Marker2D" parent="."]
+position = Vector2(1870, 480)
+
+[node name="MarkerBase" type="Marker2D" parent="."]
+position = Vector2(50, 480)
+
+[node name="Border" type="StaticBody2D" parent="."]
+position = Vector2(960, 480)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
+polygon = PackedVector2Array(-1009, -206, 1009, -203, 1007, 199, -1007, 201, -1009, -206, -1085, -206, -1085, 272, 1063, 277, 1061, -266, -1085, -267, -1085, -206)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 480)
+
+[node name="Base1" parent="." instance=ExtResource("3_nirvn")]
+position = Vector2(125, 480)
+
+[node name="Base2" parent="." instance=ExtResource("3_nirvn")]
+position = Vector2(1795, 480)
+scale = Vector2(-1, 1)
+team = "red"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UnitBuyer" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Money" type="Panel" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 87.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5yl3s")
+
+[node name="Label" type="Label" parent="UI/Money"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.47
+anchor_right = 1.0
+anchor_bottom = 0.47
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 14
+theme_override_fonts/font = ExtResource("4_po1fn")
+theme_override_font_sizes/font_size = 60
+text = "10,93k $"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bottom" type="Panel" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -870.0
+offset_top = -25.0
+offset_right = 870.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7q2ow")
+
+[node name="MoneyAnimation" type="AnimationPlayer" parent="UI"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_s0b2s")
+}
+
+[node name="Button" type="Button" parent="UI"]
+offset_left = 229.0
+offset_top = 113.0
+offset_right = 402.0
+offset_bottom = 193.0
+text = "m vs m"
+
+[node name="Button2" type="Button" parent="UI"]
+offset_left = 416.0
+offset_top = 113.0
+offset_right = 589.0
+offset_bottom = 193.0
+text = "m + r vs m"
+
+[node name="Button3" type="Button" parent="UI"]
+offset_left = 605.0
+offset_top = 115.0
+offset_right = 778.0
+offset_bottom = 195.0
+text = "m + r vs m 2"
+
+[node name="Button4" type="Button" parent="UI"]
+offset_left = 807.0
+offset_top = 115.0
+offset_right = 980.0
+offset_bottom = 195.0
+text = "r vs m"
+
+[node name="SpinBox" type="SpinBox" parent="UI"]
+offset_left = 1567.0
+offset_top = 30.0
+offset_right = 1667.0
+offset_bottom = 70.0
+scale = Vector2(3, 3)
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("5_7endm")
+
+[node name="BuySpawner" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="pressed" from="UI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="UI/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="value_changed" from="UI/SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="timeout" from="BuySpawner" to="." method="_on_buy_spawner_timeout"]
