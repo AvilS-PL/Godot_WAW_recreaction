@@ -50,8 +50,9 @@ func die():
 			var enemies = get_tree().get_nodes_in_group("enemies")
 			for enemy in enemies:
 				var distance = enemy.global_position.distance_to($HitBox.global_position)
-				if distance < 100 * explosive:
-					enemy.take_damage(damage * (1 - (distance*distance/(100 * explosive * 100 * explosive))))
+				var explosion_distance = 50 * explosive
+				if distance < explosion_distance:
+					enemy.take_damage(damage * (1 - (distance*distance/(explosion_distance*explosion_distance))))
 		else:
 			var enemies = get_tree().get_nodes_in_group("team")
 			for enemy in enemies:

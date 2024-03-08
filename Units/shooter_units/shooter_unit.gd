@@ -89,6 +89,7 @@ func _on_reload_timeout():
 		reloaded = true
 
 func _on_shot_box_area_entered(area):
+	#!!! new distance-decide-enemy system needed propably
 	new_speed = 0.0
 	mass = current_mass * 4
 	if enemies.size() == 0:

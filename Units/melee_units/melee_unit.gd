@@ -112,7 +112,6 @@ func deal_damage():
 		reloaded = true
 
 func take_damage(taken):
-	print("yes")
 	health -= taken
 	$OtherAnimation.play("hit")
 	if health <= 0:
