@@ -20,7 +20,7 @@ var explosive = false
 #var ammo = 3
 var weight = 60
 
-var new_rotation = 0
+var new_rotation = 0.0
 var speed = def_speed
 var new_speed = def_speed
 var health = max_health
@@ -34,7 +34,7 @@ var preFireGunEffect = load("res://Units/Usables/fire_gun.tscn")
 var preTrail = load("res://Units/shooter_units/shooter_weapons/trail.tscn")
 
 func _ready():
-	new_rotation = 0
+	new_rotation = 0.0
 	speed = def_speed
 	new_speed = def_speed
 	health = max_health
@@ -78,6 +78,7 @@ func _process(delta):
 		if round($Side/Hand.rotation * 1000) == round(new_rotation * 1000):
 			if reloaded:
 				shoot()
+				#!!!after shoot colldown or sth needed
 			elif $Reload.time_left == 0:
 				$Reload.start()
 
@@ -90,12 +91,13 @@ func _on_reload_timeout():
 
 func _on_shot_box_area_entered(area):
 	#!!! new distance-decide-enemy system needed propably
+	#!!! and overall balance to whole shooter unit
 	new_speed = 0.0
 	mass = current_mass * 4
 	if enemies.size() == 0:
 		reloaded = false
 	enemies.append(area)
-	find_closest()
+	alternative_find_closest()
 
 func _on_shot_box_area_exited(area):
 	enemies.remove_at(enemies.find(area, 0))
@@ -107,7 +109,7 @@ func _on_shot_box_area_exited(area):
 		new_destinition = null
 		reloaded = false
 	elif area == current_enemy:
-		find_closest()
+		alternative_find_closest()
 
 func find_closest():
 	new_rotation = 0
@@ -129,6 +131,33 @@ func find_closest():
 			new_rotation = PI - new_rotation
 		elif new_rotation < -PI/2:
 			new_rotation = -PI - new_rotation
+
+func alternative_find_closest():
+	new_rotation = 0
+	new_destinition = null
+	current_enemy = null
+	if enemies.size() != 0:
+		var target = enemies[0]
+		new_rotation = atan2(enemies[0].global_position.y - position.y,
+		enemies[0].global_position.x - position.x)
+		if new_rotation > PI/2:
+			new_rotation = PI - new_rotation
+		elif new_rotation < -PI/2:
+			new_rotation = -PI - new_rotation
+		if enemies.size() != 1:
+			for i in enemies:
+				var temp_rotation = atan2(i.global_position.y - position.y,
+				i.global_position.x - position.x)
+				if temp_rotation > PI/2:
+					temp_rotation = PI - temp_rotation
+				elif temp_rotation < -PI/2:
+					temp_rotation = -PI - temp_rotation
+				if abs($Side/Hand.rotation - temp_rotation) < abs($Side/Hand.rotation - new_rotation):
+					target = i
+					new_rotation = temp_rotation
+		current_enemy = target
+		new_destinition = target.global_position
+		
 
 func shoot():
 	reloaded = false

@@ -169,6 +169,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_down"):
 		select -= 1
 
+func _on_button_5_pressed():
+	mode = !mode
+
 
 func _on_button_pressed():
 	for i in range(10):
@@ -207,3 +210,4 @@ func _on_button_4_pressed():
 		if (i + 1) % 2 == 0:
 			addUnit($Stats.units[select+1], "blue", null)
 		addUnit($Stats.units[select], "red", null)
+
