@@ -12,6 +12,8 @@ var max_health = 10.0
 var damage = 5.0
 var animation_speed = 1.0
 var cooldown = 1.0
+var aiming_cooldown = 1.0
+var reload_cooldown = 1.0
 var rotation_speed = 5.0
 var bullet_speed = 30
 var bullet_size = 5
@@ -27,7 +29,8 @@ var health = max_health
 
 var current_mass = mass
 var current_enemy = null
-var reloaded = false
+var reloaded = true
+var aimed = false
 var enemies = []
 var preDeadEffect = load("res://Units/Usables/blood_splash.tscn")
 var preFireGunEffect = load("res://Units/Usables/fire_gun.tscn")
@@ -39,7 +42,8 @@ func _ready():
 	new_speed = def_speed
 	health = max_health
 	$HandAnimation.speed_scale = animation_speed
-	$Reload.wait_time = cooldown
+	$Reload.wait_time = reload_cooldown
+	$Aiming.wait_time = aiming_cooldown
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
@@ -76,26 +80,31 @@ func _process(delta):
 			
 	if current_enemy != null:
 		if round($Side/Hand.rotation * 1000) == round(new_rotation * 1000):
-			if reloaded:
-				shoot()
-				#!!!after shoot colldown or sth needed
-			elif $Reload.time_left == 0:
-				$Reload.start()
+			if aimed:
+				if reloaded:
+					shoot()
+			elif $Aiming.time_left == 0:
+				$Aiming.start()
+		else:
+			$Aiming.stop()
 
 func _integrate_forces(state):
 	linear_velocity = (destinition - position).normalized() * speed
 
 func _on_reload_timeout():
-	if enemies.size() != 0:
-		reloaded = true
+	reloaded = true
 
+func _on_aiming_timeout():
+	if enemies.size() != 0:
+		aimed = true
+	
 func _on_shot_box_area_entered(area):
 	#!!! new distance-decide-enemy system needed propably
 	#!!! and overall balance to whole shooter unit
 	new_speed = 0.0
 	mass = current_mass * 4
 	if enemies.size() == 0:
-		reloaded = false
+		aimed = false
 	enemies.append(area)
 	alternative_find_closest()
 
@@ -107,7 +116,7 @@ func _on_shot_box_area_exited(area):
 		new_rotation = 0
 		current_enemy = null
 		new_destinition = null
-		reloaded = false
+		aimed = false
 	elif area == current_enemy:
 		alternative_find_closest()
 
@@ -157,10 +166,11 @@ func alternative_find_closest():
 					new_rotation = temp_rotation
 		current_enemy = target
 		new_destinition = target.global_position
-		
 
 func shoot():
+	aimed = false
 	reloaded = false
+	$Reload.start()
 	
 	#!!! zdecyduj się czy zostawić firegunEffect
 	var fireGunEffect = preFireGunEffect.instantiate()
@@ -198,3 +208,5 @@ func take_damage(taken):
 		queue_free()
 	else:
 		$HealthBar.change_health(health, 0.5)
+
+

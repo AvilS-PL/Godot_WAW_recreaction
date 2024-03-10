@@ -147,6 +147,9 @@ metadata/_edit_lock_ = true
 [node name="Reload" type="Timer" parent="."]
 one_shot = true
 
+[node name="Aiming" type="Timer" parent="."]
+one_shot = true
+
 [node name="HealthBar" parent="." instance=ExtResource("5_ksy2a")]
 offset_left = -27.0
 offset_top = -73.0
@@ -166,3 +169,4 @@ libraries = {
 [connection signal="area_entered" from="ShotBox" to="." method="_on_shot_box_area_entered"]
 [connection signal="area_exited" from="ShotBox" to="." method="_on_shot_box_area_exited"]
 [connection signal="timeout" from="Reload" to="." method="_on_reload_timeout"]
+[connection signal="timeout" from="Aiming" to="." method="_on_aiming_timeout"]

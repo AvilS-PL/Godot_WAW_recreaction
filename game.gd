@@ -100,6 +100,8 @@ func addUnit(temp, team, pos):
 			unit.bullet_size = temp.bullet_size
 			unit.explosion_offset = temp.explosion_offset
 			unit.explosive = temp.explosive
+			unit.aiming_cooldown = temp.aiming_cooldown
+			unit.reload_cooldown = temp.reload_cooldown
 		
 		add_child(unit)
 	else:
@@ -135,7 +137,7 @@ func game_over(team):
 	#!!! game over mechanics needed
 #----------------------------------------------------------------------------------------------------
 
-var mode = true
+var mode = false
 var select = 13
 
 func _on_spin_box_value_changed(value):
@@ -143,35 +145,38 @@ func _on_spin_box_value_changed(value):
 
 func _process(delta):
 	$UI/SpinBox.value = select
-	if mode: 
-		pass
-	else:
-		if Input.is_action_just_pressed("mouse_left_click"):
-			if $Stats.units.size() > select:
-				var temp = $Stats.units[select]
-				if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
-					addUnit(temp, "blue", get_global_mouse_position())
-		if Input.is_action_just_pressed("mouse_right_click"):
-			if $Stats.units.size() > select:
-				var temp = $Stats.units[select]
-				if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
-					addUnit(temp, "red", get_global_mouse_position())
-		#if Input.is_mouse_button_pressed(1):
-		#if Input.is_mouse_button_pressed(2):
-			#if $Stats.units.size() > select:
-				#addUnit($Stats.units[select], "red", get_global_mouse_position())
-			
-	if Input.is_action_just_pressed("ui_accept"):
-		mode = !mode
+	if get_global_mouse_position().y > 260 and get_global_mouse_position().y < 680:
+		if !mode:
+			if Input.is_action_just_pressed("mouse_left_click"):
+				if $Stats.units.size() > select:
+					var temp = $Stats.units[select]
+					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+						addUnit(temp, "blue", get_global_mouse_position())
+			if Input.is_action_just_pressed("mouse_right_click"):
+				if $Stats.units.size() > select:
+					var temp = $Stats.units[select]
+					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+						addUnit(temp, "red", get_global_mouse_position())
+		else:
+			if Input.is_mouse_button_pressed(1):
+				if $Stats.units.size() > select:
+					var temp = $Stats.units[select]
+					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+						addUnit(temp, "blue", get_global_mouse_position())
+			if Input.is_mouse_button_pressed(2):
+				if $Stats.units.size() > select:
+					var temp = $Stats.units[select]
+					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+						addUnit(temp, "red", get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("ui_up"):
 		select += 1
 	if Input.is_action_just_pressed("ui_down"):
 		select -= 1
 
-func _on_button_5_pressed():
+func _on_button_6_pressed():
 	mode = !mode
-
+	$UI/Button6.text = "Multi: " + str(mode)
 
 func _on_button_pressed():
 	for i in range(10):
@@ -210,4 +215,6 @@ func _on_button_4_pressed():
 		if (i + 1) % 2 == 0:
 			addUnit($Stats.units[select+1], "blue", null)
 		addUnit($Stats.units[select], "red", null)
+
+
 

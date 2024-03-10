@@ -162,6 +162,10 @@ libraries = {
 "": SubResource("AnimationLibrary_nu4g3")
 }
 
+[node name="Aiming" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="ShotBox" to="." method="_on_shot_box_area_entered"]
 [connection signal="area_exited" from="ShotBox" to="." method="_on_shot_box_area_exited"]
 [connection signal="timeout" from="Reload" to="." method="_on_reload_timeout"]
+[connection signal="timeout" from="Aiming" to="." method="_on_aiming_timeout"]
