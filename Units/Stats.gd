@@ -209,6 +209,6 @@ var units = [
 		"bullet_size": 20.0,
 		"rotation_speed": 1.0,
 		"explosion_offset": 0.0,
-		"explosive": 2.5,
+		"explosive": 4,
 	},
 ]
