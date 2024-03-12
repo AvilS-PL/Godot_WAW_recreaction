@@ -2,6 +2,14 @@ extends Node
  #!!! do poprawy na icony faktyczne zamiast imageów broni
 var units = [
 #STONE AGE1:
+	#CASTLE BASE
+	{
+		"type": "BaseUpgrade",
+		"path": "res://Map/base_1.tscn",
+		"price": 0.0,
+		"max_health": 100.0,
+		"image": "res://Map/base1/icon.png",
+	},
 	#BAT (BASEBALL STICK) MAN
 	{
 		"type": "Melee",

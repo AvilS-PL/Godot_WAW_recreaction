@@ -3,19 +3,24 @@ extends Node2D
 var preBuy = load("res://GUI/button_buy_unit.tscn")
 var screen_size
 
-var unit_number = 0
-var money : float = 11000
+var unit_number : int
+var money : float
 
 func _ready():
-	update_money(money)
-	$Base1.connect("destroyed", game_over)
-	$Base2.connect("destroyed", game_over)
+	$UI/MoneyAnimation.play("test")
 	screen_size = get_viewport().size
 	
 	await get_tree().create_timer(0.1).timeout
 	start_game()
 
 func start_game():
+	money = 1000
+	update_money(money)
+	
+	unit_number = 1
+	var temp = $Stats.units[0]
+	change_base(temp, "blue", true)
+	change_base(temp, "red", true)
 	_on_buy_spawner_timeout()
 
 func _on_buy_spawner_timeout():
@@ -42,6 +47,7 @@ func add_buy_button(price, description, texture, number, length):
 	buyButton.get_node("BottomPanel/Label").text = description
 	buyButton.get_node("BottomPanel/TextureRect").texture = load(texture)
 	buyButton.connect("hit", buy_unit)
+	buyButton.connect("insufficient", buy_unit_insufficient)
 	buyButton.number = number
 	buyButton.amount = price
 	
@@ -56,17 +62,17 @@ func add_buy_button(price, description, texture, number, length):
 func buy_unit(number):
 	if number < $Stats.units.size():
 		var temp = $Stats.units[number]
-		if temp.price <= money:
-			money -= temp.price
-			update_money(money)
-			if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
-				addUnit(temp, "blue", null)
-			elif temp.type == "BaseUpgrade":
-				change_base(temp, "blue")
-		else:
-			$UI/MoneyAnimation.play("insufficient")
-			#???!!! maybe add also animation to button itself?
-			
+		money -= temp.price
+		update_money(money)
+		if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+			addUnit(temp, "blue", null)
+		elif temp.type == "BaseUpgrade":
+			change_base(temp, "blue", false)
+
+func buy_unit_insufficient():
+	$UI/MoneyAnimation.stop()
+	$UI/MoneyAnimation.play("insufficient")
+
 func addUnit(temp, team, pos):
 	if ResourceLoader.exists(temp.path):
 		var unitLoad = load(temp.path)
@@ -107,25 +113,37 @@ func addUnit(temp, team, pos):
 	else:
 		print("resource doesn't exist")
 
-func change_base(temp, team):
+func change_base(temp, team, start):
 	if ResourceLoader.exists(temp.path):
 		var baseLoad = load(temp.path)
 		var base = baseLoad.instantiate()
 		
 		var old_base = null
-		if team == "blue":
-			old_base = get_node("Base1")
+		if !start:
+			if team == "blue":
+				old_base = get_node("Base1")
+			else:
+				old_base = get_node("Base2")
+				base.scale.x = -1
+			remove_child(old_base)
+			base.max_health = temp.max_health
+			base.health = temp.max_health - (old_base.max_health - old_base.health)
+			base.team = team
+			base.name = old_base.name
+			base.position = old_base.position
 		else:
-			old_base = get_node("Base2")
-			base.scale.x = -1
-		remove_child(old_base)
-		
-		base.max_health = temp.max_health
-		base.health = temp.max_health - (old_base.max_health - old_base.health)
-		base.team = team
-		base.name = old_base.name
-		base.position = old_base.position
+			base.max_health = temp.max_health
+			base.health = temp.max_health
+			base.team = team
+			if team == "blue":
+				base.name = "Base1"
+				base.position = $BasePlace1.position
+			else:
+				base.name = "Base2"
+				base.position = $BasePlace2.position
+				base.scale.x = -1
 		base.connect("destroyed", game_over)
+		add_to_group("bases")
 		
 		add_child(base)
 	else:
