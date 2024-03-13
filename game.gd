@@ -6,6 +6,9 @@ var screen_size
 var unit_number : int
 var money : float
 
+var buy_buttons = []
+var but_buttons_size = 4
+
 func _ready():
 	$UI/MoneyAnimation.play("test")
 	screen_size = get_viewport().size
@@ -14,7 +17,7 @@ func _ready():
 	start_game()
 
 func start_game():
-	money = 1000
+	money = 3000
 	update_money(money)
 	
 	unit_number = 1
@@ -26,7 +29,8 @@ func start_game():
 func _on_buy_spawner_timeout():
 	if unit_number < $Stats.units.size():
 		var temp = $Stats.units[unit_number]
-		add_buy_button(temp.price, temp.type, temp.image, unit_number, 5)
+		add_buy_button(temp.price, temp.type, temp.image, unit_number, 5, temp.type)
+		unit_number += 1
 		$BuySpawner.start()
 
 func update_money(amount):
@@ -40,26 +44,45 @@ func update_money(amount):
 	$UI/Money/Label.text = str(amount) + letter + " $"
 
 
-func add_buy_button(price, description, texture, number, length):
-	unit_number += 1
+func add_buy_button(price, description, texture, number, length, type):
 	var buyButton = preBuy.instantiate()
-	buyButton.position = Vector2(1600,200)
 	buyButton.get_node("BottomPanel/Label").text = description
 	buyButton.get_node("BottomPanel/TextureRect").texture = load(texture)
 	buyButton.connect("hit", buy_unit)
 	buyButton.connect("insufficient", buy_unit_insufficient)
 	buyButton.number = number
 	buyButton.amount = price
+	if type == "BaseUpgrade":
+		buyButton.base = true
+	
+	buyButton.position = Vector2((buy_buttons.size() * 300) +50, 300)
+	if buy_buttons.size() > but_buttons_size - 1: buyButton.position = Vector2((buy_buttons.size() * 300) - 250, 300)
 	
 	$UI/UnitBuyer.add_child(buyButton)
+	buy_buttons.append(buyButton)
 	
-	var tween = create_tween()
-	tween.tween_property(buyButton, "position", Vector2(1600,0), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-	tween.tween_property(buyButton, "position", Vector2(120,0), length).set_trans(Tween.TRANS_LINEAR)
-	tween.tween_property(buyButton, "position", Vector2(120,200), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
-	tween.tween_callback(buyButton.queue_free)
+	if buy_buttons.size() > but_buttons_size:
+		var tween = create_tween()
+		var temp = buy_buttons[0]
+		buy_buttons.remove_at(0)
+		tween.tween_property(temp, "position", Vector2(temp.position.x,300), 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback(temp.queue_free)
+	
+	for i in buy_buttons.size():
+		var temp = buy_buttons[i]
+		var where = Vector2((i * 300) + 50, 0)
+		var tween = create_tween()
+		tween.tween_property(temp, "position", where, 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
 
-func buy_unit(number):
+func buy_button_remove(which):
+	if which >= 0 and which < buy_buttons.size() - 1:
+		var temp = buy_buttons[which]
+		buy_buttons.remove_at(which)
+		var tween = create_tween()
+		tween.tween_property(temp, "position", Vector2(temp.position.x,300), 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback(temp.queue_free)
+
+func buy_unit(number, node):
 	if number < $Stats.units.size():
 		var temp = $Stats.units[number]
 		money -= temp.price
@@ -68,6 +91,7 @@ func buy_unit(number):
 			addUnit(temp, "blue", null)
 		elif temp.type == "BaseUpgrade":
 			change_base(temp, "blue", false)
+			buy_button_remove(buy_buttons.find(node))
 
 func buy_unit_insufficient():
 	$UI/MoneyAnimation.stop()
