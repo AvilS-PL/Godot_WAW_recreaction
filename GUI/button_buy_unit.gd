@@ -5,7 +5,6 @@ signal insufficient
 
 var number = 0
 var amount = 1.0
-var base = false
 
 var cost = amount
 
@@ -20,16 +19,20 @@ func _ready():
 			amount = floor(amount / 10) / 100
 	$TopPanel/Label.text = str(amount) + letter + " $"
 	await get_tree().create_timer(1.0).timeout
-	$Button.disabled = false
-	
+
+func button_show():
+	$Animation.play("show")
+
+func button_kill():
+	$Button.disabled = true
+	$Animation.play("kill")
+
 func _on_button_pressed():
 	if get_tree().current_scene.money < cost: 
-		insufficient.emit()
 		$Animation.stop()
 		$Animation.play("insufficient")
+		insufficient.emit()
 	else:
-		if base:
-			$Button.disabled = true
-		hit.emit(number, self)
 		$Animation.stop()
 		$Animation.play("click")
+		hit.emit(number, self)

@@ -29,7 +29,7 @@ func start_game():
 func _on_buy_spawner_timeout():
 	if unit_number < $Stats.units.size():
 		var temp = $Stats.units[unit_number]
-		add_buy_button(temp.price, temp.type, temp.image, unit_number, 5, temp.type)
+		add_buy_button(temp.price, temp.type, temp.image, unit_number, 5)
 		unit_number += 1
 		$BuySpawner.start()
 
@@ -44,7 +44,7 @@ func update_money(amount):
 	$UI/Money/Label.text = str(amount) + letter + " $"
 
 
-func add_buy_button(price, description, texture, number, length, type):
+func add_buy_button(price, description, texture, number, length):
 	var buyButton = preBuy.instantiate()
 	buyButton.get_node("BottomPanel/Label").text = description
 	buyButton.get_node("BottomPanel/TextureRect").texture = load(texture)
@@ -52,22 +52,19 @@ func add_buy_button(price, description, texture, number, length, type):
 	buyButton.connect("insufficient", buy_unit_insufficient)
 	buyButton.number = number
 	buyButton.amount = price
-	if type == "BaseUpgrade":
-		buyButton.base = true
 	
-	buyButton.position = Vector2((buy_buttons.size() * 300) +50, 300)
-	if buy_buttons.size() > but_buttons_size - 1: buyButton.position = Vector2((buy_buttons.size() * 300) - 250, 300)
+	buyButton.position = Vector2((buy_buttons.size() * 300) +50, 0)
+	if buy_buttons.size() > but_buttons_size - 1: buyButton.position = Vector2((buy_buttons.size() * 300) - 250, 0)
 	
 	$UI/UnitBuyer.add_child(buyButton)
 	buy_buttons.append(buyButton)
 	
 	if buy_buttons.size() > but_buttons_size:
-		var tween = create_tween()
 		var temp = buy_buttons[0]
 		buy_buttons.remove_at(0)
-		tween.tween_property(temp, "position", Vector2(temp.position.x,300), 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
-		tween.tween_callback(temp.queue_free)
+		temp.button_kill()
 	
+	buyButton.button_show()
 	for i in buy_buttons.size():
 		var temp = buy_buttons[i]
 		var where = Vector2((i * 300) + 50, 0)
@@ -75,12 +72,10 @@ func add_buy_button(price, description, texture, number, length, type):
 		tween.tween_property(temp, "position", where, 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
 
 func buy_button_remove(which):
-	if which >= 0 and which < buy_buttons.size() - 1:
+	if which >= 0 and which <= buy_buttons.size() - 1:
 		var temp = buy_buttons[which]
 		buy_buttons.remove_at(which)
-		var tween = create_tween()
-		tween.tween_property(temp, "position", Vector2(temp.position.x,300), 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
-		tween.tween_callback(temp.queue_free)
+		temp.button_kill()
 
 func buy_unit(number, node):
 	if number < $Stats.units.size():
