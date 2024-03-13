@@ -29,6 +29,7 @@ func take_damage(taken):
 		
 		var deadEffect = preDeadEffect.instantiate()
 		deadEffect.global_position = $HitBox.global_position
+		deadEffect.scale = Vector2(1.5,1.5)
 		var world = get_tree().current_scene
 		world.add_child(deadEffect)
 		

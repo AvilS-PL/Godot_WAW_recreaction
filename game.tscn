@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcgi6b6n2vb35"]
+[gd_scene load_steps=13 format=3 uid="uid://bcgi6b6n2vb35"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_wmvgd"]
 [ext_resource type="Texture2D" uid="uid://cdr5ij8jrp7io" path="res://Map/background2.png" id="2_6v3cv"]
+[ext_resource type="Texture2D" uid="uid://v3crgvqhehu1" path="res://GUI/icons/play.png" id="4_ep40e"]
 [ext_resource type="FontFile" uid="uid://d3omoka7lgdo6" path="res://GUI/fonts/MadimiOne-Regular.ttf" id="4_po1fn"]
 [ext_resource type="Script" path="res://Units/Stats.gd" id="5_7endm"]
 
@@ -49,7 +50,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(760, 0)]
+"values": [Vector2(760, -100)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -62,6 +63,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Bottom:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 970)]
 }
 
 [sub_resource type="Animation" id="Animation_2bats"]
@@ -106,8 +119,8 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ao3wl"]
-resource_name = "test"
-length = 0.01
+resource_name = "show"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -115,17 +128,58 @@ tracks/0/path = NodePath("UI/Money:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(760, 0)]
+"values": [Vector2(760, -100), Vector2(760, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 970), Vector2(0, 935)]
+}
+
+[sub_resource type="Animation" id="Animation_ufxos"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, 935), Vector2(0, 970)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Money:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(760, 0), Vector2(760, -100)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s0b2s"]
 _data = {
 "RESET": SubResource("Animation_km1vn"),
+"hide": SubResource("Animation_ufxos"),
 "insufficient": SubResource("Animation_2bats"),
-"test": SubResource("Animation_ao3wl")
+"show": SubResource("Animation_ao3wl")
 }
 
 [node name="Game" type="Node2D"]
@@ -175,9 +229,10 @@ grow_vertical = 0
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 760.0
-offset_right = 1160.0
-offset_bottom = 87.0
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = -13.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5yl3s")
 
@@ -204,11 +259,32 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -960.0
-offset_top = -25.0
+offset_top = 10.0
 offset_right = 240.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_08lat")
+
+[node name="StartButton" type="TextureButton" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("4_ep40e")
+texture_pressed = ExtResource("4_ep40e")
+texture_hover = ExtResource("4_ep40e")
+texture_disabled = ExtResource("4_ep40e")
+texture_focused = ExtResource("4_ep40e")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="MoneyAnimation" type="AnimationPlayer" parent="UI"]
 root_node = NodePath("../..")
@@ -244,11 +320,18 @@ offset_right = 980.0
 offset_bottom = 195.0
 text = "r vs m"
 
-[node name="Button6" type="Button" parent="UI"]
+[node name="Button5" type="Button" parent="UI"]
 offset_left = 1321.0
 offset_top = 30.0
 offset_right = 1494.0
 offset_bottom = 110.0
+text = "Reversed: false"
+
+[node name="Button6" type="Button" parent="UI"]
+offset_left = 1323.0
+offset_top = 116.0
+offset_right = 1496.0
+offset_bottom = 196.0
 text = "Multi: false"
 
 [node name="SpinBox" type="SpinBox" parent="UI"]
@@ -262,12 +345,15 @@ scale = Vector2(3, 3)
 script = ExtResource("5_7endm")
 
 [node name="BuySpawner" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
+[connection signal="pressed" from="UI/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="UI/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UI/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="UI/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="UI/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="UI/Button5" to="." method="_on_button_5_pressed"]
 [connection signal="pressed" from="UI/Button6" to="." method="_on_button_6_pressed"]
 [connection signal="value_changed" from="UI/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="timeout" from="BuySpawner" to="." method="_on_buy_spawner_timeout"]

@@ -1,0 +1,9 @@
+0 - bg
+1 - base background
+3 - unit
+3 - shoot effect
+3 - explosion effect
+3 - blood effect
+1 + 3 - base front
+4 - trail
+5 - base explosion

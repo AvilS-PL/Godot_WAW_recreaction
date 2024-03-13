@@ -1,37 +1,51 @@
 extends Node2D
 
 var preBuy = load("res://GUI/button_buy_unit.tscn")
+var preExplosionEffect = load("res://Map/base_explosion.tscn")
 var screen_size
 
 var unit_number : int
+var max_unit_number: int
 var money : float
 
 var buy_buttons = []
 var but_buttons_size = 4
 
 func _ready():
-	$UI/MoneyAnimation.play("test")
 	screen_size = get_viewport().size
 	
-	await get_tree().create_timer(0.1).timeout
-	start_game()
+	#await get_tree().create_timer(0.1).timeout
+	#start_game()
 
+func _on_start_button_pressed():
+	$UI/StartButton.visible = false
+	start_game()
+	
 func start_game():
-	money = 3000
+	$UI/MoneyAnimation.play("show")
+	money = 30000
 	update_money(money)
 	
 	unit_number = 1
+	get_max_unit_number()
 	var temp = $Stats.units[0]
 	change_base(temp, "blue", true)
+	var explosionEffect1 = preExplosionEffect.instantiate()
+	explosionEffect1.global_position = $BasePlace1.position + Vector2(-30,-28)
+	explosionEffect1.scale = Vector2(1.5,1.5)
+	add_child(explosionEffect1)
 	change_base(temp, "red", true)
-	_on_buy_spawner_timeout()
+	var explosionEffect2 = preExplosionEffect.instantiate()
+	explosionEffect2.global_position = $BasePlace2.position + Vector2(30,-28)
+	explosionEffect2.scale = Vector2(1.5,1.5)
+	add_child(explosionEffect2)
 
 func _on_buy_spawner_timeout():
 	if unit_number < $Stats.units.size():
 		var temp = $Stats.units[unit_number]
 		add_buy_button(temp.price, temp.type, temp.image, unit_number, 5)
-		unit_number += 1
-		$BuySpawner.start()
+		if unit_number <= max_unit_number:
+			$BuySpawner.start()
 
 func update_money(amount):
 	var letter = ""
@@ -43,8 +57,23 @@ func update_money(amount):
 			amount = floor(amount / 10) / 100
 	$UI/Money/Label.text = str(amount) + letter + " $"
 
+#!!!??? można zoptymalizować tą funkcję
+func get_max_unit_number(): 
+	for i in $Stats.units.size():
+		if i >= unit_number:
+			if $Stats.units[i].type == "BaseUpgrade":
+				max_unit_number = i
+				await get_tree().create_timer(0.1).timeout
+				_on_buy_spawner_timeout()
+				break
+			elif i == $Stats.units.size() - 1:
+				max_unit_number = i
+				await get_tree().create_timer(0.1).timeout
+				_on_buy_spawner_timeout()
+				break
 
 func add_buy_button(price, description, texture, number, length):
+	unit_number += 1
 	var buyButton = preBuy.instantiate()
 	buyButton.get_node("BottomPanel/Label").text = description
 	buyButton.get_node("BottomPanel/TextureRect").texture = load(texture)
@@ -85,6 +114,7 @@ func buy_unit(number, node):
 		if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
 			addUnit(temp, "blue", null)
 		elif temp.type == "BaseUpgrade":
+			get_max_unit_number()
 			change_base(temp, "blue", false)
 			buy_button_remove(buy_buttons.find(node))
 
@@ -107,10 +137,10 @@ func addUnit(temp, team, pos):
 		unit.weight = temp.weight
 		
 		if team == "blue":
-			unit.position = $MarkerBase.position + Vector2(0,randi_range(0,10))
+			unit.position = $MarkerBase.position + Vector2(0,randi_range(-30,30))
 			unit.destinition = $MarkerEnemy.position
 		else:
-			unit.position = $MarkerEnemy.position + Vector2(0,randi_range(0,10))
+			unit.position = $MarkerEnemy.position + Vector2(0,randi_range(-30,30))
 			unit.destinition = $MarkerBase.position
 		if pos != null:
 			unit.position = pos
@@ -175,6 +205,7 @@ func game_over(team):
 #----------------------------------------------------------------------------------------------------
 
 var mode = false
+var reversed = false
 var select = 13
 
 func _on_spin_box_value_changed(value):
@@ -184,22 +215,32 @@ func _process(delta):
 	$UI/SpinBox.value = select
 	if get_global_mouse_position().y > 260 and get_global_mouse_position().y < 680:
 		if !mode:
-			if Input.is_action_just_pressed("mouse_left_click"):
+			if Input.is_action_just_pressed("mouse_left_click") and !reversed:
 				if $Stats.units.size() > select:
 					var temp = $Stats.units[select]
 					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
 						addUnit(temp, "blue", get_global_mouse_position())
+			if Input.is_action_just_pressed("mouse_left_click") and reversed:
+				if $Stats.units.size() > select:
+					var temp = $Stats.units[select]
+					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+						addUnit(temp, "red", get_global_mouse_position())
 			if Input.is_action_just_pressed("mouse_right_click"):
 				if $Stats.units.size() > select:
 					var temp = $Stats.units[select]
 					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
 						addUnit(temp, "red", get_global_mouse_position())
 		else:
-			if Input.is_mouse_button_pressed(1):
+			if Input.is_mouse_button_pressed(1) and !reversed:
 				if $Stats.units.size() > select:
 					var temp = $Stats.units[select]
 					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
 						addUnit(temp, "blue", get_global_mouse_position())
+			if Input.is_mouse_button_pressed(1) and reversed:
+				if $Stats.units.size() > select:
+					var temp = $Stats.units[select]
+					if temp.type == "Melee" or temp.type == "Ranger" or temp.type == "Shooter" or temp.type == "Special":
+						addUnit(temp, "red", get_global_mouse_position())
 			if Input.is_mouse_button_pressed(2):
 				if $Stats.units.size() > select:
 					var temp = $Stats.units[select]
@@ -210,6 +251,10 @@ func _process(delta):
 		select += 1
 	if Input.is_action_just_pressed("ui_down"):
 		select -= 1
+
+func _on_button_5_pressed():
+	reversed = !reversed
+	$UI/Button5.text = "Reversed: " + str(reversed)
 
 func _on_button_6_pressed():
 	mode = !mode
@@ -252,6 +297,3 @@ func _on_button_4_pressed():
 		if (i + 1) % 2 == 0:
 			addUnit($Stats.units[select+1], "blue", null)
 		addUnit($Stats.units[select], "red", null)
-
-
-

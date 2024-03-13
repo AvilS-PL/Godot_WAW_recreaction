@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://cp3n3eyx3cmdp"
+path="res://.godot/imported/play_bitmap.png-4ebb4c0feada0b3a78d6913f58adf027.res"
+
+[deps]
+
+source_file="res://GUI/icons/play_bitmap.png"
+dest_files=["res://.godot/imported/play_bitmap.png-4ebb4c0feada0b3a78d6913f58adf027.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

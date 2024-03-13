@@ -52,13 +52,13 @@ texture = ExtResource("3_7sd25")
 metadata/_edit_lock_ = true
 
 [node name="Cave2" type="Sprite2D" parent="Side"]
-z_index = 4
+z_index = 3
 position = Vector2(-40, -140)
 texture = ExtResource("4_4t8ub")
 metadata/_edit_lock_ = true
 
 [node name="Cave1" type="Sprite2D" parent="Side"]
-z_index = 4
+z_index = 3
 position = Vector2(-63, -18)
 texture = ExtResource("5_lu0b8")
 metadata/_edit_lock_ = true

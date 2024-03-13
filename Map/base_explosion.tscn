@@ -10,19 +10,18 @@ point_count = 2
 colors = PackedColorArray(0.336809, 0.229968, 0, 1, 0.298039, 0.298039, 0.298039, 0.643137)
 
 [node name="FireGun" type="CPUParticles2D"]
-z_index = 4
+z_index = 5
 emitting = false
-amount = 20
-lifetime = 2.0
+amount = 30
 one_shot = true
 explosiveness = 1.0
 emission_shape = 1
-emission_sphere_radius = 100.0
+emission_sphere_radius = 128.0
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 50.0
-initial_velocity_max = 200.0
-scale_amount_min = 50.0
+initial_velocity_max = 150.0
+scale_amount_min = 100.0
 scale_amount_max = 200.0
 scale_amount_curve = SubResource("Curve_cg4un")
 color_ramp = SubResource("Gradient_8aorv")
