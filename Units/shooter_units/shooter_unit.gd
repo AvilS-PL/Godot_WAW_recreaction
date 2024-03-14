@@ -118,6 +118,8 @@ func _on_shot_box_area_exited(area):
 		new_destinition = null
 		aimed = false
 	elif area == current_enemy:
+		#!!! make it so that if it already is aiming on let's say 90% then it shouldn't reaim
+		#	but instaed shoot at spot where enemy was
 		alternative_find_closest()
 
 func find_closest():

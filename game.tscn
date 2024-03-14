@@ -77,6 +77,34 @@ tracks/3/keys = {
 "values": [Vector2(0, 970)]
 }
 
+[sub_resource type="Animation" id="Animation_ufxos"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, 935), Vector2(0, 970)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Money:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(760, 0), Vector2(760, -100)]
+}
+
 [sub_resource type="Animation" id="Animation_2bats"]
 resource_name = "insufficient"
 length = 0.1
@@ -146,34 +174,6 @@ tracks/1/keys = {
 "values": [Vector2(0, 970), Vector2(0, 935)]
 }
 
-[sub_resource type="Animation" id="Animation_ufxos"]
-resource_name = "hide"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Bottom:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2, 1),
-"update": 0,
-"values": [Vector2(0, 935), Vector2(0, 970)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Money:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2, 1),
-"update": 0,
-"values": [Vector2(760, 0), Vector2(760, -100)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s0b2s"]
 _data = {
 "RESET": SubResource("Animation_km1vn"),
@@ -229,9 +229,9 @@ grow_vertical = 0
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -200.0
+offset_left = 760.0
 offset_top = -100.0
-offset_right = 200.0
+offset_right = 1160.0
 offset_bottom = -13.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5yl3s")
@@ -258,10 +258,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -960.0
-offset_top = 10.0
-offset_right = 240.0
-offset_bottom = 35.0
+offset_top = 970.0
+offset_right = 1200.0
+offset_bottom = 995.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_08lat")

@@ -4,11 +4,13 @@ WAŻNE:
 - zmień sposób znajdowania najbliższego wroga (użyj odległości a nie area2d)
   https://forum.godotengine.org/t/how-to-get-closest-enemy-in-array/5051
 - na środku jest lub się spawn-i złoto, do którego są specjalne zbierające jednostki
-
+- wieżyczki, albo coś co sprawi, że gdy jedna strona mocno przegrywa to żeby miała szansę się odkuć
+- końcowe cutscenki
+- dźwięki
 
 DO ROZWAŻENIA:
 - supermoce myszki za pieniądze lub exp
-
+- animacja śmierci ludzika zamiast wyparowywania
 
 NIE KONIECZNIE:
 - formacje ludzików

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Units/Usables/blood_splash.gd" id="1_w6t2q"]
 
 [sub_resource type="Curve" id="Curve_cg4un"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0332279), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 6.73748, 0, 0, Vector2(1, 0.0332279), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_8aorv"]

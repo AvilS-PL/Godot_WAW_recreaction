@@ -28,17 +28,10 @@ func start_game():
 	
 	unit_number = 1
 	get_max_unit_number()
+	
 	var temp = $Stats.units[0]
-	change_base(temp, "blue", true)
-	var explosionEffect1 = preExplosionEffect.instantiate()
-	explosionEffect1.global_position = $BasePlace1.position + Vector2(-30,-28)
-	explosionEffect1.scale = Vector2(1.5,1.5)
-	add_child(explosionEffect1)
 	change_base(temp, "red", true)
-	var explosionEffect2 = preExplosionEffect.instantiate()
-	explosionEffect2.global_position = $BasePlace2.position + Vector2(30,-28)
-	explosionEffect2.scale = Vector2(1.5,1.5)
-	add_child(explosionEffect2)
+	change_base(temp, "blue", true)
 
 func _on_buy_spawner_timeout():
 	if unit_number < $Stats.units.size():
@@ -181,20 +174,26 @@ func change_base(temp, team, start):
 			base.name = old_base.name
 			base.position = old_base.position
 		else:
+			base.start = true
 			base.max_health = temp.max_health
 			base.health = temp.max_health
 			base.team = team
 			if team == "blue":
 				base.name = "Base1"
 				base.position = $BasePlace1.position
+				#base.scale.y = 0
 			else:
 				base.name = "Base2"
 				base.position = $BasePlace2.position
 				base.scale.x = -1
+				#base.scale.y = 0
 		base.connect("destroyed", game_over)
 		add_to_group("bases")
 		
 		add_child(base)
+		#if start:
+			#var tween = create_tween()
+			#tween.tween_property(base, "scale", Vector2(base.scale.x, 1), 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 	else:
 		print("resource doesn't exist")
 

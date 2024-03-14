@@ -207,8 +207,8 @@ var units = [
 		"max_health": 60.0,
 		"damage": 40.0,
 		"animation_speed": 1.0,
-		"cooldown": 1.0, #!!! it must be separeted to reload cooldown and aiming cooldown
-		"aiming_cooldown": 1.0,
+		"cooldown": 1.0,
+		"aiming_cooldown": 0.5,
 		"reload_cooldown": 3.0,
 		"weight": 50.0,
 		"image": "res://Units/special_units/special_4.png",

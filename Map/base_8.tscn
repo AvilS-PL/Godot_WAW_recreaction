@@ -1,36 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://c18rthkogeyiv"]
+[gd_scene load_steps=8 format=3 uid="uid://c18rthkogeyiv"]
 
 [ext_resource type="Script" path="res://Map/base.gd" id="1_14464"]
 [ext_resource type="Texture2D" uid="uid://bthjn5o0fm4w8" path="res://Map/base2/base3.png" id="2_5fhco"]
 [ext_resource type="Texture2D" uid="uid://cbvcyfws0nptu" path="res://Map/base8/base2.png" id="3_676fu"]
 [ext_resource type="Texture2D" uid="uid://diwb30oif5byj" path="res://Map/base8/base1.png" id="4_wia8t"]
 [ext_resource type="PackedScene" uid="uid://b66twah3ba66x" path="res://Units/Usables/health_bar.tscn" id="5_x2ldg"]
+[ext_resource type="PackedScene" uid="uid://chuhcfppmw1dd" path="res://Units/Usables/other_animation.tscn" id="6_523nh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26yfu"]
 radius = 90.0
 height = 234.0
-
-[sub_resource type="Animation" id="Animation_nbjvf"]
-resource_name = "hit"
-length = 0.1
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Side:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.02, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0.227451, 0.32549, 0.729412), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nu4g3"]
-_data = {
-"hit": SubResource("Animation_nbjvf")
-}
 
 [node name="Base1" type="StaticBody2D"]
 z_index = 1
@@ -49,7 +28,7 @@ scale = Vector2(0.95, 0.95)
 texture = ExtResource("3_676fu")
 
 [node name="Cave1" type="Sprite2D" parent="Side"]
-z_index = 4
+z_index = 3
 position = Vector2(-65, -40)
 scale = Vector2(0.95, 0.95)
 texture = ExtResource("4_wia8t")
@@ -75,11 +54,6 @@ offset_top = -211.0
 offset_right = 91.0
 offset_bottom = -161.0
 
-[node name="OtherAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_nu4g3")
-}
-
 [node name="TeamBox" type="StaticBody2D" parent="."]
 position = Vector2(-30, -28)
 collision_layer = 6
@@ -90,3 +64,5 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_26yfu")
 debug_color = Color(0.0470588, 0.576471, 0.819608, 0.219608)
 metadata/_edit_lock_ = true
+
+[node name="OtherAnimation" parent="." instance=ExtResource("6_523nh")]

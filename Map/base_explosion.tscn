@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Units/Usables/blood_splash.gd" id="1_7icwl"]
 
 [sub_resource type="Curve" id="Curve_cg4un"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0332279), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 6.45494, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_8aorv"]
@@ -13,6 +13,7 @@ colors = PackedColorArray(0.336809, 0.229968, 0, 1, 0.298039, 0.298039, 0.298039
 z_index = 5
 emitting = false
 amount = 30
+lifetime = 1.5
 one_shot = true
 explosiveness = 1.0
 emission_shape = 1
