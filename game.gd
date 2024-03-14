@@ -38,6 +38,7 @@ func start_game():
 	
 	var group_bases = get_tree().get_nodes_in_group("bases")
 	for i in group_bases:
+		remove_child(i)
 		i.queue_free()
 	var group_enemies = get_tree().get_nodes_in_group("enemies")
 	for i in group_enemies:
@@ -186,23 +187,24 @@ func change_base(temp, team, start):
 			base.max_health = temp.max_health
 			base.health = temp.max_health - (old_base.max_health - old_base.health)
 			base.team = team
-			base.name = old_base.name
 			base.position = old_base.position
+			old_base.queue_free()
 		else:
 			base.start = true
 			base.max_health = temp.max_health
 			base.health = temp.max_health
 			base.team = team
 			if team == "blue":
-				base.name = "Base1"
 				base.position = $BasePlace1.position
 			else:
-				base.name = "Base2"
 				base.position = $BasePlace2.position
 				base.scale.x = -1
 		base.connect("destroyed", game_over)
 		base.add_to_group("bases")
-		
+		if team == "blue":
+			base.name = "Base1"
+		else:
+			base.name = "Base2"
 		add_child(base)
 	else:
 		print("resource doesn't exist")
