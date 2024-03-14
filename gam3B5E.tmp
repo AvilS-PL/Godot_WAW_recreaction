@@ -215,7 +215,6 @@ position = Vector2(960, 480)
 metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="."]
-process_mode = 3
 
 [node name="UnitBuyer" type="Control" parent="UI"]
 layout_mode = 3

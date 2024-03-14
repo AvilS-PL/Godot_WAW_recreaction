@@ -12,13 +12,18 @@ var buy_buttons = []
 var but_buttons_size = 4
 
 func _ready():
-	screen_size = get_viewport().size
-	
+	screen_size = Vector2(get_viewport().size.x,get_viewport().size.y)
 	#await get_tree().create_timer(0.1).timeout
 	#start_game()
 
 func _on_start_button_pressed():
-	$UI/StartButton.visible = false
+	$UI/StartButton.disabled = true
+	var tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	tween.tween_property($UI/StartButton, "scale", Vector2(0,0), 0.2)
+	var tween2 = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	var temp = Vector2($UI/StartButton.position.x + 150,$UI/StartButton.position.y + 150)
+	tween2.tween_property($UI/StartButton, "position", temp, 0.2)
+	
 	start_game()
 	
 func start_game():
@@ -30,6 +35,16 @@ func start_game():
 	get_max_unit_number()
 	
 	var temp = $Stats.units[0]
+	
+	var group_bases = get_tree().get_nodes_in_group("bases")
+	for i in group_bases:
+		i.queue_free()
+	var group_enemies = get_tree().get_nodes_in_group("enemies")
+	for i in group_enemies:
+		i.queue_free()
+	var group_team = get_tree().get_nodes_in_group("team")
+	for i in group_team:
+		i.queue_free()
 	change_base(temp, "red", true)
 	change_base(temp, "blue", true)
 
@@ -90,8 +105,8 @@ func add_buy_button(price, description, texture, number, length):
 	for i in buy_buttons.size():
 		var temp = buy_buttons[i]
 		var where = Vector2((i * 300) + 50, 0)
-		var tween = create_tween()
-		tween.tween_property(temp, "position", where, 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
+		var tween = create_tween().set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(temp, "position", where, 1.0)
 
 func buy_button_remove(which):
 	if which >= 0 and which <= buy_buttons.size() - 1:
@@ -181,26 +196,37 @@ func change_base(temp, team, start):
 			if team == "blue":
 				base.name = "Base1"
 				base.position = $BasePlace1.position
-				#base.scale.y = 0
 			else:
 				base.name = "Base2"
 				base.position = $BasePlace2.position
 				base.scale.x = -1
-				#base.scale.y = 0
 		base.connect("destroyed", game_over)
-		add_to_group("bases")
+		base.add_to_group("bases")
 		
 		add_child(base)
-		#if start:
-			#var tween = create_tween()
-			#tween.tween_property(base, "scale", Vector2(base.scale.x, 1), 1.0).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 	else:
 		print("resource doesn't exist")
 
 func game_over(team):
 	print(team)
 	$BuySpawner.stop()
-	#!!! game over mechanics needed
+	for i in buy_buttons:
+		i.button_kill()
+	buy_buttons = []
+	$UI/MoneyAnimation.stop()
+	$UI/MoneyAnimation.play("hide")
+	
+	var group_bases = get_tree().get_nodes_in_group("bases")
+	for i in group_bases:
+		i.alive = false
+	
+	$UI/StartButton.disabled = false
+	var tween1 = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween1.tween_property($UI/StartButton, "scale", Vector2(1,1), 0.2)
+	var tween2 = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	var temp = Vector2($UI/StartButton.position.x - 150,$UI/StartButton.position.y - 150)
+	tween2.tween_property($UI/StartButton, "position", temp, 0.2)
+	#!!!??? mayby change so that every unit stops or sth and add !!!ending cutscane
 #----------------------------------------------------------------------------------------------------
 
 var mode = false
@@ -211,6 +237,7 @@ func _on_spin_box_value_changed(value):
 	select = value
 
 func _process(delta):
+	screen_size = Vector2(get_viewport().size.x,get_viewport().size.y)
 	$UI/SpinBox.value = select
 	if get_global_mouse_position().y > 260 and get_global_mouse_position().y < 680:
 		if !mode:

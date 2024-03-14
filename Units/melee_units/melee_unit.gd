@@ -126,14 +126,12 @@ func take_damage(taken):
 	else:
 		$HealthBar.change_health(health, 0.5)
 
-
 func _on_search_box_area_entered(area):
 	#if area.collision_mask != 128:
 	search_enemies.append(area)
 	if new_destinition == null:
 		new_destinition = area.global_position
 		found_enemy = area
-
 
 func _on_search_box_area_exited(area):
 	search_enemies.remove_at(search_enemies.find(area, 0))

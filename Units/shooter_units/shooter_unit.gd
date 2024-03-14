@@ -5,6 +5,7 @@ extends RigidBody2D
 var team = "blue"
 var destinition = Vector2.ZERO
 var new_destinition = null
+var game = true
 
 var def_speed = 80.0
 var slow_down = 5.0
@@ -101,12 +102,12 @@ func _on_aiming_timeout():
 func _on_shot_box_area_entered(area):
 	#!!! new distance-decide-enemy system needed propably
 	#!!! and overall balance to whole shooter unit
-	new_speed = 0.0
-	mass = current_mass * 4
-	if enemies.size() == 0:
-		aimed = false
-	enemies.append(area)
-	alternative_find_closest()
+			new_speed = 0.0
+			mass = current_mass * 4
+			if enemies.size() == 0:
+				aimed = false
+			enemies.append(area)
+			alternative_find_closest()
 
 func _on_shot_box_area_exited(area):
 	enemies.remove_at(enemies.find(area, 0))
