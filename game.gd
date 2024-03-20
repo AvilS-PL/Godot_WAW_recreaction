@@ -6,7 +6,8 @@ var screen_size
 
 var unit_number : int
 var max_unit_number: int
-var money : float
+var money : int
+var money_earn : float
 
 var buy_buttons = []
 var but_buttons_size = 4
@@ -28,7 +29,8 @@ func _on_start_button_pressed():
 	
 func start_game():
 	$UI/MoneyAnimation.play("show")
-	money = 30000
+	money = 500
+	money_earn = 1.1
 	update_money(money)
 	
 	unit_number = 1
@@ -131,6 +133,11 @@ func buy_unit_insufficient():
 	$UI/MoneyAnimation.stop()
 	$UI/MoneyAnimation.play("insufficient")
 
+func add_money(price, team):
+	if team == "red":
+		money += money_earn * price
+		update_money(money)
+
 func addUnit(temp, team, pos):
 	if ResourceLoader.exists(temp.path):
 		var unitLoad = load(temp.path)
@@ -144,6 +151,7 @@ func addUnit(temp, team, pos):
 		unit.animation_speed = temp.animation_speed
 		unit.cooldown = temp.cooldown
 		unit.weight = temp.weight
+		unit.price = temp.price
 		
 		if team == "blue":
 			unit.position = $MarkerBase.position + Vector2(0,randi_range(-30,30))
@@ -228,8 +236,12 @@ func game_over(team):
 	var tween2 = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	var temp = Vector2($UI/StartButton.position.x - 150,$UI/StartButton.position.y - 150)
 	tween2.tween_property($UI/StartButton, "position", temp, 0.2)
-	#!!!??? mayby change so that every unit stops or sth and add !!!ending cutscane
+	#!!!??? mayby change so that every unit stops or sth and add
+	#!!!ending cutscane
+
+
 #----------------------------------------------------------------------------------------------------
+# FOR TESTS (GAMEDEV TOOLS):
 
 var mode = false
 var reversed = false

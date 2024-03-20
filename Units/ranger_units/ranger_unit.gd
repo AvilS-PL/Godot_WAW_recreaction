@@ -11,6 +11,7 @@ extends RigidBody2D
 var team = "blue"
 var destinition = Vector2.ZERO
 var game = true
+var price = 10.0
 
 var def_speed = 80.0
 var slow_down = 5.0
@@ -159,6 +160,7 @@ func take_damage(taken):
 		var world = get_tree().current_scene
 		world.add_child(deadEffect)
 		
+		get_parent().add_money(price, team)
 		queue_free()
 	else:
 		$HealthBar.change_health(health, 0.5)

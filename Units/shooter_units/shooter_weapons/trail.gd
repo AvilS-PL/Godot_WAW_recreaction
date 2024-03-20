@@ -45,7 +45,6 @@ func die():
 		var fireGunEffect = preFireGunEffect.instantiate()
 		fireGunEffect.position = $HitBox.global_position
 		fireGunEffect.scale = Vector2(explosive,explosive)
-		#!!! dodaj żeby wybuch okaleczał jednestki do okoła
 		if team == 1:
 			var enemies = get_tree().get_nodes_in_group("enemies")
 			for enemy in enemies:
