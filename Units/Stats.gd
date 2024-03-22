@@ -14,7 +14,7 @@ var units = [
 	{
 		"type": "Melee",
 		"path": "res://Units/melee_units/melee_unit_1.tscn",
-		"price": 10,
+		"price": 100,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
 		"max_health": 10.0,
@@ -28,7 +28,7 @@ var units = [
 	{
 		"type": "Ranger",
 		"path": "res://Units/ranger_units/ranger_unit_1.tscn",
-		"price": 20,
+		"price": 200,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
 		"max_health": 4.0,
@@ -46,7 +46,7 @@ var units = [
 	{
 		"type": "Special",
 		"path": "res://Units/special_units/special_unit_1.tscn",
-		"price": 10,
+		"price": 100,
 		"def_speed": 160.0,
 		"slow_down": 6.0,
 		"max_health": 6.0,
@@ -61,7 +61,7 @@ var units = [
 	{
 		"type": "BaseUpgrade",
 		"path": "res://Map/base_2.tscn",
-		"price": 300.0,
+		"price": 3000.0,
 		"max_health": 200.0,
 		"image": "res://Map/base2/icon.png",
 	},
@@ -69,7 +69,7 @@ var units = [
 	{
 		"type": "Melee",
 		"path": "res://Units/melee_units/melee_unit_2.tscn",
-		"price": 20,
+		"price": 200,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
 		"max_health": 15.0,
@@ -83,7 +83,7 @@ var units = [
 	{
 		"type": "Ranger",
 		"path": "res://Units/ranger_units/ranger_unit_2.tscn",
-		"price": 45,
+		"price": 450,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
 		"max_health": 11.0,
@@ -102,7 +102,7 @@ var units = [
 	{
 		"type": "BaseUpgrade",
 		"path": "res://Map/base_3.tscn",
-		"price": 800.0,
+		"price": 8000.0,
 		"max_health": 400.0,
 		"image": "res://Map/base3/icon.png",
 	},
@@ -110,7 +110,7 @@ var units = [
 	{
 		"type": "Melee",
 		"path": "res://Units/melee_units/melee_unit_3.tscn",
-		"price": 45,
+		"price": 450,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
 		"max_health": 30.0,
@@ -124,7 +124,7 @@ var units = [
 	{
 		"type": "Ranger",
 		"path": "res://Units/ranger_units/ranger_unit_3.tscn",
-		"price": 100,
+		"price": 1000,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
 		"max_health": 20.0,
@@ -142,7 +142,7 @@ var units = [
 	{
 		"type": "Special",
 		"path": "res://Units/special_units/special_unit_3.tscn",
-		"price": 200,
+		"price": 2000,
 		"def_speed": 160.0,
 		"slow_down": 6.0,
 		"max_health": 88.0,
@@ -157,7 +157,7 @@ var units = [
 	{
 		"type": "BaseUpgrade",
 		"path": "res://Map/base_4.tscn",
-		"price": 1500.0,
+		"price": 15000.0,
 		"max_health": 700.0,
 		"image": "res://Map/base4/icon.png"
 	},
@@ -165,7 +165,7 @@ var units = [
 	{
 		"type": "Melee",
 		"path": "res://Units/melee_units/melee_unit_4.tscn",
-		"price": 100,
+		"price": 1000,
 		"def_speed": 90.0,
 		"slow_down": 5.0,
 		"max_health": 40.0,
@@ -179,13 +179,12 @@ var units = [
 	{
 		"type": "Shooter",
 		"path": "res://Units/shooter_units/shooter_unit_4.tscn",
-		"price": 160,
+		"price": 1600,
 		"def_speed": 90.0,
 		"slow_down": 5.0,
 		"max_health": 24.0,
 		"damage": 20.0,
 		"animation_speed": 1.0,
-		"cooldown": 2.0,
 		"aiming_cooldown": 0.5,
 		"reload_cooldown": 1.0,
 		"weight": 50.0,
@@ -201,13 +200,12 @@ var units = [
 	{
 		"type": "Shooter",
 		"path": "res://Units/special_units/special_unit_4.tscn",
-		"price": 300,
+		"price": 3000,
 		"def_speed": 50.0,
 		"slow_down": 5.0,
 		"max_health": 60.0,
 		"damage": 40.0,
 		"animation_speed": 1.0,
-		"cooldown": 1.0,
 		"aiming_cooldown": 0.5,
 		"reload_cooldown": 3.0,
 		"weight": 50.0,

@@ -12,6 +12,9 @@ var money_earn : float
 var buy_buttons = []
 var but_buttons_size = 4
 
+var age_start: int
+var age_end: int
+
 func _ready():
 	screen_size = Vector2(get_viewport().size.x,get_viewport().size.y)
 	#await get_tree().create_timer(0.1).timeout
@@ -26,15 +29,20 @@ func _on_start_button_pressed():
 	tween2.tween_property($UI/StartButton, "position", temp, 0.2)
 	
 	start_game()
-	
+
 func start_game():
-	$UI/MoneyAnimation.play("show")
-	money = 500
+	$UI/UIAnimation.play("show")
+	money = 300
 	money_earn = 1.1
 	update_money(money)
 	
 	unit_number = 1
 	get_max_unit_number()
+	
+	age_start = 1
+	age_end = 1
+	$AIUpgrade.start()
+	$AIMove.start()
 	
 	var temp = $Stats.units[0]
 	
@@ -58,7 +66,8 @@ func _on_buy_spawner_timeout():
 		if unit_number <= max_unit_number:
 			$BuySpawner.start()
 
-func update_money(amount):
+func update_money(mone):
+	var amount = float(mone)
 	var letter = ""
 	if amount >= 1000:
 		letter = "k"
@@ -69,7 +78,7 @@ func update_money(amount):
 	$UI/Money/Label.text = str(amount) + letter + " $"
 
 #!!!??? można zoptymalizować tą funkcję
-func get_max_unit_number(): 
+func get_max_unit_number():
 	for i in $Stats.units.size():
 		if i >= unit_number:
 			if $Stats.units[i].type == "BaseUpgrade":
@@ -149,7 +158,6 @@ func addUnit(temp, team, pos):
 		unit.max_health = temp.max_health
 		unit.damage = temp.damage
 		unit.animation_speed = temp.animation_speed
-		unit.cooldown = temp.cooldown
 		unit.weight = temp.weight
 		unit.price = temp.price
 		
@@ -159,10 +167,13 @@ func addUnit(temp, team, pos):
 		else:
 			unit.position = $MarkerEnemy.position + Vector2(0,randi_range(-30,30))
 			unit.destinition = $MarkerBase.position
+		
 		if pos != null:
 			unit.position = pos
 		
-		if temp.type == "Ranger" :
+		if temp.type == "Melee" :
+			unit.cooldown = temp.cooldown
+		elif temp.type == "Ranger" :
 			unit.bullet_speed = temp.bullet_speed
 			unit.bullet_rotation = temp.bullet_rotation
 			unit.preBullet = load(temp.prebullet)
@@ -224,7 +235,7 @@ func game_over(team):
 		i.button_kill()
 	buy_buttons = []
 	$UI/MoneyAnimation.stop()
-	$UI/MoneyAnimation.play("hide")
+	$UI/UIAnimation.play("hide")
 	
 	var group_bases = get_tree().get_nodes_in_group("bases")
 	for i in group_bases:
@@ -239,9 +250,31 @@ func game_over(team):
 	#!!!??? mayby change so that every unit stops or sth and add
 	#!!!ending cutscane
 
+#----------------------------------------------------------------------------------------------------
+# AI:
+# !!! add system that remembers previous gameplay (if winned by player), that's copying player movements
+func _on_ai_upgrade_timeout():
+	if age_end < $Stats.units.size() - 1:
+		age_end += 1
+		if $Stats.units[age_end].type == "BaseUpgrade":
+			change_base($Stats.units[age_end], "red", false)
+			age_end += 1
+			age_start = age_end
+		$AIMove.wait_time = randf_range(50.0, 60.0)
+		$AIUpgrade.start()
 
+func _on_ai_move_timeout():
+	var unit_number = randi_range(age_start, age_end)
+	var available_money = randi_range(1, 1 + 3 * (age_end - age_start)) * $Stats.units[age_start].price
+	$AIMove.wait_time = randf_range(1.0, 5.0)
+	$AIMove.start()
+	while available_money >= $Stats.units[unit_number].price:
+		available_money -= $Stats.units[unit_number].price
+		addUnit($Stats.units[unit_number], "red", null)
+		await get_tree().create_timer(0.1).timeout
 #----------------------------------------------------------------------------------------------------
 # FOR TESTS (GAMEDEV TOOLS):
+# !!!??? add debug mode so players can adjust units values
 
 var mode = false
 var reversed = false
@@ -251,6 +284,7 @@ func _on_spin_box_value_changed(value):
 	select = value
 
 func _process(delta):
+	$UI/UnitsAmount.text = str(get_tree().get_nodes_in_group("enemies").size() + get_tree().get_nodes_in_group("team").size())
 	screen_size = Vector2(get_viewport().size.x,get_viewport().size.y)
 	$UI/SpinBox.value = select
 	if get_global_mouse_position().y > 260 and get_global_mouse_position().y < 680:
@@ -306,7 +340,6 @@ func _on_button_pressed():
 		addUnit($Stats.units[select], "blue", null)
 		addUnit($Stats.units[select], "red", null)
 
-
 func _on_button_2_pressed():
 	for i in range(2):
 		await get_tree().create_timer(0.1).timeout
@@ -318,7 +351,6 @@ func _on_button_2_pressed():
 			addUnit($Stats.units[select+1], "blue", null)
 		addUnit($Stats.units[select], "red", null)
 
-
 func _on_button_3_pressed():
 	for i in range(4):
 		await get_tree().create_timer(0.1).timeout
@@ -329,7 +361,6 @@ func _on_button_3_pressed():
 		if (i + 1) % 2 == 0:
 			addUnit($Stats.units[select+1], "blue", null)
 		addUnit($Stats.units[select], "red", null)
-
 
 func _on_button_4_pressed():
 	for i in range(10):

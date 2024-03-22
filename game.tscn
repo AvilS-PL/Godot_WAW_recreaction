@@ -77,34 +77,6 @@ tracks/3/keys = {
 "values": [Vector2(0, 5)]
 }
 
-[sub_resource type="Animation" id="Animation_ufxos"]
-resource_name = "hide"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Money:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2, 1),
-"update": 0,
-"values": [Vector2(760, 0), Vector2(760, -100)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Bottom/Bottom:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2, 1),
-"update": 0,
-"values": [Vector2(0, -25), Vector2(0, 5)]
-}
-
 [sub_resource type="Animation" id="Animation_2bats"]
 resource_name = "insufficient"
 length = 0.1
@@ -172,6 +144,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Vector2(0, 5), Vector2(0, -25)]
+}
+
+[sub_resource type="Animation" id="Animation_ufxos"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Money:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(760, 0), Vector2(760, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Bottom/Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, -25), Vector2(0, 5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s0b2s"]
@@ -303,6 +303,12 @@ libraries = {
 "": SubResource("AnimationLibrary_s0b2s")
 }
 
+[node name="UIAnimation" type="AnimationPlayer" parent="UI"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_s0b2s")
+}
+
 [node name="Button" type="Button" parent="UI"]
 offset_left = 229.0
 offset_top = 113.0
@@ -352,11 +358,29 @@ offset_right = 1667.0
 offset_bottom = 70.0
 scale = Vector2(3, 3)
 
+[node name="UnitsAmount" type="Label" parent="UI"]
+offset_right = 201.0
+offset_bottom = 80.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 14
+theme_override_fonts/font = ExtResource("4_po1fn")
+theme_override_font_sizes/font_size = 60
+text = "amount"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("5_7endm")
 
 [node name="BuySpawner" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
+
+[node name="AIUpgrade" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[node name="AIMove" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="pressed" from="UI/StartButton" to="." method="_on_start_button_pressed"]
@@ -368,3 +392,5 @@ one_shot = true
 [connection signal="pressed" from="UI/Button6" to="." method="_on_button_6_pressed"]
 [connection signal="value_changed" from="UI/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="timeout" from="BuySpawner" to="." method="_on_buy_spawner_timeout"]
+[connection signal="timeout" from="AIUpgrade" to="." method="_on_ai_upgrade_timeout"]
+[connection signal="timeout" from="AIMove" to="." method="_on_ai_move_timeout"]

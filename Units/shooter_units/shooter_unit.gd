@@ -13,7 +13,6 @@ var slow_down = 5.0
 var max_health = 10.0
 var damage = 5.0
 var animation_speed = 1.0
-var cooldown = 1.0
 var aiming_cooldown = 1.0
 var reload_cooldown = 1.0
 var rotation_speed = 5.0
