@@ -90,7 +90,14 @@ func _process(delta):
 			$Aiming.stop()
 
 func _integrate_forces(state):
-	linear_velocity = (destinition - position).normalized() * speed
+	if speed != 0:
+		linear_damp = 0
+		linear_velocity = (destinition - position).normalized() * speed
+	else:
+		#!!! do ulepszenia ten system
+		linear_velocity.x = 0
+		linear_damp = current_mass/10
+	
 
 func _on_reload_timeout():
 	reloaded = true

@@ -68,13 +68,24 @@ func _integrate_forces(state):
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
-		linear_velocity = (new_destinition - position).normalized() * speed
+		if speed != 0:
+			linear_damp = 0
+			linear_velocity = (new_destinition - position).normalized() * speed
+		else:
+			#!!! do ulepszenia ten system
+			linear_velocity.x = 0
+			linear_damp = current_mass/10
 	else:
 		if destinition.x > position.x:
 			$Side.scale.x = 1
 		else:
 			$Side.scale.x = -1
-		linear_velocity = (destinition - position).normalized() * speed
+		if speed != 0:
+			linear_damp = 0
+			linear_velocity = (destinition - position).normalized() * speed
+		else:
+			linear_velocity.x = 0
+			linear_damp = current_mass/10
 
 func _on_hit_box_area_entered(area):
 	new_speed = 0.0

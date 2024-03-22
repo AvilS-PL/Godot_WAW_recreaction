@@ -41,6 +41,7 @@ func start_game():
 	
 	age_start = 1
 	age_end = 1
+	#!!! disable for tests
 	$AIUpgrade.start()
 	$AIMove.start()
 	
@@ -278,7 +279,7 @@ func _on_ai_move_timeout():
 
 var mode = false
 var reversed = false
-var select = 13
+var select = 12
 
 func _on_spin_box_value_changed(value):
 	select = value
