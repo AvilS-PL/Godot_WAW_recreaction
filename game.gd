@@ -8,6 +8,7 @@ var unit_number : int
 var max_unit_number: int
 var money : int
 var money_earn : float
+var money_AI : int
 
 var buy_buttons = []
 var but_buttons_size = 4
@@ -33,7 +34,8 @@ func _on_start_button_pressed():
 func start_game():
 	$UI/UIAnimation.play("show")
 	money = 300
-	money_earn = 1.1
+	money_AI = 300
+	money_earn = 1.05
 	update_money(money)
 	
 	unit_number = 1
@@ -231,6 +233,8 @@ func change_base(temp, team, start):
 
 func game_over(team):
 	print(team)
+	$AIUpgrade.stop()
+	$AIMove.stop()
 	$BuySpawner.stop()
 	for i in buy_buttons:
 		i.button_kill()
@@ -266,7 +270,8 @@ func _on_ai_upgrade_timeout():
 
 func _on_ai_move_timeout():
 	var unit_number = randi_range(age_start, age_end)
-	var available_money = randi_range(1, 1 + 3 * (age_end - age_start)) * $Stats.units[age_start].price
+	var available_money = randi_range(1, 1 + 2 * (age_end - age_start)) * $Stats.units[age_end].price
+	print(available_money)
 	$AIMove.wait_time = randf_range(1.0, 5.0)
 	$AIMove.start()
 	while available_money >= $Stats.units[unit_number].price:
