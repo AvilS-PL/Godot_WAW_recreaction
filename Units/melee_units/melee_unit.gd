@@ -21,8 +21,6 @@ var new_speed = def_speed
 var health = max_health
 
 var new_destinition = null
-var search_enemies = []
-var found_enemy = null
 var current_mass = mass
 var reloaded = true
 var enemies = []
@@ -42,7 +40,6 @@ func _ready():
 		$Side/Body.modulate = Color(0.8,0.2,0.2)
 		$HitBox.collision_layer = 2
 		$HitBox.collision_mask = 1
-		$SearchBox.collision_mask = 1
 		collision_layer = 5
 		collision_mask = 5
 	elif team == "blue":
@@ -50,7 +47,6 @@ func _ready():
 		$Side/Body.modulate = Color(0.0,0.6,0.9)
 		$HitBox.collision_layer = 1
 		$HitBox.collision_mask = 2
-		$SearchBox.collision_mask = 2
 		collision_layer = 3
 		collision_mask = 3
 	
@@ -61,6 +57,7 @@ func _ready():
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, slow_down)
+	search_enemy()
 
 func _integrate_forces(state):
 	if new_destinition != null:
@@ -139,25 +136,24 @@ func take_damage(taken):
 	else:
 		$HealthBar.change_health(health, 0.5)
 
-func _on_search_box_area_entered(area):
-	#if area.collision_mask != 128:
-	search_enemies.append(area)
-	if new_destinition == null:
-		new_destinition = area.global_position
-		found_enemy = area
+func search_enemy():
+	if team == "blue":
+		var search_enemies = get_tree().get_nodes_in_group("enemies")
+		search_closest_enemy(search_enemies)
+	elif team == "red":
+		var search_enemies = get_tree().get_nodes_in_group("team")
+		search_closest_enemy(search_enemies)
 
-func _on_search_box_area_exited(area):
-	search_enemies.remove_at(search_enemies.find(area, 0))
-	if search_enemies.size() == 0:
-		new_destinition = null
-		found_enemy = null
-	elif area == found_enemy:
-		found_enemy = search_enemies[0]
-		new_destinition = search_enemies[0].global_position
-		for i in search_enemies:
-			var d_i = position.distance_to(i.global_position)
-			if d_i < position.distance_to(new_destinition):
+func search_closest_enemy(search_enemies):
+	new_destinition = null
+	for i in search_enemies:
+		var d_i = global_position.distance_to(i.global_position)
+		if d_i < 250:
+			if new_destinition == null:
 				new_destinition = i.global_position
-				found_enemy = i
+			elif d_i < position.distance_to(new_destinition):
+				new_destinition = i.global_position
 
-
+func _on_timer_timeout():
+	#search_enemy()
+	pass
