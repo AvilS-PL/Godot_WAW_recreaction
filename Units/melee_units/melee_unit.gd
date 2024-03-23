@@ -57,7 +57,6 @@ func _ready():
 
 func _process(delta):
 	speed = move_toward(speed, new_speed, slow_down)
-	search_enemy()
 
 func _integrate_forces(state):
 	if new_destinition != null:
@@ -155,5 +154,4 @@ func search_closest_enemy(search_enemies):
 				new_destinition = i.global_position
 
 func _on_timer_timeout():
-	#search_enemy()
-	pass
+	search_enemy()

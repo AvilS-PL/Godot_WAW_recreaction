@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://blkd4khh8uy1o"]
+[gd_scene load_steps=13 format=3 uid="uid://blkd4khh8uy1o"]
 
 [ext_resource type="Script" path="res://Units/melee_units/melee_unit.gd" id="1_sh10s"]
 [ext_resource type="Texture2D" uid="uid://ch2v2c6l7ume" path="res://Units/unit_body.png" id="2_jixxh"]
@@ -15,10 +15,6 @@ radius = 31.0161
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2vdy1"]
 radius = 56.0357
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ld4wg"]
-radius = 109.0
-height = 568.0
 
 [sub_resource type="Animation" id="Animation_t5bss"]
 length = 0.001
@@ -141,15 +137,6 @@ shape = SubResource("CircleShape2D_2vdy1")
 debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 metadata/_edit_lock_ = true
 
-[node name="SearchBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SearchBox"]
-shape = SubResource("CapsuleShape2D_ld4wg")
-debug_color = Color(0, 0.647059, 0.247059, 0.188235)
-metadata/_edit_lock_ = true
-
 [node name="Fight" type="Timer" parent="."]
 one_shot = true
 
@@ -166,9 +153,12 @@ libraries = {
 
 [node name="OtherAnimation" parent="." instance=ExtResource("6_cpv6k")]
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_hit_box_area_exited"]
-[connection signal="area_entered" from="SearchBox" to="." method="_on_search_box_area_entered"]
-[connection signal="area_exited" from="SearchBox" to="." method="_on_search_box_area_exited"]
 [connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

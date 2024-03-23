@@ -154,7 +154,7 @@ libraries = {
 [node name="OtherAnimation" parent="." instance=ExtResource("6_cq6qk")]
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
