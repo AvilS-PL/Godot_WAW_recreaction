@@ -28,7 +28,6 @@ func _ready():
 		$TeamBox.collision_layer = 4
 		#$TeamBox.collision_mask = 4
 
-
 func take_damage(taken):
 	if alive:
 		health -= taken

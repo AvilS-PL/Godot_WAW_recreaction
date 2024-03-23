@@ -51,8 +51,8 @@ func start_game():
 	age_start = 1
 	age_end = 1
 	#!!! disable for tests
-	$AIUpgrade.start()
-	$AIMove.start()
+	#$AIUpgrade.start()
+	#$AIMove.start()
 	
 	var temp = $Stats.units[0]
 	

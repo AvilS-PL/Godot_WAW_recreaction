@@ -6,6 +6,7 @@ WAŻNE:
 - wieżyczki, albo coś co sprawi, że gdy jedna strona mocno przegrywa to żeby miała szansę się odkuć
 - końcowe cutscenki
 - dźwięki
+- zapobiegaj generowaniu nadmiernej ilości jednostek na spawnie, żeby się nie bugowały
 
 DO ROZWAŻENIA:
 - supermoce myszki za pieniądze lub exp
