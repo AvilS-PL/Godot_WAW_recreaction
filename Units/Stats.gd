@@ -61,7 +61,7 @@ var units = [
 	{
 		"type": "BaseUpgrade",
 		"path": "res://Map/base_2.tscn",
-		"price": 3000.0,
+		"price": 6000.0,
 		"max_health": 200.0,
 		"image": "res://Map/base2/icon.png",
 	},
@@ -102,7 +102,7 @@ var units = [
 	{
 		"type": "BaseUpgrade",
 		"path": "res://Map/base_3.tscn",
-		"price": 8000.0,
+		"price": 20000.0,
 		"max_health": 400.0,
 		"image": "res://Map/base3/icon.png",
 	},
@@ -157,7 +157,7 @@ var units = [
 	{
 		"type": "BaseUpgrade",
 		"path": "res://Map/base_4.tscn",
-		"price": 15000.0,
+		"price": 60000.0,
 		"max_health": 700.0,
 		"image": "res://Map/base4/icon.png"
 	},

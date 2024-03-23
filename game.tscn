@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcgi6b6n2vb35"]
+[gd_scene load_steps=14 format=3 uid="uid://bcgi6b6n2vb35"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_wmvgd"]
-[ext_resource type="Texture2D" uid="uid://cdr5ij8jrp7io" path="res://Map/background2.png" id="2_6v3cv"]
+[ext_resource type="Texture2D" uid="uid://cqsj21mco6f7j" path="res://Map/background3.png" id="2_dib7q"]
 [ext_resource type="Texture2D" uid="uid://v3crgvqhehu1" path="res://GUI/icons/play.png" id="4_ep40e"]
 [ext_resource type="FontFile" uid="uid://d3omoka7lgdo6" path="res://GUI/fonts/MadimiOne-Regular.ttf" id="4_po1fn"]
 [ext_resource type="Script" path="res://Units/Stats.gd" id="5_7endm"]
@@ -76,6 +76,54 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0, 5)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/TeamAmount:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/TeamAmount:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/TeamAmount:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/EnemiesAmount:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1719, -100)]
+}
 
 [sub_resource type="Animation" id="Animation_ufxos"]
 resource_name = "hide"
@@ -103,6 +151,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
 "values": [Vector2(0, -25), Vector2(0, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/TeamAmount:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/EnemiesAmount:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1719, 0), Vector2(1719, -100)]
 }
 
 [sub_resource type="Animation" id="Animation_2bats"]
@@ -173,12 +245,66 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 5), Vector2(0, -25)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/TeamAmount:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -100), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/EnemiesAmount:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1719, -100), Vector2(1719, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wqndp"]
+resource_name = "many"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/TeamAmount:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.282353, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/TeamAmount:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0349066, -0.0174533, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s0b2s"]
 _data = {
 "RESET": SubResource("Animation_km1vn"),
 "hide": SubResource("Animation_ufxos"),
 "insufficient": SubResource("Animation_2bats"),
+"many": SubResource("Animation_wqndp"),
 "show": SubResource("Animation_ao3wl")
 }
 
@@ -188,7 +314,7 @@ script = ExtResource("1_wmvgd")
 
 [node name="Background1" type="Sprite2D" parent="."]
 position = Vector2(960, 480)
-texture = ExtResource("2_6v3cv")
+texture = ExtResource("2_dib7q")
 metadata/_edit_lock_ = true
 
 [node name="BasePlace1" type="Marker2D" parent="."]
@@ -208,7 +334,7 @@ position = Vector2(960, 480)
 metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
-polygon = PackedVector2Array(-1009, -206, 1009, -203, 1007, 199, -1007, 201, -1009, -206, -1085, -206, -1085, 272, 1063, 277, 1061, -266, -1085, -267, -1085, -206)
+polygon = PackedVector2Array(-960, -150, 960, -150, 960, 152, -960, 152, -960, -150, -1131, -212, -1131, 275, 1123, 276, 1121, -258, -1131, -268, -1131, -212)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 480)
@@ -358,9 +484,28 @@ offset_right = 1667.0
 offset_bottom = 70.0
 scale = Vector2(3, 3)
 
-[node name="UnitsAmount" type="Label" parent="UI"]
+[node name="TeamAmount" type="Label" parent="UI"]
+offset_top = -100.0
 offset_right = 201.0
-offset_bottom = 80.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(0.698039, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 14
+theme_override_fonts/font = ExtResource("4_po1fn")
+theme_override_font_sizes/font_size = 60
+text = "amount"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemiesAmount" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -201.0
+offset_top = -100.0
+offset_bottom = -20.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.654902, 0.54902, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 14
 theme_override_fonts/font = ExtResource("4_po1fn")

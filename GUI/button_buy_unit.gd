@@ -2,6 +2,7 @@ extends Control
 
 signal hit
 signal insufficient
+signal many
 
 var number = 0
 var amount = 1.0
@@ -32,6 +33,10 @@ func _on_button_pressed():
 		$Animation.stop()
 		$Animation.play("insufficient")
 		insufficient.emit()
+	elif get_tree().current_scene.team_size >= 70:
+		$Animation.stop()
+		$Animation.play("insufficient")
+		many.emit()
 	else:
 		$Animation.stop()
 		$Animation.play("click")

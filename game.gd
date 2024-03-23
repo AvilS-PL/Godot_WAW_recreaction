@@ -9,12 +9,17 @@ var max_unit_number: int
 var money : int
 var money_earn : float
 var money_AI : int
+var max_price: int
 
 var buy_buttons = []
 var but_buttons_size = 4
 
+var age: int
 var age_start: int
 var age_end: int
+
+var team_size
+var enemies_size
 
 func _ready():
 	screen_size = Vector2(get_viewport().size.x,get_viewport().size.y)
@@ -34,13 +39,15 @@ func _on_start_button_pressed():
 func start_game():
 	$UI/UIAnimation.play("show")
 	money = 300
-	money_AI = 300
+	money_AI = 0
 	money_earn = 1.05
 	update_money(money)
 	
 	unit_number = 1
 	get_max_unit_number()
 	
+	max_price = $Stats.units[unit_number].price
+	age = 1
 	age_start = 1
 	age_end = 1
 	#!!! disable for tests
@@ -102,6 +109,7 @@ func add_buy_button(price, description, texture, number, length):
 	buyButton.get_node("BottomPanel/TextureRect").texture = load(texture)
 	buyButton.connect("hit", buy_unit)
 	buyButton.connect("insufficient", buy_unit_insufficient)
+	buyButton.connect("many", buy_unit_many)
 	buyButton.number = number
 	buyButton.amount = price
 	
@@ -145,10 +153,16 @@ func buy_unit_insufficient():
 	$UI/MoneyAnimation.stop()
 	$UI/MoneyAnimation.play("insufficient")
 
+func buy_unit_many():
+	$UI/MoneyAnimation.stop()
+	$UI/MoneyAnimation.play("many")
+
 func add_money(price, team):
 	if team == "red":
 		money += money_earn * price
 		update_money(money)
+	elif team == "blue":
+		money_AI += money_earn * price
 
 func addUnit(temp, team, pos):
 	if ResourceLoader.exists(temp.path):
@@ -263,21 +277,39 @@ func _on_ai_upgrade_timeout():
 		age_end += 1
 		if $Stats.units[age_end].type == "BaseUpgrade":
 			change_base($Stats.units[age_end], "red", false)
+			age += 1
 			age_end += 1
 			age_start = age_end
+		else:
+			max_price = $Stats.units[age_end].price
 		$AIMove.wait_time = randf_range(50.0, 60.0)
 		$AIUpgrade.start()
 
 func _on_ai_move_timeout():
-	var unit_number = randi_range(age_start, age_end)
-	var available_money = randi_range(1, 1 + 2 * (age_end - age_start)) * $Stats.units[age_end].price
-	print(available_money)
+	var unit_num = randi_range(age_start, age_end)
+	money_AI += $Stats.units[unit_num].price * (randi_range(1 ,max_price / $Stats.units[unit_num].price))
+	money_AI += $Stats.units[age_start].price * randi_range(0, age)
+	
+	var temp_money = 0
+	for i in get_tree().get_nodes_in_group("team"):
+		temp_money += i.price
+	temp_money += money
+	for i in get_tree().get_nodes_in_group("enemies"):
+		temp_money -= i.price
+	temp_money -= money_AI
+	
+	if temp_money > $Stats.units[age_start].price * 5:
+		money_AI += temp_money * 0.5
+	
+	print(money_AI)
+	while money_AI >= $Stats.units[unit_num].price and enemies_size < 70:
+		money_AI -= $Stats.units[unit_num].price
+		addUnit($Stats.units[unit_num], "red", null)
+		await get_tree().create_timer(0.1).timeout
 	$AIMove.wait_time = randf_range(1.0, 5.0)
 	$AIMove.start()
-	while available_money >= $Stats.units[unit_number].price:
-		available_money -= $Stats.units[unit_number].price
-		addUnit($Stats.units[unit_number], "red", null)
-		await get_tree().create_timer(0.1).timeout
+	# !!!??? do zastanowienia:
+	money_AI = 0
 #----------------------------------------------------------------------------------------------------
 # FOR TESTS (GAMEDEV TOOLS):
 # !!!??? add debug mode so players can adjust units values
@@ -290,7 +322,10 @@ func _on_spin_box_value_changed(value):
 	select = value
 
 func _process(delta):
-	$UI/UnitsAmount.text = str(get_tree().get_nodes_in_group("enemies").size() + get_tree().get_nodes_in_group("team").size())
+	team_size = get_tree().get_nodes_in_group("team").size()
+	$UI/TeamAmount.text = str(team_size) + "/70"
+	enemies_size = get_tree().get_nodes_in_group("enemies").size()
+	$UI/EnemiesAmount.text = str(enemies_size) + "/70"
 	screen_size = Vector2(get_viewport().size.x,get_viewport().size.y)
 	$UI/SpinBox.value = select
 	if get_global_mouse_position().y > 260 and get_global_mouse_position().y < 680:
