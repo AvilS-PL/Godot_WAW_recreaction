@@ -1,11 +1,5 @@
 extends RigidBody2D
 
-#!!!no to tak, pomysł na duży update:
-# zmiana kolejności działań na bardziej rzeczywiste
-# 1) napotkanie przeciwnika -> dodanie do kolejki i rozpoczęcie celowania
-# 2) jeżeli dany przeciwnik wciąż istnieje to do niego strzel
-# 	 a jeżeli nie to od nowa rozpocznij celowanie w następnego typa
-# 3) po strzale przeładowanie
 #!!!???dodaj rotating taki jak w shoot ale dopiero po zrobieniu gameplay-u
 
 var team = "blue"
@@ -23,6 +17,7 @@ var bullet_speed = 20.0
 var bullet_rotation = 0.0
 var preBullet = load("res://Units/ranger_units/ranger_weapons/bullet_1.tscn")
 var weight = 60
+var range = 200
 
 var speed = def_speed
 var new_speed = def_speed
@@ -81,6 +76,33 @@ func _integrate_forces(state):
 		#!!! do ulepszenia ten system
 		linear_velocity.x = 0
 		linear_damp = current_mass/10
+
+func search_enemy():
+	if team == "blue":
+		var search_enemies = get_tree().get_nodes_in_group("enemies")
+		search_closest_enemy(search_enemies)
+	elif team == "red":
+		var search_enemies = get_tree().get_nodes_in_group("team")
+		search_closest_enemy(search_enemies)
+
+func search_closest_enemy(search_enemies):
+	new_destinition = null
+	for i in search_enemies:
+		var d_i = global_position.distance_to(i.global_position)
+		if d_i < 250:
+			if new_destinition == null:
+				new_destinition = i.global_position
+			elif d_i < position.distance_to(new_destinition):
+				new_destinition = i.global_position
+	if new_destinition != null:
+		new_speed = 0.0
+		mass = current_mass * 4
+	else:
+		mass = current_mass
+		new_speed = def_speed
+
+func _on_timer_timeout():
+	search_enemy()
 
 func _on_shot_box_area_entered(area):
 	new_speed = 0.0

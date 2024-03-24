@@ -316,7 +316,7 @@ func _on_ai_move_timeout():
 
 var mode = false
 var reversed = false
-var select = 12
+var select = 2
 
 func _on_spin_box_value_changed(value):
 	select = value

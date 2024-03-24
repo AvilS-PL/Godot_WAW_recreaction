@@ -297,6 +297,11 @@ libraries = {
 
 [node name="OtherAnimation" parent="." instance=ExtResource("6_ie2qc")]
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
 [connection signal="area_entered" from="ShotBox" to="." method="_on_shot_box_area_entered"]
 [connection signal="area_exited" from="ShotBox" to="." method="_on_shot_box_area_exited"]
 [connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
