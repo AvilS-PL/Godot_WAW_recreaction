@@ -31,13 +31,14 @@ var units = [
 		"price": 200,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
-		"max_health": 114.0,
+		"max_health": 4.0,
 		"damage": 5.0,
 		"animation_speed": 1.0,
 		"cooldown": 0.8,
 		"weight": 50.0,
 		"image": "res://Units/ranger_units/ranger_weapons/ranger_weapon_1.png",
 		
+		"range": 300,
 		"bullet_speed": 20.0,
 		"bullet_rotation": 0,
 		"prebullet": "res://Units/ranger_units/ranger_weapons/bullet_1.tscn",
@@ -93,6 +94,7 @@ var units = [
 		"weight": 50.0,
 		"image": "res://Units/ranger_units/ranger_weapons/ranger_weapon_2.png",
 		
+		"range": 350,
 		"bullet_speed": 10.0,
 		"bullet_rotation": 10.0,
 		"prebullet": "res://Units/ranger_units/ranger_weapons/bullet_2.tscn",
@@ -134,6 +136,7 @@ var units = [
 		"weight": 50.0,
 		"image": "res://Units/ranger_units/ranger_weapons/ranger_weapon_3.1.png",
 		
+		"range": 400,
 		"bullet_speed": 20.0,
 		"bullet_rotation": 0,
 		"prebullet": "res://Units/ranger_units/ranger_weapons/bullet_3.tscn",

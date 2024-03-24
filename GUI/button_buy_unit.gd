@@ -33,7 +33,7 @@ func _on_button_pressed():
 		$Animation.stop()
 		$Animation.play("insufficient")
 		insufficient.emit()
-	elif get_tree().current_scene.team_size >= 70:
+	elif get_tree().current_scene.team_size >= 70 and $BottomPanel/Label.text != "BaseUpgrade":
 		$Animation.stop()
 		$Animation.play("insufficient")
 		many.emit()

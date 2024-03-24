@@ -17,7 +17,7 @@ var bullet_speed = 20.0
 var bullet_rotation = 0.0
 var preBullet = load("res://Units/ranger_units/ranger_weapons/bullet_1.tscn")
 var weight = 60
-var range = 500
+var range = 200
 
 var speed = def_speed
 var new_speed = def_speed
@@ -79,10 +79,16 @@ func _integrate_forces(state):
 func search_enemy():
 	if team == "blue":
 		var search_enemies = get_tree().get_nodes_in_group("enemies")
+		for i in get_tree().get_nodes_in_group("bases"):
+			if i.name == "Base2":
+				search_enemies.append(i)
 		if target == null or !search_enemies.has(target):
 			search_closest_enemy(search_enemies)
 	elif team == "red":
 		var search_enemies = get_tree().get_nodes_in_group("team")
+		for i in get_tree().get_nodes_in_group("bases"):
+			if i.name == "Base1":
+				search_enemies.append(i)
 		if target == null or !search_enemies.has(target):
 			search_closest_enemy(search_enemies)
 	if target != null:

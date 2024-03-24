@@ -113,6 +113,7 @@ func add_buy_button(price, description, texture, number, length):
 	buyButton.number = number
 	buyButton.amount = price
 	
+	
 	buyButton.position = Vector2((buy_buttons.size() * 300) +50, 0)
 	if buy_buttons.size() > but_buttons_size - 1: buyButton.position = Vector2((buy_buttons.size() * 300) - 250, 0)
 	
@@ -191,9 +192,11 @@ func addUnit(temp, team, pos):
 		if temp.type == "Melee" :
 			unit.cooldown = temp.cooldown
 		elif temp.type == "Ranger" :
+			unit.range = temp.range
 			unit.bullet_speed = temp.bullet_speed
 			unit.bullet_rotation = temp.bullet_rotation
 			unit.preBullet = load(temp.prebullet)
+			unit.cooldown = temp.cooldown
 		elif temp.type == "Shooter":
 			unit.bullet_speed = temp.bullet_speed
 			unit.rotation_speed = temp.rotation_speed
