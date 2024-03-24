@@ -18,6 +18,7 @@ var bullet_rotation = 0.0
 var preBullet = load("res://Units/ranger_units/ranger_weapons/bullet_1.tscn")
 var weight = 60
 var range = 200
+var thrower = true
 
 var speed = def_speed
 var new_speed = def_speed
@@ -36,7 +37,7 @@ func _ready():
 	health = max_health
 
 	$HandAnimation.speed_scale = animation_speed
-	$Fight.wait_time = cooldown
+	$Reload.wait_time = cooldown
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	if team == "red":
@@ -124,15 +125,24 @@ func _on_timer_timeout():
 	search_enemy()
 
 func _on_fight_timeout():
-	$HandAnimation.play("reload")
+	if thrower:
+		$HandAnimation.play("reload")
+	else:
+		reloaded = true
+
+func start_reload():
+	$Reload.start()
 
 func reload():
 	reloaded = true
 
 func throw(des):
-	$Side/Hand.visible = false
+	if thrower:
+		$Side/Hand.visible = false
+		$Reload.start()
+	else:
+		$HandAnimation.play("reload")
 	reloaded = false
-	$Fight.start()
 	var angle = atan2(des.y - position.y, des.x - position.x)
 	
 	var bullet = preBullet.instantiate()

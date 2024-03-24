@@ -269,7 +269,7 @@ shape = SubResource("CircleShape2D_qsy6v")
 debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 metadata/_edit_lock_ = true
 
-[node name="Fight" type="Timer" parent="."]
+[node name="Reload" type="Timer" parent="."]
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("5_aohyd")]
@@ -289,5 +289,5 @@ libraries = {
 wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]
+[connection signal="timeout" from="Reload" to="." method="_on_fight_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

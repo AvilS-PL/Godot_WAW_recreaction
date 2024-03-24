@@ -38,6 +38,7 @@ var units = [
 		"weight": 50.0,
 		"image": "res://Units/ranger_units/ranger_weapons/ranger_weapon_1.png",
 		
+		"thrower": true,
 		"range": 300,
 		"bullet_speed": 20.0,
 		"bullet_rotation": 0,
@@ -94,6 +95,7 @@ var units = [
 		"weight": 50.0,
 		"image": "res://Units/ranger_units/ranger_weapons/ranger_weapon_2.png",
 		
+		"thrower": true,
 		"range": 350,
 		"bullet_speed": 10.0,
 		"bullet_rotation": 10.0,
@@ -136,6 +138,7 @@ var units = [
 		"weight": 50.0,
 		"image": "res://Units/ranger_units/ranger_weapons/ranger_weapon_3.1.png",
 		
+		"thrower": false,
 		"range": 400,
 		"bullet_speed": 20.0,
 		"bullet_rotation": 0,

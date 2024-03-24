@@ -16,19 +16,19 @@ radius = 31.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qsy6v"]
 radius = 56.0803
 
-[sub_resource type="Animation" id="Animation_t5bss"]
+[sub_resource type="Animation" id="Animation_j4ht0"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Side/Hand:position")
+tracks/0/path = NodePath("Side/Hand:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(14, 12)]
+"values": [Vector2(0.8, 0.8)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -45,32 +45,20 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Side/Hand:scale")
+tracks/2/path = NodePath("Side/Hand:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.8, 0.8)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Side/Hand:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [Vector2(14, 12)]
 }
 
-[sub_resource type="Animation" id="Animation_kucyg"]
+[sub_resource type="Animation" id="Animation_22ord"]
 resource_name = "punch"
 length = 0.5
-step = 0.05
+step = 0.01
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -88,14 +76,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Side/Hand:position")
+tracks/1/path = NodePath("Side/Hand:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.35),
-"transitions": PackedFloat32Array(1.2, 0.8, 1),
+"times": PackedFloat32Array(0, 0.25, 0.4, 0.5),
+"transitions": PackedFloat32Array(2, 0.4, 1, 1),
 "update": 0,
-"values": [Vector2(14, 12), Vector2(0, 5), Vector2(-20, 8)]
+"values": [Vector2(0.8, 0.8), Vector2(0.891875, 0.676734), Vector2(0.92, 0.639), Vector2(0.92, 0.639)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -104,27 +92,41 @@ tracks/2/path = NodePath("Side/Hand:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.35),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.4, 0.5),
+"transitions": PackedFloat32Array(2, 0.4, 1, 1),
 "update": 0,
-"values": [0.0, -0.279253]
+"values": [0.0, -0.0763582, -0.0872665, -0.0872665]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Side/Hand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.4, 0.5),
+"transitions": PackedFloat32Array(2, 0.4, 1, 1),
+"update": 0,
+"values": [Vector2(14, 12), Vector2(8.75, 8.5), Vector2(8, 8), Vector2(8, 8)]
 }
 
-[sub_resource type="Animation" id="Animation_g6cmb"]
+[sub_resource type="Animation" id="Animation_4rqrb"]
 resource_name = "reload"
 length = 0.4
 step = 0.05
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Side/Hand:scale")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0.8, 0.8)]
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_reload"
+}]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -133,10 +135,10 @@ tracks/1/path = NodePath("Side/Hand:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(14, 12)]
+"values": [Vector2(14, 8), Vector2(14, 12)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -145,64 +147,50 @@ tracks/2/path = NodePath("Side/Hand:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0]
+"values": [-0.0872665, 0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Side/Hand:visible")
+tracks/3/path = NodePath("Side/Hand:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.4),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reload"
-}]
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.6, 1), Vector2(0.8, 0.8)]
 }
 
-[sub_resource type="Animation" id="Animation_fhkes"]
+[sub_resource type="Animation" id="Animation_px2nj"]
 resource_name = "return"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Side/Hand:position")
+tracks/0/path = NodePath("Side/Hand:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-20, 8), Vector2(14, 12)]
+"values": [-0.0872665, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Side/Hand:rotation")
+tracks/1/path = NodePath("Side/Hand:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.279253, 0.0]
+"values": [Vector2(8, 8), Vector2(14, 12)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -218,13 +206,25 @@ tracks/2/keys = {
 "method": &"reload"
 }]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Side/Hand:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.92, 0.639), Vector2(0.8, 0.8)]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7yia0"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_islxm"]
 _data = {
-"RESET": SubResource("Animation_t5bss"),
-"punch": SubResource("Animation_kucyg"),
-"reload": SubResource("Animation_g6cmb"),
-"return": SubResource("Animation_fhkes")
+"RESET": SubResource("Animation_j4ht0"),
+"punch": SubResource("Animation_22ord"),
+"reload": SubResource("Animation_4rqrb"),
+"return": SubResource("Animation_px2nj")
 }
 
 [node name="RangerUnitRigid" type="RigidBody2D"]
@@ -269,7 +269,7 @@ shape = SubResource("CircleShape2D_qsy6v")
 debug_color = Color(0.909804, 0.266667, 0.356863, 0.219608)
 metadata/_edit_lock_ = true
 
-[node name="Fight" type="Timer" parent="."]
+[node name="Reload" type="Timer" parent="."]
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("5_qmvb0")]
@@ -280,7 +280,7 @@ offset_bottom = -43.0
 
 [node name="HandAnimation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_7yia0")
+"": SubResource("AnimationLibrary_islxm")
 }
 
 [node name="OtherAnimation" parent="." instance=ExtResource("6_8jp0q")]
@@ -289,5 +289,5 @@ libraries = {
 wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="Fight" to="." method="_on_fight_timeout"]
+[connection signal="timeout" from="Reload" to="." method="_on_fight_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

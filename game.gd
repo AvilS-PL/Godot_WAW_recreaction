@@ -192,6 +192,7 @@ func addUnit(temp, team, pos):
 		if temp.type == "Melee" :
 			unit.cooldown = temp.cooldown
 		elif temp.type == "Ranger" :
+			unit.thrower = temp.thrower
 			unit.range = temp.range
 			unit.bullet_speed = temp.bullet_speed
 			unit.bullet_rotation = temp.bullet_rotation
