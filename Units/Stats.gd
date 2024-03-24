@@ -31,7 +31,7 @@ var units = [
 		"price": 200,
 		"def_speed": 80.0,
 		"slow_down": 5.0,
-		"max_health": 1114.0,
+		"max_health": 114.0,
 		"damage": 5.0,
 		"animation_speed": 1.0,
 		"cooldown": 0.8,

@@ -15,6 +15,7 @@ var damage = 3.0
 var animation_speed = 1.0
 var cooldown =  0.1
 var weight = 60
+var range = 250
 
 var speed = def_speed
 var new_speed = def_speed
@@ -147,7 +148,7 @@ func search_closest_enemy(search_enemies):
 	new_destinition = null
 	for i in search_enemies:
 		var d_i = global_position.distance_to(i.global_position)
-		if d_i < 250:
+		if d_i < range:
 			if new_destinition == null:
 				new_destinition = i.global_position
 			elif d_i < position.distance_to(new_destinition):
