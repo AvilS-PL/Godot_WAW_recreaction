@@ -78,6 +78,11 @@ func _integrate_forces(state):
 		else:
 			$Side.scale.x = -1
 		if speed != 0:
+			#???!!! hmmm:
+			#var test_x = (destinition.x - global_position.x)
+			#var test_y = (destinition.y - global_position.y)
+			#test_y -= (global_position.y - 480) * 5
+			#linear_velocity = Vector2(test_x, test_y).normalized() * speed
 			linear_damp = 0
 			linear_velocity = (destinition - position).normalized() * speed
 		else:

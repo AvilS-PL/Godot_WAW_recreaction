@@ -40,7 +40,7 @@ func start_game():
 	$UI/UIAnimation.play("show")
 	money = 300
 	money_AI = 0
-	money_earn = 1.05
+	money_earn = 1.01
 	update_money(money)
 	
 	unit_number = 1
@@ -303,7 +303,7 @@ func _on_ai_move_timeout():
 	temp_money -= money_AI
 	
 	if temp_money > $Stats.units[age_start].price * 5:
-		money_AI += temp_money * 0.5
+		money_AI += temp_money * 0.1
 	
 	print(money_AI)
 	while money_AI >= $Stats.units[unit_num].price and enemies_size < 70:
@@ -320,7 +320,7 @@ func _on_ai_move_timeout():
 
 var mode = false
 var reversed = false
-var select = 2
+var select = 1
 
 func _on_spin_box_value_changed(value):
 	select = value
